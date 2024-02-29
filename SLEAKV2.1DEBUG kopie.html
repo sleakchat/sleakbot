@@ -321,6 +321,20 @@
       })(window);
     </script>
 
+    <!-- cookie event listener -->
+    <script>
+      window.addEventListener("message", (event) => {
+        if (
+          event.origin === "https://sleak.vercel.app" ||
+          event.origin === "https://widget.sleak.chat"
+        ) {
+          const { visitorId } = event.data;
+
+          document.cookie = `${chatbotId}=${visitorId}; max-age=365; path=/`;
+        }
+      });
+    </script>
+
     <style>
       #sleak-loadingwrap {
         position: absolute;
