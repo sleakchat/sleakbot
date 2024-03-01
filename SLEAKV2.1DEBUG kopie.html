@@ -100,23 +100,23 @@
     </script>
 
     <script>
-      // (Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")) {
-      //console.log(
-      //  "cookie exists, value = ",
-      //  Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")
-      //);
-      //else {
-      //console.log("cookie does not exist");
+      if (Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")) {
+        console.log(
+          "cookie exists, value = ",
+          Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")
+        );
+      } else {
+        console.log("cookie does not exist");
 
-      //const visitorId = crypto.randomUUID();
-      //Cookies.set(
-      //  "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
-      //  visitorId,
-      //  { expires: 365,
-      //    SameSite: "None",
-      //    Secure: true }
-      //);
-      //console.log("new cookie = ", visitorId);
+        const visitorId = crypto.randomUUID();
+        Cookies.set(
+          "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
+          visitorId,
+          { expires: 365,
+            sameSite: "None",
+            secure: true }
+        );
+        console.log("new cookie = ", visitorId);
 
         // postMessage to parent window
 
@@ -133,7 +133,7 @@
         //   }
 
         //    console.log("postObject:", postObject);
-      //}
+      }
     </script>
 
     <!-- sleakbot.js script -->
