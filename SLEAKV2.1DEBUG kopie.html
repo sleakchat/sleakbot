@@ -2,8 +2,6 @@
   <head class="sleakhead">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/src/js.cookie.min.js"></script>
   </head>
   <body class="sleakbody">
     <!-- sleak.chat sleakbot embed snippett -->
@@ -93,13 +91,20 @@
       </audio>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-      const visitorId = nanoid();
+      // const visitorId = nanoid();
       Cookies.set(
         "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
-        visitorId,
+        "bas",
         { expires: 365 }
       );
+      console.log("cookie placed");
+      console.log(
+        Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")
+      );
+      const cookies = Cookies.get();
+      console.log(cookies);
     </script>
 
     <script>
