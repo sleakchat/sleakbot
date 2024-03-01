@@ -91,6 +91,18 @@
       </audio>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/nanoid@3.2.1/dist/nanoid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/src/js.cookie.min.js"></script>
+
+    <script>
+      const visitorId = nanoid();
+      Cookies.set(
+        "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
+        visitorId,
+        { expires: 365 }
+      );
+    </script>
+
     <script>
       function getClientId() {
         const sleakbotScriptTag = document.querySelector("#sleakbot");
@@ -323,16 +335,17 @@
 
     <!-- cookie event listener -->
     <script>
-      window.addEventListener("message", (event) => {
-        if (
-          event.origin === "https://sleak.vercel.app" ||
-          event.origin === "https://widget.sleak.chat"
-        ) {
-          const { visitorId } = event.data;
-
-          document.cookie = `${chatbotId}=${visitorId}; max-age=365; path=/`;
-        }
-      });
+      //       window.addEventListener("message", (event) => {
+      //         if (
+      //           event.origin === "https://sleak.vercel.app" ||
+      //           event.origin === "https://widget.sleak.chat"
+      //         ) {
+      //           const { visitorId } = event.data;
+      //
+      //           document.cookie = `${chatbotId}=${visitorId}; max-age=365; path=/`;
+      //         }
+      //       });
+      //
     </script>
 
     <style>
