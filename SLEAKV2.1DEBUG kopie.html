@@ -1,18 +1,18 @@
+<!-- sleak.chat sleakbot embed snippett -->
+<script
+  id="sleakbot"
+  chatbot-id="613f6a86-0a80-40be-a98e-d5ce48db3453"
+  src=""
+></script>
+
+<!-- sleakbot.html file -->
+
 <html class="sleakhtml" height="0" max-height="0">
   <head class="sleakhead">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body class="sleakbody">
-    <!-- sleak.chat sleakbot embed snippett -->
-    <script
-      id="sleakbot"
-      src=""
-      user-id="mem_sb_clfl8lhky0eiq0sk41kaaaktl"
-      btn-color="#7E79F0"
-      btn-image="https://uploads-ssl.webflow.com/641224d3d867b0d5aade1f7c/6599ecebe94344098d001c4b_blisss-icon%20(1).png"
-    ></script>
-
     <div id="sleak-widgetwrap">
       <div id="sleak-body-embed" class="sleak-embed">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.min.js"></script>
@@ -69,7 +69,7 @@
             />
           </div>
         </div>
-
+<!--
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
           <symbol viewBox="0 0 100 100">
             <path d="M0 0 L100 0 L100 100 L0 100 Z"></path>
@@ -77,6 +77,7 @@
           </symbol>
         </svg>
       </div>
+-->
 
       <div id="sleak-bgoverlay"></div>
       <audio id="sleak-chime">
@@ -101,7 +102,7 @@
     <script>
       if (Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")) {
         console.log(
-          "cookie exists, value =",
+          "cookie exists, value = ",
           Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")
         );
       } else {
@@ -136,37 +137,39 @@
     <!-- sleakbot.js script -->
 
     <script>
-      function getClientId() {
-        const sleakbotScriptTag = document.querySelector("#sleakbot");
-        const clientId = sleakbotScriptTag.getAttribute("user-id");
-        const btnColor = sleakbotScriptTag.getAttribute("btn-color");
-        const btnImage = sleakbotScriptTag.getAttribute("btn-image");
-        return { clientId, btnColor, btnImage };
-      }
+      
+      //// Get chatbot id from installation snippet ////
 
-      const { btnImage } = getClientId();
+      const sleakbotScriptTag = document.querySelector("#sleakbot");
+      const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
+      console.log("chatgbot id =", chatbotId);
 
-      // Set image when attribute present
-      if (btnImage) {
-        var btnImages = document.querySelectorAll("#sleak-btn-openclosed img");
-        var btnImageURL = btnImage;
-        btnImages.forEach(function (image) {
-          image.src = btnImageURL;
-        });
-      }
 
-      // Set btn bg color and show btn btn
+      // const { btnImage } = getChatbotId();
+
+      // // Set image when attribute present
+      // if (btnImage) {
+      //   var btnImages = document.querySelectorAll("#sleak-btn-openclosed img");
+      //   var btnImageURL = btnImage;
+      //   btnImages.forEach(function (image) {
+      //     image.src = btnImageURL;
+      //   });
+      // }
+
+
+      //// Set btn bg color and show btn btn (wordt een component/iframe) ////
+
       var sleakBtnContainer = document.querySelector("#sleak-btn-container");
-      var btnColor = getClientId().btnColor;
-
+      // var btnColor = getChatbotId().btnColor;
       var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
-      sleakBtnContainer.style.backgroundColor = btnColor;
+      // sleakBtnContainer.style.backgroundColor = btnColor;
       sleakButtonWrap.style.opacity = "0";
       sleakButtonWrap.style.transition = "opacity 0.2s ease";
-
       setTimeout(function () {
         sleakButtonWrap.style.opacity = "1";
       }, 500);
+
+
 
       // function generateUniqueId() {
       //   var visitorId = localStorage.getItem("visitorId");
@@ -179,13 +182,19 @@
       //   return visitorId;
       // }
 
+
+      //// rendering iframes ////
+
       var iframe2 = document.getElementById("sleak-popup-iframe");
       var iframe = document.getElementById("sleak-widget-iframe");
-      var clientId = getClientId().clientId;
       // var visitorId = generateUniqueId();
       iframe2.src = ``;
-      // const iframeDelayed = `https://app.sleak.chat/?id=${clientId}&visitorId=${visitorId}`;
-      const iframeDelayed = `https://widget.sleak.chat/613f6a86-0a80-40be-a98e-d5ce48db3453`;
+      // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
+      const iframeSource = `https://widget.sleak.chat/${chatbotId}`;
+      iframe.src = iframeSource;
+
+
+      //// Elements visibility behaviour (widget body, popup) ////
 
       // Change element visibility on button click
       const sleakClosedWidget = document.querySelector("#sleak-widget-closed");
@@ -193,25 +202,26 @@
       const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
       const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
       const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
-      const sleakNotification = document.querySelector(
-        "#sleak-btn-notification"
-      );
+      const sleakNotification = document.querySelector("#sleak-btn-notification");
       // const sleakPopupClose = document.querySelector("#sleak-popup-close");
       // const sleakMobileClose = document.querySelector("#sleak-widget-close");
       // const sleakLoading = document.querySelector("#sleak-loadingwrap");
       const sleakIframe = document.querySelector("#sleak-widget-iframe");
 
-      let firstButtonClick = true;
+      let firstButtonClick = true; // flag for first button click
 
       // Handle widget opening
       function openSleakWidget() {
-        iframe.src = iframeDelayed;
-        sleakIframe.style.display = "block";
-        sleakIframe.style.opacity = "0";
-        sleakIframe.style.transition = "opacity 0.2s ease";
-        setTimeout(function () {
-          sleakIframe.style.opacity = "1";
-        }, 50);
+
+        if (firstButtonClick) {
+
+        // // iframe.src = iframeDelayed;
+        // sleakIframe.style.display = "block";
+        // sleakIframe.style.opacity = "0";
+        // sleakIframe.style.transition = "opacity 0.2s ease";
+        // setTimeout(function () {
+        //   sleakIframe.style.opacity = "1";
+        // }, 50);
 
         sleakClosedWidget.style.display = "none";
         sleakOpenWidget.style.display = "block";
@@ -220,10 +230,13 @@
         sleakEmbeddedPopup.style.display = "none";
         sleakEmbeddedWidget.style.opacity = "0";
         sleakEmbeddedWidget.style.transition = "opacity 0.2s ease";
-
         setTimeout(function () {
           sleakEmbeddedWidget.style.opacity = "1";
         }, 50);
+
+        firstButtonClick = false; // update flag
+
+      } else {
 
         sleakClosedWidget.style.display = "none";
         sleakOpenWidget.style.display = "block";
@@ -232,15 +245,17 @@
         sleakEmbeddedPopup.style.display = "none";
         sleakEmbeddedWidget.style.opacity = "0";
         sleakEmbeddedWidget.style.transition = "opacity 0.2s ease";
-
         setTimeout(function () {
           sleakEmbeddedWidget.style.opacity = "1";
         }, 50);
+      
+      }
       }
 
       // Click event listeners
       sleakClosedWidget.addEventListener("click", openSleakWidget);
       sleakEmbeddedPopup.addEventListener("click", openSleakWidget);
+
 
       // Click event listener to widget open btn
       sleakOpenWidget.addEventListener("click", function () {
@@ -250,6 +265,7 @@
         sleakBgOverlay.style.display = "none";
         sleakEmbeddedPopup.style.display = "none";
       });
+
 
       //// Click event listener to popup close btn
       //sleakPopupClose.addEventListener("click", function (sleakCloseBtnEvent) {
@@ -273,7 +289,9 @@
       //  }
       //);
 
-      // Chime
+
+      //// Chime ////
+
       function playChime() {
         var sleakChime = document.getElementById("sleak-chime");
         if (sleakChime) {
@@ -281,8 +299,10 @@
         }
       }
 
-      // Disable popup/chime after first page
-      var sessionStorageKey = clientId + "_sleakPopupTriggered";
+
+      //// Disable popup/chime after first page ////
+
+      var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
       var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
 
       if (!hasPopupBeenTriggered) {
@@ -312,7 +332,9 @@
         }, 6000);
       }
 
-      // Background overlay on mobile
+
+      //// Background overlay for mobile ////
+
       var sleakWidgetOpened = document.getElementById("sleak-widget-close");
       var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
 
@@ -325,7 +347,8 @@
         });
       }
 
-      // GTM events event listener for child window
+
+      //// GTM events event listener for child window ////
 
       (function (window) {
         function isValidJSON(str) {
@@ -381,7 +404,7 @@
       //
     </script>
 
-    <!-- styling -->
+    <!-- styling (moet ook nog helemaal opgeschoond worden) -->
 
     <style>
       #sleak-loadingwrap {
@@ -401,7 +424,8 @@
       }
 
       #sleak-widget-iframe {
-        display: none;
+        /* display: none; */
+        display: flex;
         pointer-events: auto !important;
         z-index: 1 !important;
       }
@@ -565,7 +589,7 @@
         mask-repeat: no-repeat;
         -webkit-mask-position: center;
         mask-position: center;
-        background-color: #ffffff; /* fallback color */
+        background-color: #7e79f0; /* fallback color */
       }
 
       #sleak-widgetwrap {
