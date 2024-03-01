@@ -114,22 +114,23 @@
           { expires: 365 }
         );
         console.log("new cookie = ", visitorId);
+
+        // postMessage to parent window
+
+        //   try {
+        //     var postObject = JSON.stringify({
+        //       event: "create_chat",
+        //        visitorId: visitorId,
+        //     });
+
+        //      parent.postMessage(postObject, "*"); // Send message to parent window
+        //
+        //   } catch (e) {
+        //      window.console && window.console.log(e);
+        //   }
+
+        //    console.log("postObject:", postObject);
       }
-
-      // const cookies = Cookies.get();
-      // console.log(cookies);
-
-      //            try {
-      //          var postObject = JSON.stringify({
-      //              event: 'sleakLeadGenerated',
-      //              form: 'chatbot'
-      //          });
-      //          parent.postMessage(postObject, '*'); // Send the message to the parent window
-      //      } catch (e) {
-      //          window.console && window.console.log(e);
-      //      }
-
-      //      console.log('postObject:', postObject);
     </script>
 
     <!-- sleakbot.js script -->
@@ -365,6 +366,7 @@
     </script>
 
     <!-- cookie event listener -->
+
     <script>
       //       window.addEventListener("message", (event) => {
       //         if (
@@ -378,6 +380,8 @@
       //       });
       //
     </script>
+
+    <!-- styling -->
 
     <style>
       #sleak-loadingwrap {
