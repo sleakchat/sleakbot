@@ -151,7 +151,6 @@
       const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
       console.log("chatgbot id =", chatbotId);
 
-
       // const { btnImage } = getChatbotId();
 
       // // Set image when attribute present
@@ -199,7 +198,7 @@
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
       
       //const iframeSource = `https://widget.sleak.chat/${chatbotId}`;
-      const iframeSource = `http://localhost:3000/613f6a86-0a80-40be-a98e-d5ce48db3453?id=abc`;
+      const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
       iframe.src = iframeSource;
 
