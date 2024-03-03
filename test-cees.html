@@ -9,18 +9,24 @@
      <iframe></iframe>
   <script>
     async function getSrc() {
+      const headers = new Headers();
+      headers.append('Referrer-Policy', 'no-referrer');
+      headers.append('Access-Control-Allow-Origin', '*');
+      headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT');
+      headers.append('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
       const res = await fetch("http://localhost:3000/613f6a86-0a80-40be-a98e-d5ce48db3453", {
         method: 'GET',
-        headers: {
-          // Here you can set any headers you want
-        }
+        headers: headers,
       });
+      
       const blob = await res.blob();
       const urlObject = URL.createObjectURL(blob);
-      document.querySelector('iframe').setAttribute("src", urlObject)
+      document.querySelector('iframe').setAttribute("src", urlObject);
     }
+    
     getSrc();
-</script>
+  </script>
     
   </body>
 </html>
