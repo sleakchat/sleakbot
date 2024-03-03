@@ -3,6 +3,7 @@
   id="sleakbot"
   chatbot-id="613f6a86-0a80-40be-a98e-d5ce48db3453"
   src=""
+  referrerpolicy="no-referrer"
 ></script>
 
 <!-- sleakbot.html file -->
@@ -97,12 +98,12 @@
 
     <!-- Cookie handling -->
 
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    < src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script type="module">
       import nanoid from "https://cdn.jsdelivr.net/npm/nanoid@5.0.6/+esm";
     </script>
 
-    <script>
+    <script referrerpolicy="no-referrer">
       if (Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")) {
         console.log(
           "cookie exists, value = ",
@@ -142,7 +143,7 @@
 
     <!-- sleakbot.js script -->
 
-    <script>
+    <script referrerpolicy="no-referrer">
       
       //// Get chatbot id from installation snippet ////
 
