@@ -5,6 +5,22 @@
      <meta name="referrer" content="no-referrer" referrerpolicy="no-referrer" />
   </head>
   <body class="sleakbody">
+
+     <iframe></iframe>
+  <script>
+    async function getSrc() {
+      const res = await fetch("http://localhost:3000/someiframe", {
+        method: 'GET',
+        headers: {
+          // Here you can set any headers you want
+        }
+      });
+      const blob = await res.blob();
+      const urlObject = URL.createObjectURL(blob);
+      document.querySelector('iframe').setAttribute("src", urlObject)
+    }
+    getSrc();
+</script>
     
   </body>
 </html>
