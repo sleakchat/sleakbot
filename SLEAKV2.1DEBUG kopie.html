@@ -11,7 +11,7 @@
   <head class="sleakhead">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="referrer" content="unsafe-url" />
+    <meta name="referrer" content="no-referrer" />
   </head>
   <body class="sleakbody">
     <div id="sleak-widgetwrap">
@@ -33,6 +33,7 @@
           height="100%"
           width="420px"
           allowtransparency="true"
+          referrer="no-referrer"
         ></iframe>
 
         <!--
@@ -44,6 +45,7 @@
 
       <div id="sleak-popup-embed" class="sleak-embed">
         <iframe
+          referrer="no-referrer"
           id="sleak-popup-iframe"
           frameborder="0"
           scrolling="no"
@@ -115,9 +117,7 @@
           visitorId,
           { expires: 365,
             sameSite: "None",
-            secure: true,
-            SameSite: "None",
-            Secure: true,
+            secure: true
            }
         );
         console.log("new cookie = ", visitorId);
@@ -197,8 +197,8 @@
       iframe2.src = ``;
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
       
-      const iframeSource = `https://widget.sleak.chat/${chatbotId}`;
-      // const iframeSource = `http://localhost:3000/613f6a86-0a80-40be-a98e-d5ce48db3453`;
+      //const iframeSource = `https://widget.sleak.chat/${chatbotId}`;
+      const iframeSource = `http://localhost:3000/613f6a86-0a80-40be-a98e-d5ce48db3453`;
 
       iframe.src = iframeSource;
 
