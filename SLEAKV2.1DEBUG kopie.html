@@ -106,26 +106,49 @@
     -->
 
     <script referrerpolicy="no-referrer">
+      
+      //// Get chatbot id from installation snippet ////
+      const sleakbotScriptTag = document.querySelector("#sleakbot");
+      const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
+      console.log("chatbot id =", chatbotId);
+
+      // cookie handling
+
       let visitorId;
-      if (Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")) {
+      if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
         console.log(
           "cookie exists, value = ",
-          Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")
+          Cookies.get(`sleakVisitorId_${chatbotId}`)
         );
-        visitorId = Cookies.get("sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453")
+        visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
       } else {
         console.log("cookie does not exist");
 
         visitorId = crypto.randomUUID();
         Cookies.set(
-          "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
+          `sleakVisitorId_${chatbotId}`,
           visitorId,
-          { expires: 365,
+          {
+            expires: 365,
             sameSite: "None",
             secure: true
-           }
+          }
         );
+        
         console.log("new cookie = ", visitorId);
+
+        // setting cookie for the first widget open flag
+        let widgetOpenFlag = crypto.randomUUID();
+        Cookies.set(
+          `sleakWidget_${chatbotId}`,
+          widgetOpenFlag,
+          {
+            expires: 365,
+            sameSite: "None",
+            secure: true
+          }
+        );
+
 
         // postMessage to parent window
 
@@ -142,13 +165,10 @@
         //   }
 
         //    console.log("postObject:", postObject);
+
       }
       
-      //// Get chatbot id from installation snippet ////
 
-      const sleakbotScriptTag = document.querySelector("#sleakbot");
-      const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
-      console.log("chatgbot id =", chatbotId);
 
       // const { btnImage } = getChatbotId();
 
@@ -244,9 +264,22 @@
 
         firstButtonClick = false; // update flag
 
+        
         // Create chat request
 
-        try {
+        // Check for the first widget open flag cookie
+        const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
+
+        if (widgetOpenFlag) {
+
+          // Cookie exists, delete it
+          Cookies.remove(`sleakWidget_${chatbotId}`);
+
+          console.log("First widget open flag cookie deleted");
+
+          // create chat 
+
+          try {
           var createChatPayload = JSON.stringify({
             chatbotId: chatbotId,
             visitorId: visitorId,
@@ -267,7 +300,15 @@
           window.console && window.console.log(e);
         };
 
-        // Cookies.set(
+        } else {
+
+          // Cookie doesn't exist
+          console.log("First widget open flag cookie does not exist");
+
+        }
+
+
+        // Cookies.set
         //   "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
         //   { has_chat: "true"
         //    }
