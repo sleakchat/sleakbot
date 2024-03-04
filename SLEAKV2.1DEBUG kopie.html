@@ -242,6 +242,47 @@
 
         firstButtonClick = false; // update flag
 
+          //  @Bas kan je een post request doen met als body:
+          //
+          //  {
+          //  "chatbotId": "chatbot_id",
+          //  "visitorId": "visitor_id"
+          //  }
+          //
+          //  Naar:
+          //
+          //  * https://widget.sleak.chat/api/chat
+          //
+          //  In de wrapper file op 1e widget open?
+
+
+
+      try {
+        var createChatPayload = JSON.stringify({
+          chatbotId: chatbotId,
+          visitorId: visitorId,
+        });
+
+        fetch("https://widget.sleak.chat/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: createChatPayload,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } catch (e) {
+        window.console && window.console.log(e);
+      };
+
+      
+
       } else {
 
         sleakClosedWidget.style.display = "none";
