@@ -331,19 +331,34 @@
       }
       }
 
-      // Click event listeners
-      sleakClosedWidget.addEventListener("click", openSleakWidget);
-      sleakEmbeddedPopup.addEventListener("click", openSleakWidget);
-
-
-      // Click event listener to widget open btn
-      sleakOpenWidget.addEventListener("click", function () {
+      // function for closing widget 
+      function closeSleakWidget() {
         sleakClosedWidget.style.display = "block";
         sleakOpenWidget.style.display = "none";
         sleakEmbeddedWidget.style.display = "none";
         sleakBgOverlay.style.display = "none";
         sleakEmbeddedPopup.style.display = "none";
+      }
+
+      // Main button click event listeners
+      sleakClosedWidget.addEventListener("click", openSleakWidget);
+      sleakEmbeddedPopup.addEventListener("click", openSleakWidget);
+
+      // Click event listener to widget open btn
+      sleakOpenWidget.addEventListener("click", function () {
+        closeSleakWidget();
       });
+
+      window.addEventListener("message", (event) => {
+          if ( event.origin === "https://sleak.vercel.app" || event.origin === "https://widget.sleak.chat" ) {
+            data = JSON.parse(message.data);
+              if (data.event === "chatClosed") {
+                closeSleakWidget();
+              }
+          }
+      });
+
+      
 
 
       //// Click event listener to popup close btn
