@@ -352,7 +352,7 @@
       window.addEventListener("message", (event) => {
           if ( event.origin === "https://sleak.vercel.app" || event.origin === "https://widget.sleak.chat" ) {
             data = JSON.parse(message.data);
-              if (data.event === "chatClosed") {
+              if (data.event === "toggleChat") {
                 closeSleakWidget();
               }
           }
