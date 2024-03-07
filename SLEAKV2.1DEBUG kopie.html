@@ -354,7 +354,7 @@
         console.log("Received message:", event);
           if ( event.origin === "https://sleak.vercel.app" || event.origin === "https://widget.sleak.chat" ) {
             console.log("URL whitelisted");
-              if (event === "toggleChat") {
+              if (event.data === "toggleChat") {
                 closeSleakWidget();
                 console.log("Call closeSleakWidget function")
               }
