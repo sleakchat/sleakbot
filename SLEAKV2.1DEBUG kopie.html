@@ -350,7 +350,9 @@
       });
 
       window.addEventListener("message", (event) => {
+        console.log("Received message:", event);
           if ( event.origin === "https://sleak.vercel.app" || event.origin === "https://widget.sleak.chat" ) {
+            console.log("URL whitelisted");
               if (event === "toggleChat") {
                 closeSleakWidget();
               }
@@ -358,8 +360,6 @@
       });
 
       
-
-
       //// Click event listener to popup close btn
       //sleakPopupClose.addEventListener("click", function (sleakCloseBtnEvent) {
       //  // stop event from propagating
