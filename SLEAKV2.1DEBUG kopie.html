@@ -333,6 +333,7 @@
 
       // function for closing widget 
       function closeSleakWidget() {
+        console.log("closeSleakWidget function called");
         sleakClosedWidget.style.display = "block";
         sleakOpenWidget.style.display = "none";
         sleakEmbeddedWidget.style.display = "none";
@@ -355,6 +356,7 @@
             console.log("URL whitelisted");
               if (event === "toggleChat") {
                 closeSleakWidget();
+                console.log("Call closeSleakWidget function")
               }
           }
       });
