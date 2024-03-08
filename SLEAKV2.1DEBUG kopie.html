@@ -53,8 +53,10 @@
           src=""
           allowtransparency="true"
         ></iframe>
+        <!--
         <div id="sleak-popup-close">&#215;</div>
         asdf
+        -->
       </div>
 
       <div id="sleak-buttonwrap">
@@ -377,7 +379,8 @@
       var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
       var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
 
-      if (!hasPopupBeenTriggered) {
+      // if (!hasPopupBeenTriggered) // ENABLE THIS IN PROD // {
+      if (hasPopupBeenTriggered) {
         setTimeout(function () {
           var sleakBodyEmbed = document.getElementById("sleak-body-embed");
           var sleakPopupOpen = document.getElementById("sleak-popup-embed");
