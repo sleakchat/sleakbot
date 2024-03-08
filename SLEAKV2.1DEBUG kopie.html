@@ -340,10 +340,10 @@
           event.origin === "https://widget.sleak.chat"
         ) {
           console.log("URL whitelisted");
-          if (event.data === "toggleChat") {
+          if (event.data === "closePopup") {
             toggleSleakWidget();
             console.log("Call toggleSleakWidget function");
-          } else if (event.data === "closePopup") {
+          } else if (event.data === "toggleChat") {
             closeSleakWidget();
           }
         }
