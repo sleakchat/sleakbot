@@ -284,6 +284,10 @@
               // Cookie exists, delete it
               Cookies.remove(`sleakWidget_${chatbotId}`);
               console.log("First widget open flag cookie deleted");
+
+              // add session storage item for popup
+              sessionStorage.setItem(sessionStorageKey, "true");
+
               // create chat
               try {
                 var createChatPayload = JSON.stringify({
@@ -409,8 +413,8 @@
           if (sleakWidgetOpenState == false) {
             playChime();
             showPopup();
+            sessionStorage.setItem(sessionStorageKey, "true");
           }
-          sessionStorage.setItem(sessionStorageKey, "true");
         }, 6000);
       }
 
