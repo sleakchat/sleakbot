@@ -307,7 +307,7 @@
             }
           }
         } else if (sleakWidgetOpenState == false) {
-          openSleakWidget();
+          closeSleakWidget();
           sleakWidgetOpenState = true; // update flag
         }
       }
@@ -334,7 +334,7 @@
           console.log("URL whitelisted");
           if (event.data === "toggleChat") {
             toggleSleakWidget();
-            console.log("Call closeSleakWidget function");
+            console.log("Call toggleSleakWidget function");
           }
         }
       });
