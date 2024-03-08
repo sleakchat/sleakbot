@@ -265,7 +265,7 @@
       // Handle widget opening
 
       function toggleSleakWidget() {
-        if (sleakWidgetOpenState == true) {
+        if (sleakWidgetOpenState == false) {
           if (firstButtonClick) {
             openSleakWidget();
 
@@ -306,7 +306,7 @@
               console.log("First widget open flag cookie does not exist");
             }
           }
-        } else if (sleakWidgetOpenState == false) {
+        } else if (sleakWidgetOpenState == true) {
           closeSleakWidget();
           sleakWidgetOpenState = true; // update flag
         }
