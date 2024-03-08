@@ -402,9 +402,11 @@
         console.log("localStorage does exist");
         // remove next function in PROD
         setTimeout(function () {
-          playChime();
-          showPopup();
-          sessionStorage.setItem(sessionStorageKey, "true");
+          if (sleakWidgetOpenState == false) {
+            playChime();
+            showPopup();
+            sessionStorage.setItem(sessionStorageKey, "true");
+          }
         }, 6000);
       } else {
         console.log("localStorage does not exist");
