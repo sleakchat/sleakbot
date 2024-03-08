@@ -341,10 +341,10 @@
         ) {
           console.log("URL whitelisted");
           if (event.data === "closePopup") {
+            closeSleakWidget();
+          } else if (event.data === "toggleChat") {
             toggleSleakWidget();
             console.log("Call toggleSleakWidget function");
-          } else if (event.data === "toggleChat") {
-            closeSleakWidget();
           }
         }
       });
@@ -585,7 +585,7 @@
         background-color: rgba(255, 255, 255, 0);
         display: none;
         bottom: 95px;
-        right: 30px;
+        right: 25px;
         width: 230px;
         height: 110px;
         align-items: flex-end;
@@ -594,6 +594,7 @@
 
       #sleak-popup-iframe {
         z-index: 99999999999999;
+        height: 110px;
       }
 
       .sleak-embed {
