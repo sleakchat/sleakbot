@@ -218,7 +218,7 @@
 
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
 
-      iframeWidgetBODY.SRC = `https://widget.sleak.chat/${chatbotId}?id=${visitorId}`;
+      iframeWidgetbody.src = `https://widget.sleak.chat/${chatbotId}?id=${visitorId}`;
       // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
       // iframe.src = iframeSource;
@@ -231,13 +231,11 @@
       const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
       const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
       const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
-      const sleakNotification = document.querySelector(
-        "#sleak-btn-notification"
-      );
+      // const sleakNotification = document.querySelector("#sleak-btn-notification");
+      const sleakIframe = document.querySelector("#sleak-widget-iframe");
       // const sleakPopupClose = document.querySelector("#sleak-popup-close");
       // const sleakMobileClose = document.querySelector("#sleak-widget-close");
       // const sleakLoading = document.querySelector("#sleak-loadingwrap");
-      const sleakIframe = document.querySelector("#sleak-widget-iframe");
 
       let sleakWidgetOpenState = false; // flag for widget open state
       let firstButtonClick = true; // flag for first button click
