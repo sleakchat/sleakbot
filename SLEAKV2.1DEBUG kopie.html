@@ -406,8 +406,10 @@
         console.log("localStorage does not exist");
 
         setTimeout(function () {
-          playChime();
-          showPopup();
+          if (sleakWidgetOpenState == true) {
+            playChime();
+            showPopup();
+          }
           sessionStorage.setItem(sessionStorageKey, "true");
         }, 6000);
       }
