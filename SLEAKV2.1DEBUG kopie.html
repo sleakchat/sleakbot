@@ -226,8 +226,8 @@
       //// Elements visibility behaviour (widget body, popup) /////
 
       // Change element visibility on button click
-      const sleakClosedWidget = document.querySelector("#sleak-widget-closed");
-      const sleakOpenWidget = document.querySelector("#sleak-widget-open");
+      // const sleakClosedWidget = document.querySelector("#sleak-widget-closed");
+      // const sleakOpenWidget = document.querySelector("#sleak-widget-open");
       const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
       const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
       const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
@@ -241,8 +241,8 @@
       let firstButtonClick = true; // flag for first button click
 
       function openSleakWidget() {
-        sleakClosedWidget.style.display = "none";
-        sleakOpenWidget.style.display = "block";
+        // sleakClosedWidget.style.display = "none";
+        // sleakOpenWidget.style.display = "block";
         sleakEmbeddedWidget.style.display = "flex";
         sleakBgOverlay.style.display = "block";
         sleakEmbeddedPopup.style.display = "none";
@@ -255,8 +255,8 @@
 
       function closeSleakWidget() {
         console.log("closeSleakWidget function called");
-        sleakClosedWidget.style.display = "block";
-        sleakOpenWidget.style.display = "none";
+        // sleakClosedWidget.style.display = "block";
+        // sleakOpenWidget.style.display = "none";
         sleakEmbeddedWidget.style.display = "none";
         sleakBgOverlay.style.display = "none";
         sleakEmbeddedPopup.style.display = "none";
