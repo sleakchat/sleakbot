@@ -267,11 +267,10 @@
       function toggleSleakWidget() {
         if (sleakWidgetOpenState == false) {
           if (firstButtonClick) {
-            openSleakWidget();
-
             firstButtonClick = false; // update flag
             sleakWidgetOpenState = true; // update flag
 
+            openSleakWidget();
             // Create chat request
 
             // Check for the first widget open flag cookie
