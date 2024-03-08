@@ -403,19 +403,19 @@
         }, 6000);
       }
 
-      //// Background overlay for mobile ////
+      // //// Background overlay for mobile //// LET OP: MOET WEL NOG GEBEUREN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
 
-      var sleakWidgetOpened = document.getElementById("sleak-widget-close");
-      var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
+      // var sleakWidgetOpened = document.getElementById("sleak-widget-close");
+      // var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
 
-      if (window.matchMedia("(max-width: 768px)").matches) {
-        sleakWidgetOpened.addEventListener("click", function () {
-          document.body.style.overflow = "auto";
-        });
-        sleakWidgetClosed.addEventListener("click", function () {
-          document.body.style.overflow = "hidden";
-        });
-      }
+      // if (window.matchMedia("(max-width: 768px)").matches) {
+      //   sleakWidgetOpened.addEventListener("click", function () {
+      //     document.body.style.overflow = "auto";
+      //   });
+      //   sleakWidgetClosed.addEventListener("click", function () {
+      //     document.body.style.overflow = "hidden";
+      //   });
+      // }
 
       //// GTM events event listener for child window ////
 
