@@ -269,6 +269,7 @@
           if (firstButtonClick) {
             firstButtonClick = false; // update flag
             sleakWidgetOpenState = true; // update flag
+            console.log(sleakWidgetOpenState);
 
             openSleakWidget();
             // Create chat request
@@ -307,6 +308,7 @@
           }
         } else if (sleakWidgetOpenState == true) {
           sleakWidgetOpenState = false; // update flag
+          console.log(sleakWidgetOpenState);
           closeSleakWidget();
         }
       }
