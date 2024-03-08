@@ -365,10 +365,25 @@
       //  }
       //);
 
-      //// Chime ////
+      //// Chime & popup ////
+
+      var sleakBodyEmbed = document.getElementById("sleak-body-embed");
+      var sleakPopupOpen = document.getElementById("sleak-popup-embed");
+      var sleakChime = document.getElementById("sleak-chime");
+
+      function showPopup() {
+        sleakPopupOpen.style.display = "flex";
+        sleakPopupOpen.style.opacity = "0";
+        sleakPopupOpen.style.transform = "translateY(20px)";
+        sleakPopupOpen.style.transition =
+          "opacity 0.5s ease, transform 0.5s ease";
+        setTimeout(function () {
+          sleakPopupOpen.style.opacity = "1";
+          sleakPopupOpen.style.transform = "translateY(0)";
+        }, 50);
+      }
 
       function playChime() {
-        var sleakChime = document.getElementById("sleak-chime");
         if (sleakChime) {
           sleakChime.play();
         }
@@ -379,32 +394,19 @@
       var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
       var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
 
-      // if (!hasPopupBeenTriggered) // ENABLE THIS IN PROD // {
       if (hasPopupBeenTriggered) {
-        console.log("start popup function");
+        console.log("localStorage does exist");
+        // remove next function in PROD
         setTimeout(function () {
-          var sleakBodyEmbed = document.getElementById("sleak-body-embed");
-          var sleakPopupOpen = document.getElementById("sleak-popup-embed");
-          var sleakChime = document.getElementById("sleak-chime");
+          playChime();
+          sessionStorage.setItem(sessionStorageKey, "true");
+        }, 6000);
+      } else if (!hasPopupBeenTriggered) {
+        console.log("localStorage does not exist");
 
-          if (sleakBodyEmbed && sleakPopupOpen) {
-            if (sleakBodyEmbed.style.display !== "flex") {
-              sleakPopupOpen.style.display = "flex";
-              playChime();
-
-              sleakPopupOpen.style.opacity = "0";
-              sleakPopupOpen.style.transform = "translateY(20px)";
-              sleakPopupOpen.style.transition =
-                "opacity 0.5s ease, transform 0.5s ease";
-
-              setTimeout(function () {
-                sleakPopupOpen.style.opacity = "1";
-                sleakPopupOpen.style.transform = "translateY(0)";
-              }, 50);
-
-              sessionStorage.setItem(sessionStorageKey, "true");
-            }
-          }
+        setTimeout(function () {
+          playChime();
+          sessionStorage.setItem(sessionStorageKey, "true");
         }, 6000);
       }
 
