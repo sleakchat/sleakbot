@@ -236,21 +236,10 @@
       // const sleakLoading = document.querySelector("#sleak-loadingwrap");
       const sleakIframe = document.querySelector("#sleak-widget-iframe");
 
+      let sleakWidgetOpenState = false; // flag for widget open state
       let firstButtonClick = true; // flag for first button click
 
-      // Handle widget opening
       function openSleakWidget() {
-
-        if (firstButtonClick) {
-
-        // // iframe.src = iframeDelayed;
-        // sleakIframe.style.display = "block";
-        // sleakIframe.style.opacity = "0";
-        // sleakIframe.style.transition = "opacity 0.2s ease";
-        // setTimeout(function () {
-        //   sleakIframe.style.opacity = "1";
-        // }, 50);
-
         sleakClosedWidget.style.display = "none";
         sleakOpenWidget.style.display = "block";
         sleakEmbeddedWidget.style.display = "flex";
@@ -261,8 +250,30 @@
         setTimeout(function () {
           sleakEmbeddedWidget.style.opacity = "1";
         }, 50);
+      }
+
+      function closeSleakWidget() {
+        console.log("closeSleakWidget function called");
+        sleakClosedWidget.style.display = "block";
+        sleakOpenWidget.style.display = "none";
+        sleakEmbeddedWidget.style.display = "none";
+        sleakBgOverlay.style.display = "none";
+        sleakEmbeddedPopup.style.display = "none";
+      }
+
+
+      // Handle widget opening
+      
+      function toggleSleakWidget() {
+
+        if (sleakWidgetOpenState == true) {
+
+        if (firstButtonClick) {
+
+        openSleakWidget();
 
         firstButtonClick = false; // update flag
+        sleakWidgetOpenState = true; // update flag
 
         
         // Create chat request
@@ -271,20 +282,15 @@
         const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
 
         if (widgetOpenFlag) {
-
           // Cookie exists, delete it
           Cookies.remove(`sleakWidget_${chatbotId}`);
-
           console.log("First widget open flag cookie deleted");
-
           // create chat 
-
           try {
           var createChatPayload = JSON.stringify({
             chatbotId: chatbotId,
             visitorId: visitorId,
           });
-
           fetch("https://widget.sleak.chat/api/chat", {
             method: "POST",
             body: createChatPayload,
@@ -299,63 +305,45 @@
         } catch (e) {
           window.console && window.console.log(e);
         };
-
         } else {
-
           // Cookie doesn't exist
           console.log("First widget open flag cookie does not exist");
-
         }
-
-
-        // Cookies.set
-        //   "sleakVisitorId_613f6a86-0a80-40be-a98e-d5ce48db3453",
-        //   { has_chat: "true"
-        //    }
-        // );
-
       
       } else {
 
-        sleakClosedWidget.style.display = "none";
-        sleakOpenWidget.style.display = "block";
-        sleakEmbeddedWidget.style.display = "flex";
-        sleakBgOverlay.style.display = "block";
-        sleakEmbeddedPopup.style.display = "none";
-        sleakEmbeddedWidget.style.opacity = "0";
-        sleakEmbeddedWidget.style.transition = "opacity 0.2s ease";
-        setTimeout(function () {
-          sleakEmbeddedWidget.style.opacity = "1";
-        }, 50);
+
+      
+      }
+     } else if (sleakWidgetOpenState == false) {
+
+        openSleakWidget();
+        sleakWidgetOpenState = true; // update flag
       
       }
       }
 
       // function for closing widget 
-      function closeSleakWidget() {
-        console.log("closeSleakWidget function called");
-        sleakClosedWidget.style.display = "block";
-        sleakOpenWidget.style.display = "none";
-        sleakEmbeddedWidget.style.display = "none";
-        sleakBgOverlay.style.display = "none";
-        sleakEmbeddedPopup.style.display = "none";
-      }
 
-      // Main button click event listeners
-      sleakClosedWidget.addEventListener("click", openSleakWidget);
-      sleakEmbeddedPopup.addEventListener("click", openSleakWidget);
 
-      // Click event listener to widget open btn
-      sleakOpenWidget.addEventListener("click", function () {
-        closeSleakWidget();
-      });
+      // // Main button click event listeners
+      // sleakClosedWidget.addEventListener("click", openSleakWidget);
+      // sleakEmbeddedPopup.addEventListener("click", openSleakWidget);
+
+      // // Click event listener to widget open btn
+      // sleakOpenWidget.addEventListener("click", function () {
+      //   closeSleakWidget();
+      // });
+
+
+      // toggleChat event listener
 
       window.addEventListener("message", (event) => {
         console.log("Received message:", event);
           if ( event.origin === "https://sleak.vercel.app" || event.origin === "https://widget.sleak.chat" ) {
             console.log("URL whitelisted");
               if (event.data === "toggleChat") {
-                closeSleakWidget();
+                toggleSleakWidget();
                 console.log("Call closeSleakWidget function")
               }
           }
