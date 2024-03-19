@@ -99,6 +99,8 @@
 -->
 
       <div id="sleak-bgoverlay"></div>
+
+      <!--
       <audio id="sleak-chime">
         <source
           src="https://95c4299bd7e6e57cacd63bc0daa40451.cdn.bubble.io/f1685661651799x595009985729566100/sleak-chime.mp3"
@@ -109,11 +111,13 @@
           type="audio/wav"
         />
       </audio>
+      -->
     </div>
 
     <!-- Cookie handling -->
 
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
     <!--
     <script type="module">
       import nanoid from "https://cdn.jsdelivr.net/npm/nanoid@5.0.6/+esm";
@@ -221,6 +225,7 @@
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
 
       iframeWidgetbody.src = `https://widget.sleak.chat/${chatbotId}?id=${visitorId}`;
+
       // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
       // iframe.src = iframeSource;
@@ -292,9 +297,12 @@
 
               // create chat
               try {
-                var createChatPayload = JSON.stringify({
+                let currentPage = window.location.href;
+
+                let createChatPayload = JSON.stringify({
                   chatbotId: chatbotId,
                   visitorId: visitorId,
+                  currentPage: currentPage,
                 });
                 fetch("https://widget.sleak.chat/api/chat", {
                   method: "POST",
@@ -336,24 +344,6 @@
       //   closeSleakWidget();
       // });
 
-      // toggleChat event listener
-
-      window.addEventListener("message", (event) => {
-        // console.log("Received message:", event);
-        if (
-          event.origin === "https://sleak.vercel.app" ||
-          event.origin === "https://widget.sleak.chat"
-        ) {
-          // console.log("URL whitelisted");
-          if (event.data === "closePopup") {
-            closeSleakWidget();
-          } else if (event.data === "toggleChat") {
-            toggleSleakWidget();
-            console.log("Call toggleSleakWidget function");
-          }
-        }
-      });
-
       //// Click event listener to popup close btn
       //sleakPopupClose.addEventListener("click", function (sleakCloseBtnEvent) {
       //  // stop event from propagating
@@ -380,6 +370,7 @@
 
       var sleakBodyEmbed = document.getElementById("sleak-body-embed");
       var sleakPopupOpen = document.getElementById("sleak-popup-embed");
+
       var sleakChime = document.getElementById("sleak-chime");
 
       function showPopup() {
@@ -394,10 +385,12 @@
         }, 50);
       }
 
-      function playChime() {
-        if (sleakChime) {
-          sleakChime.play();
-        }
+      let sleakChime = new Audio(
+        "https://95c4299bd7e6e57cacd63bc0daa40451.cdn.bubble.io/f1685661651799x595009985729566100/sleak-chime.mp3"
+      );
+
+      function playSleakChime() {
+        sleakChime.play();
       }
 
       //// Disable popup/chime after first page ////
@@ -410,7 +403,7 @@
         // remove next function in PROD
         setTimeout(function () {
           if (sleakWidgetOpenState == false) {
-            playChime();
+            playSleakChime();
             showPopup();
             sessionStorage.setItem(sessionStorageKey, "true");
           }
@@ -420,12 +413,34 @@
 
         setTimeout(function () {
           if (sleakWidgetOpenState == false) {
-            playChime();
+            playSleakChime();
             showPopup();
             sessionStorage.setItem(sessionStorageKey, "true");
           }
         }, 6000);
       }
+
+      // child window event listeners
+
+      window.addEventListener("message", (event) => {
+        // console.log("Received message:", event);
+        if (
+          event.origin === "https://sleak.vercel.app" ||
+          event.origin === "https://widget.sleak.chat"
+        ) {
+          // console.log("URL whitelisted");
+          // close popup
+          if (event.data === "closePopup") {
+            closeSleakWidget();
+          } // toggle chat
+          else if (event.data === "toggleChat") {
+            toggleSleakWidget();
+          } // toggle chat
+          else if (event.data === "toggleChat") {
+            playSleakChime();
+          }
+        }
+      });
 
       // //// Background overlay for mobile //// LET OP: MOET WEL NOG GEBEUREN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
 
@@ -481,7 +496,7 @@
       })(window);
     </script>
 
-    <!-- cookie event listener -->
+    <!-- cookie event listener 
 
     <script>
       //       window.addEventListener("message", (event) => {
@@ -496,6 +511,8 @@
       //       });
       //
     </script>
+    
+  -->
 
     <!-- styling (moet ook nog helemaal opgeschoond worden) -->
 
