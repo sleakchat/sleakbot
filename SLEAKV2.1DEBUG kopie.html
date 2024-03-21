@@ -394,6 +394,7 @@
 
       function playSleakChime() {
         sleakChime.play();
+        console.log("sleakChime played");
       }
 
       function playSleakChimeOperator() {
@@ -446,6 +447,7 @@
           } // toggle chat
           else if (event.data === "operatorMessage") {
             playSleakChime();
+            console.log("sleakChime called");
           } // operator changed
           else if (event.data === "operatorChanged") {
             playSleakChimeOperator();
