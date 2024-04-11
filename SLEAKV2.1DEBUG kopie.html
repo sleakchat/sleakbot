@@ -287,42 +287,42 @@
             // Check for the first widget open flag cookie (first open of the widget for this visitor id / cookie )
             const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
 
-            if (widgetOpenFlag) {
-              // Cookie exists, delete it
-              Cookies.remove(`sleakWidget_${chatbotId}`);
-              console.log("First widget open flag cookie deleted");
+            ////    if (widgetOpenFlag) {
+            ////      // Cookie exists, delete it
+            ////      Cookies.remove(`sleakWidget_${chatbotId}`);
+            ////      console.log("First widget open flag cookie deleted");
 
-              // add session storage item for popup
-              sessionStorage.setItem(sessionStorageKey, "true");
+            ////      // add session storage item for popup
+            ////      sessionStorage.setItem(sessionStorageKey, "true");
 
-              // create chat
-              try {
-                let currentPage = window.location.href;
+            ////      // create chat
+            ////      try {
+            ////        let currentPage = window.location.href;
 
-                let createChatPayload = JSON.stringify({
-                  chatbotId: chatbotId,
-                  visitorId: visitorId,
-                  currentPage: currentPage,
-                });
-                fetch("https://widget.sleak.chat/api/chat", {
-                  method: "POST",
-                  body: createChatPayload,
-                })
-                  .then((response) => response.json())
-                  .then((data) => {
-                    console.log("Success:", data);
-                  })
-                  .catch((error) => {
-                    console.error("Error:", error);
-                  });
-              } catch (e) {
-                window.console && window.console.log(e);
-              }
-              console.log("createChatPayload:", createChatPayload);
-            } else {
-              // Cookie doesn't exist
-              console.log("First widget open flag cookie does not exist");
-            }
+            ////        let createChatPayload = JSON.stringify({
+            ////          chatbotId: chatbotId,
+            ////          visitorId: visitorId,
+            ////          currentPage: currentPage,
+            ////        });
+            ////        fetch("https://widget.sleak.chat/api/chat", {
+            ////          method: "POST",
+            ////          body: createChatPayload,
+            ////        })
+            ////          .then((response) => response.json())
+            ////          .then((data) => {
+            ////            console.log("Success:", data);
+            ////          })
+            ////          .catch((error) => {
+            ////            console.error("Error:", error);
+            ////          });
+            ////      } catch (e) {
+            ////        window.console && window.console.log(e);
+            ////      }
+            ////      console.log("createChatPayload:", createChatPayload);
+            ////    } else {
+            ////      // Cookie doesn't exist
+            ////      console.log("First widget open flag cookie does not exist");
+            ////    }
           }
 
           firstButtonClick = false; // update flag
