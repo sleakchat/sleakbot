@@ -127,7 +127,19 @@
     <script referrerpolicy="no-referrer">
       //// Get chatbot id from installation snippet ////
 
-      const widgetBaseUrl = process.env.APP_BASE_URL;
+      // get window lcoation of the current path
+      const currentWindow = window.location.href;
+      console.log("currentWindow", currentWindow);
+
+      // if path contains "dev"
+      if (currentWindow.includes("dev")) {
+        var widgetBaseUrl = "https://staging.sleak.chat";
+      } else {
+        console.log("prod path");
+        var widgetBaseUrl = "https://widget.sleak.chat";
+      }
+
+      // const widgetBaseUrl = process.env.APP_BASE_URL;
 
       const sleakbotScriptTag = document.querySelector("#sleakbot");
       const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
