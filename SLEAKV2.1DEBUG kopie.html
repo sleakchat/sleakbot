@@ -1,4 +1,4 @@
-<!-- sleak.chat sleakbot embed snippett -->
+<!-- sleak.chat sleakbot embed snippettt -->
 <script
   id="sleakbot"
   chatbot-id="613f6a86-0a80-40be-a98e-d5ce48db3453"
@@ -126,6 +126,21 @@
 
     <script referrerpolicy="no-referrer">
       //// Get chatbot id from installation snippet ////
+
+      // get window lcoation of the current path
+      const currentWindow = window.location.href;
+      console.log("currentWindow", currentWindow);
+
+      // if path contains "dev"
+      if (currentWindow.includes("dev")) {
+        var widgetBaseUrl = "https://staging.sleak.chat";
+      } else {
+        console.log("prod path");
+        var widgetBaseUrl = "https://widget.sleak.chat";
+      }
+
+      // const widgetBaseUrl = process.env.APP_BASE_URL;
+
       const sleakbotScriptTag = document.querySelector("#sleakbot");
       const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
       console.log("chatbot id =", chatbotId);
@@ -219,12 +234,12 @@
 
       // var visitorId = generateUniqueId();
 
-      iframePopup.src = `https://staging.sleak.chat/popup/${chatbotId}`;
-      iframeBtn.src = `https://staging.sleak.chat/button/${chatbotId}`;
+      iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
+      iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
 
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
 
-      iframeWidgetbody.src = `https://staging.sleak.chat/${chatbotId}?id=${visitorId}`;
+      iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
       // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
@@ -434,10 +449,10 @@
         // console.log("Received message:", event);
         if (
           event.origin === "https://sleak.vercel.app" ||
-          event.origin === "https://staging.sleak.chat"
+          event.origin === "https://staging.sleak.chat" ||
+          event.origin === "https://widget.sleak.chat"
         ) {
           console.log("Received message:", event);
-          // console.log("URL whitelisted");
           // close popup
           if (event.data === "closePopup") {
             closeSleakWidget();
