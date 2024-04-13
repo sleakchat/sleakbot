@@ -219,12 +219,12 @@
 
       // var visitorId = generateUniqueId();
 
-      iframePopup.src = `https://widget.sleak.chat/popup/${chatbotId}`;
-      iframeBtn.src = `https://widget.sleak.chat/button/${chatbotId}`;
+      iframePopup.src = `https://staging.sleak.chat/popup/${chatbotId}`;
+      iframeBtn.src = `https://staging.sleak.chat/button/${chatbotId}`;
 
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
 
-      iframeWidgetbody.src = `https://widget.sleak.chat/${chatbotId}?id=${visitorId}`;
+      iframeWidgetbody.src = `https://staging.sleak.chat/${chatbotId}?id=${visitorId}`;
 
       // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
@@ -304,7 +304,7 @@
             ////         visitorId: visitorId,
             ////         currentPage: currentPage,
             ////       });
-            ////       fetch("https://widget.sleak.chat/api/chat", {
+            ////       fetch("https://staging.sleak.chat/api/chat", {
             ////         method: "POST",
             ////         body: createChatPayload,
             ////       })
@@ -434,7 +434,7 @@
         // console.log("Received message:", event);
         if (
           event.origin === "https://sleak.vercel.app" ||
-          event.origin === "https://widget.sleak.chat"
+          event.origin === "https://staging.sleak.chat"
         ) {
           console.log("Received message:", event);
           // console.log("URL whitelisted");
@@ -517,7 +517,7 @@
       //       window.addEventListener("message", (event) => {
       //         if (
       //           event.origin === "https://sleak.vercel.app" ||
-      //           event.origin === "https://widget.sleak.chat"
+      //           event.origin === "https://staging.sleak.chat"
       //         ) {
       //           const { visitorId } = event.data;
       //
