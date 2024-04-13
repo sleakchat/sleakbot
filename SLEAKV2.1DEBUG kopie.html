@@ -127,7 +127,7 @@
     <script referrerpolicy="no-referrer">
       //// Get chatbot id from installation snippet ////
 
-      const widgetBaseUrl = process.env.WIDGET_BASE_URL!;
+      const widgetBaseUrl = process.env.APP_BASE_URL;
 
       const sleakbotScriptTag = document.querySelector("#sleakbot");
       const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
