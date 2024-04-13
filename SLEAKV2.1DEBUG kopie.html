@@ -126,6 +126,9 @@
 
     <script referrerpolicy="no-referrer">
       //// Get chatbot id from installation snippet ////
+
+      const widgetBaseUrl = process.env.WIDGET_BASE_URL;
+
       const sleakbotScriptTag = document.querySelector("#sleakbot");
       const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
       console.log("chatbot id =", chatbotId);
@@ -219,12 +222,12 @@
 
       // var visitorId = generateUniqueId();
 
-      iframePopup.src = `https://staging.sleak.chat/popup/${chatbotId}`;
-      iframeBtn.src = `https://staging.sleak.chat/button/${chatbotId}`;
+      iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
+      iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
 
       // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
 
-      iframeWidgetbody.src = `https://staging.sleak.chat/${chatbotId}?id=${visitorId}`;
+      iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
       // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
@@ -434,7 +437,8 @@
         // console.log("Received message:", event);
         if (
           event.origin === "https://sleak.vercel.app" ||
-          event.origin === "https://staging.sleak.chat"
+          event.origin === "https://staging.sleak.chat" ||
+          event.origin === "https://widget.sleak.chat "
         ) {
           console.log("Received message:", event);
           // console.log("URL whitelisted");
