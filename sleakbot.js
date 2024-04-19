@@ -17,6 +17,7 @@ async function sleakScript() {
     "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js",
     "sleakjscookie.js"
   );
+  const Cookies = require("js-cookie");
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
