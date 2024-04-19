@@ -3,6 +3,7 @@ async function sleakScript() {
   async function loadScript(url, name) {
     return new Promise((resolve, reject) => {
       const script = document.createElement(name);
+      console.log("url:", url);
       script.src = url;
       script.onload = resolve;
       script.onerror = reject;
