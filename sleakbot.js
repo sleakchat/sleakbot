@@ -1,8 +1,8 @@
 async function sleakScript() {
   // Function to load the js-cookie script dynamically
-  async function loadScript(url, name) {
+  async function loadScript(url) {
     return new Promise((resolve, reject) => {
-      const script = document.createElement(name);
+      const script = document.createElement("script");
       console.log("url:", url);
       script.src = url;
       script.onload = resolve;
@@ -13,8 +13,7 @@ async function sleakScript() {
 
   // Load the js-cookie script
   await loadScript(
-    "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js",
-    "sleakjscookie.js"
+    "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
   );
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
