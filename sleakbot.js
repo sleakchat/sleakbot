@@ -7,8 +7,8 @@ async function sleakScript() {
   async function loadScript(url, name) {
     const script = document.createElement(name);
     script.src = url;
-    script.onload = resolve;
-    script.onerror = reject;
+    // script.onload = resolve;
+    // script.onerror = reject;
     document.head.appendChild(script);
     console.log("script loaded");
   }
