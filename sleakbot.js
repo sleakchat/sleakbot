@@ -11,6 +11,7 @@ async function sleakScript() {
       script.onload = resolve;
       script.onerror = reject;
       document.head.appendChild(script);
+      console.log("script loaded");
     });
   }
 
@@ -413,6 +414,8 @@ async function sleakScript() {
       }
     });
   })(window);
+
+  console.log("exit sleakScript");
 }
 
 sleakScript();
