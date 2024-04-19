@@ -1,11 +1,15 @@
 //// Get chatbot id from installation snippet ////
 
-// get window lcoation of the current path
-const currentWindow = window.location.href;
-console.log("currentWindow", currentWindow);
+// // get window lcoation of the current path
+// const currentWindow = window.location.href;
+// console.log("currentWindow", currentWindow);
+
+const sleakbotScriptTag = document.querySelector("#sleakbot");
+const scriptSrc = sleakbotScriptTag.getAttribute("src");
 
 // if path contains "dev"
-if (currentWindow.includes("dev")) {
+if (scriptSrc.includes("dev")) {
+  console.log("dev path");
   var widgetBaseUrl = "https://staging.sleak.chat";
 } else {
   console.log("prod path");
@@ -14,7 +18,6 @@ if (currentWindow.includes("dev")) {
 
 // const widgetBaseUrl = process.env.APP_BASE_URL;
 
-const sleakbotScriptTag = document.querySelector("#sleakbot");
 const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
 console.log("chatbot id =", chatbotId);
 
