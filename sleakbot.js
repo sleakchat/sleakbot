@@ -4,19 +4,19 @@ async function sleakScript() {
   // // get window lcoation of the current path
   // const currentWindow = window.location.href;
   // console.log("currentWindow", currentWindow);
-  async function loadScript(url) {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("sleakjscookie.js");
+  async function loadScript(url, name) {
+
+      const script = document.createElement(name);
       script.src = url;
       script.onload = resolve;
       script.onerror = reject;
       document.head.appendChild(script);
       console.log("script loaded");
-    });
+
   }
 
   await loadScript(
-    "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js" "sleakjscookie.js", 
   );
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
