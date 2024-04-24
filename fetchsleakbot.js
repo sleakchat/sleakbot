@@ -2,11 +2,18 @@ async function injectSleakScript() {
   const sleak_htmlUrl = "https://cdn.dev.sleak.chat/sleakbot.html";
   const sleak_jsUrl = "https://cdn.dev.sleak.chat/sleakbot.js";
 
-  // append html to body
+  //  // append html to body
+  //  function appendSleakHtmlToBody(sleak_html) {
+  //    const sleak_parser = new DOMParser();
+  //    const sleak_htmlDoc = sleak_parser.parseFromString(sleak_html, "text/html");
+  //    document.body.appendChild(sleak_htmlDoc.documentElement);
+  //  }
+
+  // append div to body
   function appendSleakHtmlToBody(sleak_html) {
-    const sleak_parser = new DOMParser();
-    const sleak_htmlDoc = sleak_parser.parseFromString(sleak_html, "text/html");
-    document.body.appendChild(sleak_htmlDoc.documentElement);
+    const sleak_div = document.createElement("div");
+    sleak_div.innerHTML = sleak_html;
+    document.body.appendChild(sleak_div);
   }
 
   // append js to body
