@@ -184,6 +184,12 @@ async function sleakScript() {
       document.body.style.overflow = "hidden";
       console.log("overflow hidden");
 
+      const viewportHeight = window.innerHeight;
+      console.log("Viewport Height window:", viewportHeight);
+
+      const viewportHeight = document.documentElement.clientHeight;
+      console.log("Viewport Height document:", viewportHeight);
+
       // check if this is the first button click of this page load
       if (firstButtonClick) {
         // Create chat request
