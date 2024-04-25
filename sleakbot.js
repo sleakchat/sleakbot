@@ -190,7 +190,7 @@ async function sleakScript() {
         viewportHeight;
       console.log("Viewport Height window:", viewportHeight);
 
-      // check if this is the first button click of this page load
+      /// check if this is the first button click of this page load
       if (firstButtonClick) {
         // Create chat request
 
