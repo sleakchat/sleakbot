@@ -278,7 +278,7 @@
     position: fixed;
     max-height: unset;
     box-shadow: unset;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.05s ease-in-out;
   }
 
   #sleak-widget-iframe {
