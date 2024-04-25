@@ -249,6 +249,15 @@ async function sleakScript() {
     }
   }
 
+  // event listener for scrolling anywhere
+  window.addEventListener("scroll", function () {
+    if (sleakWidgetOpenState == true) {
+      const viewportHeight = window.innerHeight;
+      document.getElementById("sleak-widgetwrap").style.height =
+        viewportHeight + "px";
+    }
+  });
+
   // function for closing widget
 
   // // Main button click event listeners
