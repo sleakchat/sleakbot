@@ -255,6 +255,7 @@ async function sleakScript() {
       const viewportHeight = window.innerHeight;
       document.getElementById("sleak-widgetwrap").style.height =
         viewportHeight + "px";
+      console.log("scrolling");
     }
   });
 
