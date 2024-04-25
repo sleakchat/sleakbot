@@ -185,9 +185,10 @@ async function sleakScript() {
       console.log("overflow hidden");
 
       const viewportHeight = window.innerHeight;
-      document.getElementById("sleak-widgetwrap").style.height = viewportHeight;
+      document.getElementById("sleak-widgetwrap").style.height =
+        viewportHeight + "px";
       document.getElementById("sleak-widgetwrap").style.minHeight =
-        viewportHeight;
+        viewportHeight + "px";
       console.log("Viewport Height window:", viewportHeight);
 
       /// check if this is the first button click of this page load
