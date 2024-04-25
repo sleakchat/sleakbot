@@ -253,9 +253,12 @@ async function sleakScript() {
   window.addEventListener("scroll", function () {
     console.log("scrolling");
     if (sleakWidgetOpenState == true) {
-      const viewportHeight = window.innerHeight;
+      const viewportHeightScroll = window.innerHeight;
       document.getElementById("sleak-widgetwrap").style.height =
-        viewportHeight + "px";
+        viewportHeightScroll + "px";
+      document.getElementById("sleak-widgetwrap").style.minHeight =
+        viewportHeightScroll + "px";
+      console.log("Viewport Height scroll:", viewportHeightScroll);
       console.log("scrolling function");
     }
   });
