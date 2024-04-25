@@ -251,11 +251,12 @@ async function sleakScript() {
 
   // event listener for scrolling anywhere
   window.addEventListener("scroll", function () {
+    console.log("scrolling");
     if (sleakWidgetOpenState == true) {
       const viewportHeight = window.innerHeight;
       document.getElementById("sleak-widgetwrap").style.height =
         viewportHeight + "px";
-      console.log("scrolling");
+      console.log("scrolling function");
     }
   });
 
