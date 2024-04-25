@@ -129,7 +129,7 @@ async function sleakScript() {
 
   // delay setting shadow to avoid flickering
   async function setShadow() {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     iframeWidgetbody.style.boxShadow = "0px 6px 12px -2px rgba(0, 0, 0, 0.1)";
   }
   setShadow();
