@@ -277,6 +277,7 @@
     display: flex;
     position: fixed;
     max-height: unset;
+    box-shadow: unset;
   }
 
   #sleak-widget-iframe {
@@ -289,6 +290,7 @@
       min-width: 100%;*/
     width: 100vw;
     min-width: 100vw;
+    border-radius: 0;
   }
 
   #sleak-bgoverlay {
