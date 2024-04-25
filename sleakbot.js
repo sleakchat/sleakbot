@@ -187,8 +187,8 @@ async function sleakScript() {
       const viewportHeight = window.innerHeight;
       console.log("Viewport Height window:", viewportHeight);
 
-      const viewportHeight = document.documentElement.clientHeight;
-      console.log("Viewport Height document:", viewportHeight);
+      const viewportHeightDocument = document.documentElement.clientHeight;
+      console.log("Viewport Height document:", viewportHeightDocument);
 
       // check if this is the first button click of this page load
       if (firstButtonClick) {
