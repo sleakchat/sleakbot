@@ -286,10 +286,10 @@ async function sleakScript() {
   }
 
   let sleakChime = new Audio(
-    "https://95c4299bd7e6e57cacd63bc0daa40451.cdn.bubble.io/f1685661651799x595009985729566100/sleak-chime.mp3"
+    "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3"
   );
   let sleakChimeOperator = new Audio(
-    "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/OK%20LETS%20GO.mp3?t=2024-03-19T15%3A57%3A23.682Z"
+    "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3"
   );
 
   function playSleakChime() {
