@@ -189,7 +189,7 @@ async function sleakScript() {
       openSleakWidget();
       if (window.matchMedia("(max-width: 768px)").matches) {
         document.body.style.overflow = "hidden";
-        console.log("overflow hidden");
+        // console.log("overflow hidden");
       }
 
       const viewportHeight = window.innerHeight;
@@ -197,7 +197,7 @@ async function sleakScript() {
         viewportHeight + "px";
       document.getElementById("sleak-widgetwrap").style.minHeight =
         viewportHeight + "px";
-      console.log("Viewport Height window:", viewportHeight);
+      // console.log("Viewport Height window:", viewportHeight);
 
       /// check if this is the first button click of this page load
       if (firstButtonClick) {
@@ -252,22 +252,22 @@ async function sleakScript() {
 
       if (window.matchMedia("(max-width: 768px)").matches) {
         document.body.style.overflow = "auto";
-        console.log("overflow auto");
+        // console.log("overflow auto");
       }
     }
   }
 
   // event listener for scrolling anywhere
   window.addEventListener("scroll", function () {
-    console.log("scrolling");
+    // console.log("scrolling");
     if (sleakWidgetOpenState == true) {
       const viewportHeightScroll = window.innerHeight;
       document.getElementById("sleak-widgetwrap").style.height =
         viewportHeightScroll + "px";
       document.getElementById("sleak-widgetwrap").style.minHeight =
         viewportHeightScroll + "px";
-      console.log("Viewport Height scroll:", viewportHeightScroll);
-      console.log("scrolling function");
+      // console.log("Viewport Height scroll:", viewportHeightScroll);
+      // console.log("scrolling function");
     }
   });
 
