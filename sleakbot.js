@@ -181,6 +181,9 @@ async function sleakScript() {
 
       openSleakWidget();
 
+      document.body.style.overflow = "hidden";
+      console.log("overflow hidden");
+
       // check if this is the first button click of this page load
       if (firstButtonClick) {
         // Create chat request
@@ -231,6 +234,11 @@ async function sleakScript() {
       sleakWidgetOpenState = false; // update flag
       // console.log(sleakWidgetOpenState);
       closeSleakWidget();
+
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.body.style.overflow = "auto";
+        console.log("overflow auto");
+      }
     }
   }
 
