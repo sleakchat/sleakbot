@@ -187,9 +187,10 @@ async function sleakScript() {
       // console.log(sleakWidgetOpenState);
 
       openSleakWidget();
-
-      document.body.style.overflow = "hidden";
-      console.log("overflow hidden");
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.body.style.overflow = "hidden";
+        console.log("overflow hidden");
+      }
 
       const viewportHeight = window.innerHeight;
       document.getElementById("sleak-widgetwrap").style.height =
