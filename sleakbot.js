@@ -395,7 +395,10 @@ async function sleakScript() {
         playSleakChimeOperator();
       } else if (event.data === "domInitialized") {
         console.log("domInitialized event");
-      } else if (event.data === "sleakChatInitiated") {
+      } else if (
+        event.data === "sleakChatInitiated" ||
+        event.data === "sleakChatInitiaded"
+      ) {
         console.log("sleakChatInitiated event");
         pushGtmEvent(event.data);
       } else if (event.data === "sleakSentContactDetails") {
