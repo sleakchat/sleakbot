@@ -388,6 +388,12 @@ async function sleakScript() {
       } // operator changed
       else if (event.data === "operatorChanged") {
         playSleakChimeOperator();
+      } else if (event.data === "domInitialized") {
+        console.log("domInitialized event");
+      } else if (event.data === "sleakChatInitiated") {
+        console.log("sleakChatInitiated event");
+      } else if (event.data === "sleakSentContactDetails") {
+        console.log("sleakSentContactDetails event");
       } else {
         console.log("no valid event");
       }
