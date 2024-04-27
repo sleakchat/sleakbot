@@ -365,33 +365,39 @@ async function sleakScript() {
     }, 6000);
   }
 
+  async function pushGtmEvent() {
+    var dataLayer = window.dataLayer || (window.dataLayer = []);
+    dataLayer.push({
+      event: event.data,
+      postMessageData: data,
+    });
+    console.log("Pushed to dataLayer:", data);
+  }
+
   // child window event listeners
 
   window.addEventListener("message", (event) => {
-    // console.log("Received message:", event);
     if (
       event.origin === "https://sleak.vercel.app" ||
       event.origin === "https://staging.sleak.chat" ||
       event.origin === "https://widget.sleak.chat"
     ) {
       console.log("Received message:", event);
-      // close popup
+
       if (event.data === "closePopup") {
         closeSleakWidget();
-      } // toggle chat
-      else if (event.data === "toggleChat") {
+      } else if (event.data === "toggleChat") {
         toggleSleakWidget();
-      } // toggle chat
-      else if (event.data === "operatorMessage") {
+      } else if (event.data === "operatorMessage") {
         playSleakChime();
         console.log("sleakChime called");
-      } // operator changed
-      else if (event.data === "operatorChanged") {
+      } else if (event.data === "operatorChanged") {
         playSleakChimeOperator();
       } else if (event.data === "domInitialized") {
         console.log("domInitialized event");
       } else if (event.data === "sleakChatInitiated") {
         console.log("sleakChatInitiated event");
+        pushGtmEvent(event.data);
       } else if (event.data === "sleakSentContactDetails") {
         console.log("sleakSentContactDetails event");
       } else {
