@@ -369,9 +369,9 @@ async function sleakScript() {
     var dataLayer = window.dataLayer || (window.dataLayer = []);
     dataLayer.push({
       event: event.data,
-      postMessageData: data,
+      postMessageData: event,
     });
-    console.log("Pushed to dataLayer:", data);
+    console.log("Pushed to dataLayer:", event);
   }
 
   // child window event listeners
@@ -400,9 +400,10 @@ async function sleakScript() {
         event.data === "sleakChatInitiaded"
       ) {
         console.log("sleakChatInitiated event");
-        pushGtmEvent(event.data);
+        pushGtmEvent(event);
       } else if (event.data === "sleakSentContactDetails") {
         console.log("sleakSentContactDetails event");
+        pushGtmEvent(event);
       } else {
         console.log("no valid event");
       }
