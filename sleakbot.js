@@ -404,6 +404,9 @@ async function sleakScript() {
       } else if (event.data === "sleakSentContactDetails") {
         console.log("sleakSentContactDetails event");
         pushGtmEvent(event);
+      } else if (event.data === "sleakHumanHandoffActivated") {
+        console.log("sleakHumanHandoffActivated event");
+        pushGtmEvent(event);
       } else {
         console.log("no valid event");
       }
