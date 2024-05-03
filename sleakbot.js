@@ -127,6 +127,13 @@ async function sleakScript() {
 
   iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
+  // delay setting shadow to avoid flickering
+  async function setShadow() {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    iframeWidgetbody.style.boxShadow = "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
+  }
+  setShadow();
+
   // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
 
   // iframe.src = iframeSource;
@@ -180,8 +187,19 @@ async function sleakScript() {
       // console.log(sleakWidgetOpenState);
 
       openSleakWidget();
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.body.style.overflow = "hidden";
+        // console.log("overflow hidden");
+      }
 
-      // check if this is the first button click of this page load
+      const viewportHeight = window.innerHeight;
+      document.getElementById("sleak-widgetwrap").style.height =
+        viewportHeight + "px";
+      document.getElementById("sleak-widgetwrap").style.minHeight =
+        viewportHeight + "px";
+      // console.log("Viewport Height window:", viewportHeight);
+
+      /// check if this is the first button click of this page load
       if (firstButtonClick) {
         // Create chat request
 
@@ -231,8 +249,27 @@ async function sleakScript() {
       sleakWidgetOpenState = false; // update flag
       // console.log(sleakWidgetOpenState);
       closeSleakWidget();
+
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.body.style.overflow = "auto";
+        // console.log("overflow auto");
+      }
     }
   }
+
+  // event listener for scrolling anywhere
+  window.addEventListener("scroll", function () {
+    // console.log("scrolling");
+    if (sleakWidgetOpenState == true) {
+      const viewportHeightScroll = window.innerHeight;
+      document.getElementById("sleak-widgetwrap").style.height =
+        viewportHeightScroll + "px";
+      document.getElementById("sleak-widgetwrap").style.minHeight =
+        viewportHeightScroll + "px";
+      // console.log("Viewport Height scroll:", viewportHeightScroll);
+      // console.log("scrolling function");
+    }
+  });
 
   // function for closing widget
 
@@ -289,7 +326,7 @@ async function sleakScript() {
     "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3"
   );
   let sleakChimeOperator = new Audio(
-    "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3"
+    "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3"
   );
 
   function playSleakChime() {
@@ -328,29 +365,48 @@ async function sleakScript() {
     }, 6000);
   }
 
+  async function pushGtmEvent() {
+    var dataLayer = window.dataLayer || (window.dataLayer = []);
+    dataLayer.push({
+      event: event.data,
+      postMessageData: event,
+    });
+    console.log("Pushed to dataLayer:", event);
+  }
+
   // child window event listeners
 
   window.addEventListener("message", (event) => {
-    // console.log("Received message:", event);
     if (
       event.origin === "https://sleak.vercel.app" ||
       event.origin === "https://staging.sleak.chat" ||
       event.origin === "https://widget.sleak.chat"
     ) {
       console.log("Received message:", event);
-      // close popup
+
       if (event.data === "closePopup") {
         closeSleakWidget();
-      } // toggle chat
-      else if (event.data === "toggleChat") {
+      } else if (event.data === "toggleChat") {
         toggleSleakWidget();
-      } // toggle chat
-      else if (event.data === "operatorMessage") {
+      } else if (event.data === "operatorMessage") {
         playSleakChime();
         console.log("sleakChime called");
-      } // operator changed
-      else if (event.data === "operatorChanged") {
+      } else if (event.data === "operatorChanged") {
         playSleakChimeOperator();
+      } else if (event.data === "domInitialized") {
+        console.log("domInitialized event");
+      } else if (
+        event.data === "sleakChatInitiated" ||
+        event.data === "sleakChatInitiaded"
+      ) {
+        console.log("sleakChatInitiated event");
+        pushGtmEvent(event);
+      } else if (event.data === "sleakSentContactDetails") {
+        console.log("sleakSentContactDetails event");
+        pushGtmEvent(event);
+      } else if (event.data === "sleakHumanHandoffActivated") {
+        console.log("sleakHumanHandoffActivated event");
+        pushGtmEvent(event);
       } else {
         console.log("no valid event");
       }
