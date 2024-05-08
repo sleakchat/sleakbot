@@ -43,7 +43,7 @@
   z-index: 999;
   color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  /* transition: display 1s ease-in-out; */
+  transition: display 1s ease-in-out;
   border-radius: 6px;
   pointer-events: auto !important;
 }
@@ -74,7 +74,7 @@
   color: #fff;
   font-size: 12px;
   cursor: pointer;
-  /* transition: display 1s ease-in-out; */
+  transition: display 1s ease-in-out;
 }
 
 #sleak-popup-embed:hover #sleak-popup-close {
@@ -132,8 +132,8 @@
   /**/
   height: 70px;
   width: 70x;
-  bottom: 20px;
-  right: 25px;
+  bottom: 25px;
+  right: 30px;
   position: absolute;
 }
 
@@ -296,7 +296,7 @@
     position: fixed;
     max-height: unset;
     box-shadow: unset;
-    /* transition: all 0.05s ease-in-out; */
+    transition: all 0.05s ease-in-out;
   }
 
   #sleak-widget-iframe {
