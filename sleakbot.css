@@ -20,7 +20,7 @@
   pointer-events: auto !important;
   z-index: 1 !important;
   border-radius: 20px;
-  transition: box-shadow 3s ease-in-out;
+  /* transition: box-shadow 3s ease-in-out; */
 }
 
 #sleak-loader {
@@ -43,7 +43,7 @@
   z-index: 999;
   color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  transition: display 1s ease-in-out;
+  /* transition: display 1s ease-in-out; */
   border-radius: 6px;
   pointer-events: auto !important;
 }
@@ -74,7 +74,7 @@
   color: #fff;
   font-size: 12px;
   cursor: pointer;
-  transition: display 1s ease-in-out;
+  /* transition: display 1s ease-in-out; */
 }
 
 #sleak-popup-embed:hover #sleak-popup-close {
@@ -248,11 +248,11 @@
 /* transitions */
 #sleak-body-embed {
   transform: translateY(80px);
-  transition: transform 0.15s ease;
+  /* transition: transform 0.15s ease; */
 }
 #sleak-widget-iframe {
   transform: scale(0.98);
-  transition: transform 0.15s ease;
+  /* transition: transform 0.15s ease; */
 }
 #sleak-body-embed.open {
   transform: translateY(0);
@@ -296,7 +296,7 @@
     position: fixed;
     max-height: unset;
     box-shadow: unset;
-    transition: all 0.05s ease-in-out;
+    /* transition: all 0.05s ease-in-out; */
   }
 
   #sleak-widget-iframe {
