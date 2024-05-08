@@ -247,7 +247,7 @@
 
 /* transitions */
 #sleak-body-embed {
-  transform: translateY(15);
+  transform: translateY(15px);
   transition: transform 0.3s ease-in-out;
 }
 #sleak-widget-iframe {
