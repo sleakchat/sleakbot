@@ -245,22 +245,6 @@
   all: unset !important;
 }
 
-/* transitions */
-#sleak-body-embed {
-  transform: translateY(80px);
-  /* transition: transform 0.15s ease; */
-}
-#sleak-widget-iframe {
-  transform: scale(0.98);
-  /* transition: transform 0.15s ease; */
-}
-#sleak-body-embed.open {
-  transform: translateY(0);
-}
-#sleak-widget-iframe.open {
-  transform: scale(1);
-}
-
 @media screen and (max-width: 479px) {
   #sleak-loadingwrap {
     height: 100%;
