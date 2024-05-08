@@ -247,12 +247,12 @@
 
 /* transitions */
 #sleak-body-embed {
-  transform: translateY(15px);
-  transition: transform 0.3s ease-in-out;
+  transform: translateY(20px);
+  transition: transform 0.2s ease;
 }
 #sleak-widget-iframe {
-  transform: scale(0.95);
-  transition: transform 0.3s ease-in-out;
+  transform: scale(0.98);
+  transition: transform 0.2s ease;
 }
 #sleak-body-embed.open {
   transform: translateY(0);
