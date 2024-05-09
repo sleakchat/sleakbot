@@ -1,5 +1,4 @@
 async function sleakScript() {
-  // Function to load the js-cookie script dynamically
   async function loadScript(url) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -11,13 +10,12 @@ async function sleakScript() {
     });
   }
 
-  // Load the js-cookie script
   await loadScript();
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
 
-  // if path contains "dev"
+  // env control
   if (scriptSrc.includes("dev")) {
     console.log("dev path");
     var widgetBaseUrl = "https://staging.sleak.chat";
@@ -25,8 +23,6 @@ async function sleakScript() {
     console.log("prod path");
     var widgetBaseUrl = "https://widget.sleak.chat";
   }
-
-  // const widgetBaseUrl = process.env.APP_BASE_URL;
 
   const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
   console.log("chatbot id =", chatbotId);
@@ -50,81 +46,44 @@ async function sleakScript() {
       sameSite: "None",
       secure: true,
     });
-
-    console.log("new cookie = ", visitorId);
-
-    // setting cookie for the first widget open flag
-    let widgetOpenFlag = crypto.randomUUID();
-    Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
-      expires: 365,
-      sameSite: "None",
-      secure: true,
-    });
-
-    // postMessage to parent window
-
-    ///   try {
-    //     var postObject = JSON.stringify({
-    //       event: "create_chat",
-    //        visitorId: visitorId,
-    //     });
-
-    //      parent.postMessage(postObject, "*"); // Send message to parent window
-    //
-    //   } catch (e) {
-    //      window.console && window.console.log(e);
-    //   }
-
-    //    console.log("postObject:", postObject);
   }
 
-  // const { btnImage } = getChatbotId();
+  console.log("new cookie = ", visitorId);
 
-  // // Set image when attribute present
-  // if (btnImage) {
-  //   var btnImages = document.querySelectorAll("#sleak-btn-openclosed img");
-  //   var btnImageURL = btnImage;
-  //   btnImages.forEach(function (image) {
-  //     image.src = btnImageURL;
-  //   });
-  // }
+  // for hiding popup after widget open
 
-  //// Set btn bg color and show btn btn (wordt een component/iframe) ////
+  // setting cookie for the first widget open flag
+  let widgetOpenFlag = crypto.randomUUID();
+  Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
+    expires: 365,
+    sameSite: "None",
+    secure: true,
+  });
 
-  var sleakBtnContainer = document.querySelector("#sleak-btn-container");
-  // var btnColor = getChatbotId().btnColor;
+  // Set btn bg color and show btn btn (wordt een component/iframe)
+
   var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
-  // sleakBtnContainer.style.backgroundColor = btnColor;
   sleakButtonWrap.style.opacity = "0";
   sleakButtonWrap.style.transition = "opacity 0.2s ease";
   setTimeout(function () {
     sleakButtonWrap.style.opacity = "1";
   }, 500);
 
-  // function generateUniqueId() {
-  //   var visitorId = localStorage.getItem("visitorId");
-  //   if (!visitorId) {
-  //     visitorId =
-  //       Math.random().toString(36).substring(2, 15) +
-  //       Math.random().toString(36).substring(2, 15);
-  //     localStorage.setItem("visitorId", visitorId);
-  //   }
-  //   return visitorId;
-  // }
-
-  //// rendering iframes //////
+  // rendering iframes
 
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
   var iframePopup = document.getElementById("sleak-popup-iframe");
   var iframeBtn = document.getElementById("sleak-button-iframe");
 
-  // var visitorId = generateUniqueId();
-
   iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
   iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
 
-  // const iframeDelayed = `https://app.sleak.chat/?id=${chatbotId}&visitorId=${visitorId}`;
-
+  iframeWidgetbody.onload = function () {
+    fetch(iframeWidgetbody.src).then((response) => {
+      console.log(response.headers.get("Data"));
+      const data = response.headers.get("Data");
+    });
+  };
   iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   // delay setting shadow to avoid flickering
@@ -134,56 +93,59 @@ async function sleakScript() {
   }
   setShadow();
 
-  // const iframeSource = `http://localhost:3000/${chatbotId}?id=${visitorId}`;
+  //// elements visibility
 
-  // iframe.src = iframeSource;
-
-  //// Elements visibility behaviour (widget body, popup) /////
-
-  // Change element visibility on button click
-  // const sleakClosedWidget = document.querySelector("#sleak-widget-closed");
-  // const sleakOpenWidget = document.querySelector("#sleak-widget-open");
   const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
   const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
   const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
-  // const sleakNotification = document.querySelector("#sleak-btn-notification");
+
   const sleakIframe = document.querySelector("#sleak-widget-iframe");
-  // const sleakPopupClose = document.querySelector("#sleak-popup-close");
-  // const sleakMobileClose = document.querySelector("#sleak-widget-close");
-  // const sleakLoading = document.querySelector("#sleak-loadingwrap");
+
+  var sleakWidgetwrap = document.getElementById("sleak-widget-container");
 
   function openSleakWidget() {
-    // sleakClosedWidget.style.display = "none";
-    // sleakOpenWidget.style.display = "block";
-    sleakEmbeddedWidget.style.display = "flex";
+    sleakBodyEmbed.style.display = "flex";
     sleakBgOverlay.style.display = "block";
+
+    sleakWidgetwrap.style.transform = "translateY(20px)";
+    sleakBodyEmbed.style.transform = "translateY(800px)";
+    sleakBodyEmbed.style.transform = "scale(0.99)";
+
     sleakEmbeddedPopup.style.display = "none";
-    sleakEmbeddedWidget.style.opacity = "0";
-    sleakEmbeddedWidget.style.transition = "opacity 0.2s ease";
+    sleakBodyEmbed.style.opacity = "0";
+
+    sleakBodyEmbed.style.transition = "opacity 0.15s ease-in-out";
+    sleakBodyEmbed.style.transition = "transform 0.15s ease-in-out";
+    sleakWidgetwrap.style.transition = "transform 0.15s ease-in-out";
+
     setTimeout(function () {
-      sleakEmbeddedWidget.style.opacity = "1";
+      sleakBodyEmbed.style.opacity = "1";
+      sleakWidgetwrap.style.transform = "translateY(0)";
+      sleakBodyEmbed.style.transform = "translateY(0)";
+      sleakBodyEmbed.style.transform = "scale(1)";
     }, 50);
   }
 
   function closeSleakWidget() {
+    sleakBodyEmbed.classList.remove("open");
+    iframeWidgetbody.classList.remove("open");
+
     console.log("closeSleakWidget function called");
-    // sleakClosedWidget.style.display = "block";
-    // sleakOpenWidget.style.display = "none";
+
     sleakEmbeddedWidget.style.display = "none";
     sleakBgOverlay.style.display = "none";
     sleakEmbeddedPopup.style.display = "none";
   }
 
-  let sleakWidgetOpenState = false; // flag for widget open state
-  let firstButtonClick = true; // flag for first button click
-
   // Handle widget opening
+
+  let sleakWidgetOpenState = false;
+  let firstButtonClick = true;
 
   function toggleSleakWidget() {
     // check if widget is open
-
     if (sleakWidgetOpenState == false) {
-      sleakWidgetOpenState = true; // update flag
+      sleakWidgetOpenState = true;
       // console.log(sleakWidgetOpenState);
 
       openSleakWidget();
@@ -205,48 +167,12 @@ async function sleakScript() {
 
         // Check for the first widget open flag cookie (first open of the widget for this visitor id / cookie )
         const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
-
-        ////   if (widgetOpenFlag) {
-        ////     // Cookie exists, delete it
-        ////     Cookies.remove(`sleakWidget_${chatbotId}`);
-        ////     console.log("First widget open flag cookie deleted");
-
-        ////     // add session storage item for popup
-        ////     sessionStorage.setItem(sessionStorageKey, "true");
-
-        ////     // create chat
-        ////     try {
-        ////       let currentPage = window.location.href;
-
-        ////       let createChatPayload = JSON.stringify({
-        ////         chatbotId: chatbotId,
-        ////         visitorId: visitorId,
-        ////         currentPage: currentPage,
-        ////       });
-        ////       fetch("https://staging.sleak.chat/api/chat", {
-        ////         method: "POST",
-        ////         body: createChatPayload,
-        ////       })
-        ////         .then((response) => response.json())
-        ////         .then((data) => {
-        ////           console.log("Success:", data);
-        ////         })
-        ////         .catch((error) => {
-        ////           console.error("Error:", error);
-        ////         });
-        ////     } catch (e) {
-        ////       window.console && window.console.log(e);
-        ////     }
-        ////     console.log("createChatPayload:", createChatPayload);
-        ////   } else {
-        ////     // Cookie doesn't exist
-        ////     console.log("First widget open flag cookie does not exist");
-        ////   }
+        ////   hier stond first open / postmessage voor first message / create chat logic - Waarschijnlijk mag het weg
       }
 
-      firstButtonClick = false; // update flag
+      firstButtonClick = false;
     } else if (sleakWidgetOpenState == true) {
-      sleakWidgetOpenState = false; // update flag
+      sleakWidgetOpenState = false;
       // console.log(sleakWidgetOpenState);
       closeSleakWidget();
 
@@ -257,7 +183,7 @@ async function sleakScript() {
     }
   }
 
-  // event listener for scrolling anywhere
+  // event listener for scrolling
   window.addEventListener("scroll", function () {
     // console.log("scrolling");
     if (sleakWidgetOpenState == true) {
@@ -267,49 +193,13 @@ async function sleakScript() {
       document.getElementById("sleak-widgetwrap").style.minHeight =
         viewportHeightScroll + "px";
       // console.log("Viewport Height scroll:", viewportHeightScroll);
-      // console.log("scrolling function");
     }
   });
 
-  // function for closing widget
-
-  // // Main button click event listeners
-  // sleakClosedWidget.addEventListener("click", openSleakWidget);
-  // sleakEmbeddedPopup.addEventListener("click", openSleakWidget);
-
-  // // Click event listener to widget open btn
-  // sleakOpenWidget.addEventListener("click", function () {
-  //   closeSleakWidget();
-  // });
-
-  //// Click event listener to popup close btn
-  //sleakPopupClose.addEventListener("click", function (sleakCloseBtnEvent) {
-  //  // stop event from propagating
-  //  sleakCloseBtnEvent.stopPropagation();
-
-  //  sleakEmbeddedPopup.style.display = "none";
-  //});
-
-  //// Add click event listener to widget close btn
-  //sleakMobileClose.addEventListener(
-  //  "click",
-  //  function (sleakCloseMobileEvent) {
-  //    // stop event from propagating
-  //    sleakCloseMobileEvent.stopPropagation();
-
-  //    sleakEmbeddedWidget.style.display = "none";
-  //    sleakOpenWidget.style.display = "none";
-  //    sleakClosedWidget.style.display = "block";
-  //    sleakBgOverlay.style.display = "none";
-  //  }
-  //);
-
-  //// Chime & popup ////
+  // Chime & popup
 
   var sleakBodyEmbed = document.getElementById("sleak-body-embed");
   var sleakPopupOpen = document.getElementById("sleak-popup-embed");
-
-  // var sleakChime = document.getElementById("sleak-chime");
 
   function showPopup() {
     sleakPopupOpen.style.display = "flex";
@@ -331,14 +221,12 @@ async function sleakScript() {
 
   function playSleakChime() {
     sleakChime.play();
-    console.log("sleakChime played");
   }
-
   function playSleakChimeOperator() {
     sleakChimeOperator.play();
   }
 
-  //// Disable popup/chime after first page ////
+  // Disable popup/chime after first page
 
   var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
   var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
@@ -365,6 +253,8 @@ async function sleakScript() {
     }, 6000);
   }
 
+  // child window event handling
+
   async function pushGtmEvent() {
     var dataLayer = window.dataLayer || (window.dataLayer = []);
     dataLayer.push({
@@ -373,8 +263,6 @@ async function sleakScript() {
     });
     console.log("Pushed to dataLayer:", event);
   }
-
-  // child window event listeners
 
   window.addEventListener("message", (event) => {
     if (
@@ -390,7 +278,6 @@ async function sleakScript() {
         toggleSleakWidget();
       } else if (event.data === "operatorMessage") {
         playSleakChime();
-        console.log("sleakChime called");
       } else if (event.data === "operatorChanged") {
         playSleakChimeOperator();
       } else if (event.data === "domInitialized") {
@@ -399,21 +286,18 @@ async function sleakScript() {
         event.data === "sleakChatInitiated" ||
         event.data === "sleakChatInitiaded"
       ) {
-        console.log("sleakChatInitiated event");
         pushGtmEvent(event);
       } else if (event.data === "sleakSentContactDetails") {
-        console.log("sleakSentContactDetails event");
         pushGtmEvent(event);
       } else if (event.data === "sleakHumanHandoffActivated") {
-        console.log("sleakHumanHandoffActivated event");
         pushGtmEvent(event);
       } else {
-        console.log("no valid event");
+        console.log("no declared event");
       }
     }
   });
 
-  // //// Background overlay for mobile //// LET OP: MOET WEL NOG GEBEUREN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
+  // //// Background overlay for mobile //// LET OP: MOET MISSCHIEN NOG BLIJVEN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
 
   // var sleakWidgetOpened = document.getElementById("sleak-widget-close");
   // var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
@@ -426,47 +310,6 @@ async function sleakScript() {
   //     document.body.style.overflow = "hidden";
   //   });
   // }
-
-  //// GTM events event listener for child window ////
-
-  (function (window) {
-    function isValidJSON(str) {
-      try {
-        JSON.parse(str);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
-
-    window.addEventListener("message", function (message) {
-      var data;
-
-      if (typeof message.data !== "string" || !isValidJSON(message.data)) {
-        return;
-      }
-
-      data = JSON.parse(message.data);
-
-      var validEvents = ["sleakChatInitiated", "sleakLeadGenerated"];
-
-      if (!data.event || validEvents.indexOf(data.event) === -1) {
-        return;
-      }
-
-      console.log("Received message:", data);
-      var dataLayer = window.dataLayer || (window.dataLayer = []);
-      if (data.event) {
-        dataLayer.push({
-          event: data.event,
-          postMessageData: data,
-        });
-        console.log("Pushed to dataLayer:", data);
-      }
-    });
-  })(window);
-
-  console.log("exit sleakScript");
 }
 
 sleakScript();
