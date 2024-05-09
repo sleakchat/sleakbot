@@ -9,7 +9,7 @@ async function injectSleakScript() {
     var sleakJs = "https://cdn.dev.sleak.chat/sleakbot.js";
   } else {
     console.log("prod path");
-    var sleakHtml = "https://cdn.sleak.chat/sleakbot.html";
+    var sleakHtml = "https://cdn.sleak.chat/sleakbot.js";
     var sleakJs = "https://cdn.sleak.chat/sleakbot.js";
   }
 
@@ -22,7 +22,6 @@ async function injectSleakScript() {
   //    const sleak_htmlDoc = sleak_parser.parseFromString(sleak_html, "text/html");
   //    document.body.appendChild(sleak_htmlDoc.documentElement);
   //  }
-  //
 
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
