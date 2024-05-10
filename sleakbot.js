@@ -86,7 +86,6 @@ async function sleakScript() {
       // setShadow();
 
       const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
-      // already declared: const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
       const sleakWidgetwrap = document.getElementById("sleak-widget-container");
       // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
 
@@ -98,7 +97,7 @@ async function sleakScript() {
         sleakBodyEmbed.style.transform = "translateY(800px)";
         sleakBodyEmbed.style.transform = "scale(0.99)";
 
-        sleakEmbeddedPopup.style.display = "none";
+        sleakPopup.style.display = "none";
         sleakBodyEmbed.style.opacity = "0";
 
         sleakBodyEmbed.style.transition = "opacity 0.15s ease-in-out";
@@ -118,7 +117,7 @@ async function sleakScript() {
 
         sleakEmbeddedWidget.style.display = "none";
         // sleakBgOverlay.style.display = "none";
-        sleakEmbeddedPopup.style.display = "none";
+        sleakPopup.style.display = "none";
       }
 
       // Handle widget opening
