@@ -62,7 +62,7 @@ async function sleakScript() {
       iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
       // Set btn bg color and show btn
-      // already declared: var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
+      sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
       sleakButtonWrap.style.opacity = "0";
       sleakButtonWrap.style.transform = "scale(0.8)";
       sleakButtonWrap.style.transition = "all 0.1s ease";
