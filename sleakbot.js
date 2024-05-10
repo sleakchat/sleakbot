@@ -50,21 +50,17 @@ async function sleakScript() {
   // rendering iframes
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
 
-  // Start fetching the data as soon as possible
-  let chatbotConfigPromise = fetch(iframeWidgetbody.src).then((response) => {
-    const rawChatbotConfig = response.headers.get("Data");
-    return JSON.parse(rawChatbotConfig);
-  });
+  iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   iframeWidgetbody.onload = async function () {
-    // Wait for the data to be available
-    let chatbotConfig = await chatbotConfigPromise;
+    const response = await fetch(iframeWidgetbody.src);
+    const rawChatbotConfig = response.headers.get("Data");
+    chatbotConfig = JSON.parse(rawChatbotConfig);
     console.log(chatbotConfig);
     console.log(chatbotConfig.publishing.published);
 
     // main code
-    // if (chatbotConfig.publishing.published == true) {
-    if (true == true) {
+    if (chatbotConfig.publishing.published == true) {
       var iframePopup = document.getElementById("sleak-popup-iframe");
       var iframeBtn = document.getElementById("sleak-button-iframe");
 
@@ -300,7 +296,7 @@ async function sleakScript() {
     }
   };
 
-  iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+  // iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 }
 
 sleakScript();
