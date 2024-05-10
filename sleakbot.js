@@ -38,18 +38,8 @@ async function sleakScript() {
     console.log("new cookie = ", visitorId);
   }
 
-  // for hiding popup after widget open
-  // setting cookie for the first widget open flag
-  let widgetOpenFlag = crypto.randomUUID();
-  Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
-    expires: 365,
-    sameSite: "None",
-    secure: true,
-  });
-
   // rendering iframes
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-
   iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   iframeWidgetbody.onload = async function () {
@@ -91,8 +81,6 @@ async function sleakScript() {
       const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
       const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
       const sleakWidgetwrap = document.getElementById("sleak-widget-container");
-
-      const sleakIframe = document.querySelector("#sleak-widget-iframe");
 
       function openSleakWidget() {
         sleakBodyEmbed.style.display = "flex";
@@ -153,8 +141,17 @@ async function sleakScript() {
           /// check for first button click of page load
           if (firstButtonClick) {
             const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
-            ////   hier stond first open / postmessage voor first message / create chat logic - Waarschijnlijk mag het weg
-          }
+
+            if (!widgetOpenFlag) {
+              // for hiding popup after widget open
+              // setting cookie for the first widget open flag
+              let widgetOpenFlag = crypto.randomUUID();
+              Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
+                expires: 365,
+                sameSite: "None",
+                secure: true,
+              });
+            }
 
           firstButtonClick = false;
         } else if (sleakWidgetOpenState == true) {
@@ -299,4 +296,4 @@ async function sleakScript() {
   // iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 }
 
-sleakScript();
+  sleakScript()
