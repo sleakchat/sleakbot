@@ -20,7 +20,7 @@
   pointer-events: auto !important;
   z-index: 1 !important;
   border-radius: 20px;
-  transition: box-shadow 3s ease-in-out;
+  transition: box-shadow 6s ease-in-out;
 }
 
 #sleak-loader {
