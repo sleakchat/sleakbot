@@ -13,9 +13,6 @@ async function injectSleakScript() {
     var sleakJs = "https://cdn.sleak.chat/sleakbot.js";
   }
 
-  // const sleak_htmlUrl = "https://cdn.dev.sleak.chat/sleakbot.html";
-  // const sleak_jsUrl = "https://cdn.dev.sleak.chat/sleakbot.js";
-
   //  // append html to body
   //  function appendSleakHtmlToBody(sleak_html) {
   //    const sleak_parser = new DOMParser();
