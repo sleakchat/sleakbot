@@ -23,14 +23,13 @@ async function injectSleakScript() {
   const sleakJs = `${baseUrl}/sleakbot.js`;
   const sleakCss = `${baseUrl}/sleakbot.css`;
 
-  function appendStylesheet(url) {
+  async function appendStylesheet(url) {
     var link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
     link.href = url;
     document.head.appendChild(link);
   }
-
   appendStylesheet(sleakCss);
 
   // append div to body
