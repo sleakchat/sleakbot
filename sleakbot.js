@@ -1,15 +1,15 @@
 async function sleakScript() {
-  async function loadScript() {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
-  await loadScript();
+  // async function loadScript() {
+  //   return new Promise((resolve, reject) => {
+  //     const script = document.createElement("script");
+  //     script.src =
+  //       "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+  //     script.onload = resolve;
+  //     script.onerror = reject;
+  //     document.head.appendChild(script);
+  //   });
+  // }
+  // await loadScript();
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
@@ -153,15 +153,15 @@ async function sleakScript() {
             }
 
             firstButtonClick = false;
-          } else if (sleakWidgetOpenState == true) {
-            sleakWidgetOpenState = false;
-            // console.log(sleakWidgetOpenState);
-            closeSleakWidget();
+          }
+        } else if (sleakWidgetOpenState == true) {
+          sleakWidgetOpenState = false;
+          // console.log(sleakWidgetOpenState);
+          closeSleakWidget();
 
-            if (window.matchMedia("(max-width: 768px)").matches) {
-              document.body.style.overflow = "auto";
-              // console.log("overflow auto");
-            }
+          if (window.matchMedia("(max-width: 768px)").matches) {
+            document.body.style.overflow = "auto";
+            // console.log("overflow auto");
           }
         }
 
@@ -291,8 +291,6 @@ async function sleakScript() {
         // }
       }
     }
-
-    // iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
   }
   mainScript();
 }
