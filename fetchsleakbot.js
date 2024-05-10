@@ -5,20 +5,25 @@ async function injectSleakScript() {
 
   if (scriptSrc.includes("dev")) {
     console.log("dev path");
-    var sleakHtml = "https://cdn.dev.sleak.chat/sleakbot.html";
-    var sleakJs = "https://cdn.dev.sleak.chat/sleakbot.js";
+    var baseUrl = "https://cdn.dev.sleak.chat";
   } else {
     console.log("prod path");
-    var sleakHtml = "https://cdn.sleak.chat/sleakbot.html";
-    var sleakJs = "https://cdn.sleak.chat/sleakbot.js";
+    var baseUrl = "https://cdn.sleak.chat";
   }
 
-  //  // append html to body
-  //  function appendSleakHtmlToBody(sleak_html) {
-  //    const sleak_parser = new DOMParser();
-  //    const sleak_htmlDoc = sleak_parser.parseFromString(sleak_html, "text/html");
-  //    document.body.appendChild(sleak_htmlDoc.documentElement);
-  //  }
+  const sleakHtml = `${baseUrl}/sleakbot.html`;
+  const sleakJs = `${baseUrl}/sleakbot.js`;
+  const sleakCss = `${baseUrl}/sleakbot.css`;
+
+  function appendStylesheet(url) {
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = url;
+    document.head.appendChild(link);
+  }
+
+  appendStylesheet(sleakCss);
 
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
