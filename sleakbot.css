@@ -35,57 +35,6 @@
   align-self: center !important;
 }
 
-#sleak-widget-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 36px;
-  width: 36px;
-  border-radius: 99px;
-  right: 39px;
-  top: 38px;
-  z-index: 999;
-  color: rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  /* transition: display 1s ease-in-out; */
-  border-radius: 6px;
-  pointer-events: auto !important;
-}
-
-#sleak-widget-close:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-#sleak-widget-close img {
-  opacity: 0.8;
-  width: 12px;
-  height: 12px;
-  align-self: center;
-}
-
-#sleak-popup-close {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 18px;
-  width: 18px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 99px;
-  top: 70px;
-  left: 0;
-  z-index: 99999999999;
-  color: #fff;
-  font-size: 12px;
-  cursor: pointer;
-  /* transition: display 1s ease-in-out; */
-}
-
-#sleak-popup-embed:hover #sleak-popup-close {
-  display: flex !important;
-}
-
 #sleak-popup-embed {
   position: absolute;
   z-index: 9999999999;
@@ -95,7 +44,7 @@
   background-color: rgba(255, 255, 255, 0);
   display: none;
   bottom: 100px;
-  right: 25px;
+  /*right: 25px;*/
   width: 230px;
   height: 110px;
   align-items: flex-end;
@@ -120,7 +69,7 @@
   top: auto;
   bottom: 0%;
   left: auto;
-  right: 0%;
+  /*right: 0%;*/
   z-index: 99999999;
   width: 440px;
   height: auto;
@@ -134,11 +83,12 @@
   pointer-events: auto;
   z-index: 9999999999999999;
   opacity: 0;
-  /**/
   height: 70px;
   width: 70px;
+
   bottom: 20px;
-  right: 25px;
+  /*right: 25px;*/
+
   position: absolute;
 }
 
@@ -220,7 +170,7 @@
   pointer-events: auto;
 
   position: absolute;
-  right: 20px;
+  /*right: 20px;*/
   bottom: 100px;
 }
 
@@ -258,18 +208,6 @@
     pointer-events: auto;
   }
 
-  #sleak-widget-close {
-    height: 36px;
-    width: 36px;
-    right: 18px;
-    top: 18px;
-    pointer-events: auto;
-  }
-
-  #sleak-widget-close:active {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
   #sleak-widgetwrap {
     z-index: 999999999 !important;
     width: 100vw;
@@ -279,10 +217,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    /*padding-bottom: 0;
-    padding-right: 0;*/
     display: flex;
-    position: fixed;
     max-height: unset;
     box-shadow: unset;
     /* transition: all 0.05s ease-in-out; */
