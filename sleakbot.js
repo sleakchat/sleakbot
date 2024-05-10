@@ -28,7 +28,6 @@ async function sleakScript() {
   console.log("chatbot id =", chatbotId);
 
   // cookie handling
-  /
 
   let visitorId;
 
