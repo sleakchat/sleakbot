@@ -140,6 +140,7 @@
 #sleak-body-embed {
   height: 700px;
   pointer-events: auto;
+  bottom: 90px;
 
   position: absolute;
   right: 0;
