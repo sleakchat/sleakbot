@@ -57,10 +57,9 @@ async function sleakScript() {
       console.log(chatbotConfig);
     });
   };
+  iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   if (chatbotConfig.publishing.published == true) {
-    iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
-
     var iframePopup = document.getElementById("sleak-popup-iframe");
     var iframeBtn = document.getElementById("sleak-button-iframe");
 
