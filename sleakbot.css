@@ -274,8 +274,6 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    /*padding-bottom: 0;
-    padding-right: 0;*/
     display: flex;
     position: fixed;
     max-height: unset;
