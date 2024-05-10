@@ -63,7 +63,8 @@ async function sleakScript() {
     console.log(chatbotConfig.publishing.published);
 
     // main code
-    if (chatbotConfig.publishing.published == true) {
+    // if (chatbotConfig.publishing.published == true) {
+    if (true == true) {
       var iframePopup = document.getElementById("sleak-popup-iframe");
       var iframeBtn = document.getElementById("sleak-button-iframe");
 
