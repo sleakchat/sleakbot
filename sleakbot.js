@@ -17,15 +17,12 @@ async function sleakScript() {
 
   // env control
   if (scriptSrc.includes("dev")) {
-    console.log("dev path");
     var widgetBaseUrl = "https://staging.sleak.chat";
   } else {
-    console.log("prod path");
     var widgetBaseUrl = "https://widget.sleak.chat";
   }
 
   const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
-  console.log("chatbot id =", chatbotId);
 
   // cookie handling
 
@@ -38,17 +35,15 @@ async function sleakScript() {
     );
     visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
   } else {
-    console.log("cookie does not exist");
-
     visitorId = crypto.randomUUID();
     Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
       expires: 365,
       sameSite: "None",
       secure: true,
     });
-  }
 
-  console.log("new cookie = ", visitorId);
+    console.log("new cookie = ", visitorId);
+  }
 
   // for hiding popup after widget open
 
@@ -61,16 +56,16 @@ async function sleakScript() {
   });
 
   // Set btn bg color and show btn btn (wordt een component/iframe)
-
   var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
   sleakButtonWrap.style.opacity = "0";
-  sleakButtonWrap.style.transition = "opacity 0.2s ease";
+  sleakButtonWrap.style.transform = "scale(0.95)";
+  sleakButtonWrap.style.transition = "all 0.2s ease";
   setTimeout(function () {
     sleakButtonWrap.style.opacity = "1";
+    sleakButtonWrap.style.transform = "scale(1)";
   }, 500);
 
   // rendering iframes
-
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
   var iframePopup = document.getElementById("sleak-popup-iframe");
   var iframeBtn = document.getElementById("sleak-button-iframe");
@@ -88,7 +83,7 @@ async function sleakScript() {
 
   // delay setting shadow to avoid flickering
   async function setShadow() {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     iframeWidgetbody.style.boxShadow = "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
   }
   setShadow();
@@ -130,8 +125,6 @@ async function sleakScript() {
     sleakBodyEmbed.classList.remove("open");
     iframeWidgetbody.classList.remove("open");
 
-    console.log("closeSleakWidget function called");
-
     sleakEmbeddedWidget.style.display = "none";
     sleakBgOverlay.style.display = "none";
     sleakEmbeddedPopup.style.display = "none";
@@ -161,11 +154,8 @@ async function sleakScript() {
         viewportHeight + "px";
       // console.log("Viewport Height window:", viewportHeight);
 
-      /// check if this is the first button click of this page load
+      /// check for first button click of page load
       if (firstButtonClick) {
-        // Create chat request
-
-        // Check for the first widget open flag cookie (first open of the widget for this visitor id / cookie )
         const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
         ////   hier stond first open / postmessage voor first message / create chat logic - Waarschijnlijk mag het weg
       }
@@ -226,13 +216,13 @@ async function sleakScript() {
     sleakChimeOperator.play();
   }
 
-  // Disable popup/chime after first page
+  // disable popup/chime after first page
 
   var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
   var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
 
   if (hasPopupBeenTriggered) {
-    console.log("localStorage does exist");
+    // console.log("localStorage does exist");
     // remove next function in PROD
     setTimeout(function () {
       if (sleakWidgetOpenState == false) {
@@ -281,11 +271,7 @@ async function sleakScript() {
       } else if (event.data === "operatorChanged") {
         playSleakChimeOperator();
       } else if (event.data === "domInitialized") {
-        console.log("domInitialized event");
-      } else if (
-        event.data === "sleakChatInitiated" ||
-        event.data === "sleakChatInitiaded"
-      ) {
+      } else if (event.data === "sleakChatInitiated") {
         pushGtmEvent(event);
       } else if (event.data === "sleakSentContactDetails") {
         pushGtmEvent(event);
