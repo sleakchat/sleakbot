@@ -143,33 +143,10 @@
 
   position: absolute;
   right: 0;
-  bottom: 100px;
 }
 
 #sleak-widget-open {
   display: none;
-}
-
-#sleak-btn-openclosed {
-  width: 65px;
-  height: 65px;
-}
-
-#sleak-btn-openclosed img {
-  max-width: 100%;
-  cursor: pointer;
-}
-
-.sleakbody {
-  all: unset !important;
-}
-
-.sleakhtml {
-  all: unset !important;
-}
-
-.sleakhead {
-  all: unset !important;
 }
 
 @media screen and (max-width: 479px) {
