@@ -190,65 +190,40 @@ async function sleakScript() {
       console.log(sleakWidgetOpenState);
 
       // disable popup/chime after first page
-      if (sleakWidgetOpenState == false) {
-        var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
-        var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
 
-        if (hasPopupBeenTriggered) {
-          console.log("localStorage does exist");
+      var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
+      // var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
+      var hasPopupBeenTriggered = false; // remove line in prod
 
-          // remove this path of the condition in PROD (everything after this coment)
-          const viewportWidth = window.innerWidth;
-          console.log(viewportWidth);
+      if (!hasPopupBeenTriggered) {
+        console.log("popup localStorage does not exist");
 
-          if (viewportWidth < 479) {
-            if (chatbotConfig.popup.mobile == true) {
-              setTimeout(function () {
+        const viewportWidth = window.innerWidth;
+        console.log(viewportWidth);
+
+        if (viewportWidth < 479) {
+          if (chatbotConfig.popup.mobile == true) {
+            setTimeout(function () {
+              if (sleakWidgetOpenState == false) {
                 showPopup();
                 if (chatbotConfig.popup.chime.mobile == true) {
                   playSleakChime();
                 }
                 sessionStorage.setItem(sessionStorageKey, "true");
-              }, 6000);
-            }
-          } else {
-            if (chatbotConfig.popup.desktop == true) {
-              setTimeout(function () {
-                showPopup();
-                if (chatbotConfig.popup.chime.desktop == true) {
-                  playSleakChime();
-                }
-                sessionStorage.setItem(sessionStorageKey, "true");
-              }, 6000);
-            }
+              }
+            }, 6000);
           }
-          ////
         } else {
-          console.log("localStorage does not exist");
-
-          const viewportWidth = window.innerWidth;
-          console.log(viewportWidth);
-
-          if (viewportWidth < 479) {
-            if (chatbotConfig.popup.mobile == true) {
-              setTimeout(function () {
-                showPopup();
-                if (chatbotConfig.popup.chime.mobile == true) {
-                  playSleakChime();
-                }
-                sessionStorage.setItem(sessionStorageKey, "true");
-              }, 6000);
-            }
-          } else {
-            if (chatbotConfig.popup.desktop == true) {
-              setTimeout(function () {
+          if (chatbotConfig.popup.desktop == true) {
+            setTimeout(function () {
+              if (sleakWidgetOpenState == false) {
                 showPopup();
                 if (chatbotConfig.popup.chime.desktop == true) {
                   playSleakChime();
                 }
                 sessionStorage.setItem(sessionStorageKey, "true");
-              }, 6000);
-            }
+              }
+            }, 6000);
           }
         }
       }
