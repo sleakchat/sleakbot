@@ -31,13 +31,12 @@ async function sleakScript() {
   async function mainScript(chatbotConfig) {
     // main code
     if (chatbotConfig.publishing.published == true) {
-      var iframePopup = document.getElementById("sleak-popup-iframe");
       var iframeBtn = document.getElementById("sleak-button-iframe");
-
-      iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
       iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
+      var iframePopup = document.getElementById("sleak-popup-iframe");
+      iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
-      // Set btn bg color and show btn btn (wordt een component/iframe)
+      // Set btn bg color and show btn
       var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
       sleakButtonWrap.style.opacity = "0";
       sleakButtonWrap.style.transform = "scale(0.8)";
@@ -47,20 +46,18 @@ async function sleakScript() {
         sleakButtonWrap.style.transform = "scale(1)";
       }, 500);
 
-      // delay setting shadow to avoid flickering
-      async function setShadow() {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        iframeWidgetbody.style.boxShadow =
-          "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
-      }
-      setShadow();
-
-      //// elements visibility
+      // // delay setting shadow to avoid flickering
+      // async function setShadow() {
+      //   await new Promise((resolve) => setTimeout(resolve, 3000));
+      //   iframeWidgetbody.style.boxShadow =
+      //     "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
+      // }
+      // setShadow();
 
       const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
-      const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
       const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
       const sleakWidgetwrap = document.getElementById("sleak-widget-container");
+      // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
 
       function openSleakWidget() {
         sleakBodyEmbed.style.display = "flex";
@@ -84,7 +81,6 @@ async function sleakScript() {
           sleakBodyEmbed.style.transform = "scale(1)";
         }, 50);
       }
-
       function closeSleakWidget() {
         sleakBodyEmbed.classList.remove("open");
         iframeWidgetbody.classList.remove("open");
@@ -197,8 +193,13 @@ async function sleakScript() {
       var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
 
       if (hasPopupBeenTriggered) {
-        // console.log("localStorage does exist");
-        // remove next function in PROD
+        console.log("localStorage does exist");
+        // remove this path of the condition in PROD (everything after this coment)
+
+        // 479px
+        const viewportWidth = window.innerWidth;
+        console.log(viewportWidth);
+
         setTimeout(function () {
           if (sleakWidgetOpenState == false) {
             playSleakChime();
@@ -277,7 +278,6 @@ async function sleakScript() {
   const rawChatbotConfig = response.headers.get("Data");
   const chatbotConfig = JSON.parse(rawChatbotConfig);
   console.log(chatbotConfig);
-  console.log(chatbotConfig.publishing.published);
   mainScript(chatbotConfig);
 }
 
