@@ -164,134 +164,135 @@ async function sleakScript() {
             // console.log("overflow auto");
           }
         }
-
-        // event listener for scrolling
-        window.addEventListener("scroll", function () {
-          // console.log("scrolling");
-          if (sleakWidgetOpenState == true) {
-            const viewportHeightScroll = window.innerHeight;
-            document.getElementById("sleak-widgetwrap").style.height =
-              viewportHeightScroll + "px";
-            document.getElementById("sleak-widgetwrap").style.minHeight =
-              viewportHeightScroll + "px";
-            // console.log("Viewport Height scroll:", viewportHeightScroll);
-          }
-        });
-
-        // Chime & popup
-
-        var sleakBodyEmbed = document.getElementById("sleak-body-embed");
-        var sleakPopupOpen = document.getElementById("sleak-popup-embed");
-
-        function showPopup() {
-          sleakPopupOpen.style.display = "flex";
-          sleakPopupOpen.style.opacity = "0";
-          sleakPopupOpen.style.transform = "translateY(20px)";
-          sleakPopupOpen.style.transition =
-            "opacity 0.5s ease, transform 0.5s ease";
-          setTimeout(function () {
-            sleakPopupOpen.style.opacity = "1";
-            sleakPopupOpen.style.transform = "translateY(0)";
-          }, 50);
-        }
-
-        let sleakChime = new Audio(
-          "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3"
-        );
-        let sleakChimeOperator = new Audio(
-          "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3"
-        );
-
-        function playSleakChime() {
-          sleakChime.play();
-        }
-        function playSleakChimeOperator() {
-          sleakChimeOperator.play();
-        }
-
-        // disable popup/chime after first page
-
-        var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
-        var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-
-        if (hasPopupBeenTriggered) {
-          // console.log("localStorage does exist");
-          // remove next function in PROD
-          setTimeout(function () {
-            if (sleakWidgetOpenState == false) {
-              playSleakChime();
-              showPopup();
-              sessionStorage.setItem(sessionStorageKey, "true");
-            }
-          }, 6000);
-        } else {
-          console.log("localStorage does not exist");
-
-          setTimeout(function () {
-            if (sleakWidgetOpenState == false) {
-              playSleakChime();
-              showPopup();
-              sessionStorage.setItem(sessionStorageKey, "true");
-            }
-          }, 6000);
-        }
-
-        // child window event handling
-
-        async function pushGtmEvent() {
-          var dataLayer = window.dataLayer || (window.dataLayer = []);
-          dataLayer.push({
-            event: event.data,
-            postMessageData: event,
-          });
-          console.log("Pushed to dataLayer:", event);
-        }
-
-        window.addEventListener("message", (event) => {
-          if (
-            event.origin === "https://sleak.vercel.app" ||
-            event.origin === "https://staging.sleak.chat" ||
-            event.origin === "https://widget.sleak.chat"
-          ) {
-            console.log("Received message:", event);
-
-            if (event.data === "closePopup") {
-              closeSleakWidget();
-            } else if (event.data === "toggleChat") {
-              toggleSleakWidget();
-            } else if (event.data === "operatorMessage") {
-              playSleakChime();
-            } else if (event.data === "operatorChanged") {
-              playSleakChimeOperator();
-            } else if (event.data === "domInitialized") {
-            } else if (event.data === "sleakChatInitiated") {
-              pushGtmEvent(event);
-            } else if (event.data === "sleakSentContactDetails") {
-              pushGtmEvent(event);
-            } else if (event.data === "sleakHumanHandoffActivated") {
-              pushGtmEvent(event);
-            } else {
-              console.log("no declared event");
-            }
-          }
-        });
-
-        // //// Background overlay for mobile //// LET OP: MOET MISSCHIEN NOG BLIJVEN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
-
-        // var sleakWidgetOpened = document.getElementById("sleak-widget-close");
-        // var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
-
-        // if (window.matchMedia("(max-width: 768px)").matches) {
-        //   sleakWidgetOpened.addEventListener("click", function () {
-        //     document.body.style.overflow = "auto";
-        //   });
-        //   sleakWidgetClosed.addEventListener("click", function () {
-        //     document.body.style.overflow = "hidden";
-        //   });
-        // }
       }
+
+      // event listener for scrolling
+      window.addEventListener("scroll", function () {
+        // console.log("scrolling");
+        if (sleakWidgetOpenState == true) {
+          const viewportHeightScroll = window.innerHeight;
+          document.getElementById("sleak-widgetwrap").style.height =
+            viewportHeightScroll + "px";
+          document.getElementById("sleak-widgetwrap").style.minHeight =
+            viewportHeightScroll + "px";
+          // console.log("Viewport Height scroll:", viewportHeightScroll);
+        }
+      });
+
+      // Chime & popup
+
+      var sleakBodyEmbed = document.getElementById("sleak-body-embed");
+      var sleakPopupOpen = document.getElementById("sleak-popup-embed");
+
+      function showPopup() {
+        sleakPopupOpen.style.display = "flex";
+        sleakPopupOpen.style.opacity = "0";
+        sleakPopupOpen.style.transform = "translateY(20px)";
+        sleakPopupOpen.style.transition =
+          "opacity 0.5s ease, transform 0.5s ease";
+        setTimeout(function () {
+          sleakPopupOpen.style.opacity = "1";
+          sleakPopupOpen.style.transform = "translateY(0)";
+        }, 50);
+      }
+
+      let sleakChime = new Audio(
+        "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3"
+      );
+      let sleakChimeOperator = new Audio(
+        "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3"
+      );
+
+      function playSleakChime() {
+        sleakChime.play();
+      }
+      function playSleakChimeOperator() {
+        sleakChimeOperator.play();
+      }
+
+      // disable popup/chime after first page
+
+      var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
+      var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
+
+      if (hasPopupBeenTriggered) {
+        // console.log("localStorage does exist");
+        // remove next function in PROD
+        setTimeout(function () {
+          if (sleakWidgetOpenState == false) {
+            playSleakChime();
+            showPopup();
+            sessionStorage.setItem(sessionStorageKey, "true");
+          }
+        }, 6000);
+      } else {
+        console.log("localStorage does not exist");
+
+        setTimeout(function () {
+          if (sleakWidgetOpenState == false) {
+            playSleakChime();
+            showPopup();
+            sessionStorage.setItem(sessionStorageKey, "true");
+          }
+        }, 6000);
+      }
+
+      // child window event handling
+
+      async function pushGtmEvent() {
+        var dataLayer = window.dataLayer || (window.dataLayer = []);
+        dataLayer.push({
+          event: event.data,
+          postMessageData: event,
+        });
+        console.log("Pushed to dataLayer:", event);
+      }
+
+      window.addEventListener("message", (event) => {
+        if (
+          event.origin === "https://sleak.vercel.app" ||
+          event.origin === "https://staging.sleak.chat" ||
+          event.origin === "https://widget.sleak.chat"
+        ) {
+          console.log("Received message:", event);
+
+          if (event.data === "closePopup") {
+            closeSleakWidget();
+          } else if (event.data === "toggleChat") {
+            toggleSleakWidget();
+          } else if (event.data === "operatorMessage") {
+            playSleakChime();
+          } else if (event.data === "operatorChanged") {
+            playSleakChimeOperator();
+          } else if (event.data === "domInitialized") {
+          } else if (event.data === "sleakChatInitiated") {
+            pushGtmEvent(event);
+          } else if (event.data === "sleakSentContactDetails") {
+            pushGtmEvent(event);
+          } else if (event.data === "sleakHumanHandoffActivated") {
+            pushGtmEvent(event);
+          } else {
+            console.log("no declared event");
+          }
+        }
+      });
+
+      // //// Background overlay for mobile //// LET OP: MOET MISSCHIEN NOG BLIJVEN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
+
+      // var sleakWidgetOpened = document.getElementById("sleak-widget-close");
+      // var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
+
+      // if (window.matchMedia("(max-width: 768px)").matches) {
+      //   sleakWidgetOpened.addEventListener("click", function () {
+      //     document.body.style.overflow = "auto";
+      //   });
+      //   sleakWidgetClosed.addEventListener("click", function () {
+      //     document.body.style.overflow = "hidden";
+      //   });
+      // }
     }
   }
+
   mainScript();
 }
 
