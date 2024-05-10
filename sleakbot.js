@@ -34,7 +34,7 @@ async function sleakScript() {
       var viewportWidth2 = window.innerWidth;
 
       const sleakWrap = document.querySelector("#sleak-widgetwrap");
-      if (viewportWidth2 > 479) {
+      if (viewportWidth2 < 479) {
         sleakWrap.setAttribute(
           "style",
           "right: " +
@@ -62,7 +62,7 @@ async function sleakScript() {
       iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
       // Set btn bg color and show btn
-      sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
+      var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
       sleakButtonWrap.style.opacity = "0";
       sleakButtonWrap.style.transform = "scale(0.8)";
       sleakButtonWrap.style.transition = "all 0.1s ease";
