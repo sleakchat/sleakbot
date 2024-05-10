@@ -61,7 +61,7 @@ async function sleakScript() {
 
       function openSleakWidget() {
         sleakBodyEmbed.style.display = "flex";
-        sleakBgOverlay.style.display = "block";
+        // sleakBgOverlay.style.display = "block";
 
         sleakWidgetwrap.style.transform = "translateY(20px)";
         sleakBodyEmbed.style.transform = "translateY(800px)";
@@ -86,7 +86,7 @@ async function sleakScript() {
         iframeWidgetbody.classList.remove("open");
 
         sleakEmbeddedWidget.style.display = "none";
-        sleakBgOverlay.style.display = "none";
+        // sleakBgOverlay.style.display = "none";
         sleakEmbeddedPopup.style.display = "none";
       }
 
@@ -199,6 +199,12 @@ async function sleakScript() {
         // 479px
         const viewportWidth = window.innerWidth;
         console.log(viewportWidth);
+
+        if (viewportWidth < 479) {
+          const deviceType = "mobile";
+        } else {
+          const deviceType = "desktop";
+        }
 
         setTimeout(function () {
           if (sleakWidgetOpenState == false) {
