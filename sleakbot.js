@@ -49,11 +49,11 @@ async function sleakScript() {
 
   // rendering iframes
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-
+  var chatbotConfig;
   iframeWidgetbody.onload = function () {
     fetch(iframeWidgetbody.src).then((response) => {
       const rawChatbotConfig = response.headers.get("Data");
-      const chatbotConfig = JSON.parse(rawChatbotConfig);
+      chatbotConfig = JSON.parse(rawChatbotConfig);
       console.log(chatbotConfig);
     });
   };
