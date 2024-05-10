@@ -52,8 +52,9 @@ async function sleakScript() {
 
   iframeWidgetbody.onload = function () {
     fetch(iframeWidgetbody.src).then((response) => {
-      console.log(response.headers.get("Data"));
-      const data = response.headers.get("Data");
+      const rawData = response.headers.get("Data");
+      const data = JSON.parse(rawData);
+      console.log(data);
     });
   };
   iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
