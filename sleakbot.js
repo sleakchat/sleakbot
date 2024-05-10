@@ -1,5 +1,5 @@
 async function sleakScript() {
-  async function loadScript(url) {
+  async function loadScript() {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src =
@@ -13,7 +13,6 @@ async function sleakScript() {
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
-
   // env control
   if (scriptSrc.includes("dev")) {
     var widgetBaseUrl = "https://staging.sleak.chat";
@@ -45,7 +44,7 @@ async function sleakScript() {
   async function mainScript() {
     const response = await fetch(iframeWidgetbody.src);
     const rawChatbotConfig = response.headers.get("Data");
-    chatbotConfig = JSON.parse(rawChatbotConfig);
+    const chatbotConfig = JSON.parse(rawChatbotConfig);
     console.log(chatbotConfig);
     console.log(chatbotConfig.publishing.published);
 
@@ -295,7 +294,7 @@ async function sleakScript() {
 
     // iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
   }
-  iframeWidgetbody.onload = mainScript();
+  mainScript();
 }
 
 sleakScript();
