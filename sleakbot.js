@@ -33,18 +33,28 @@ async function sleakScript() {
     if (chatbotConfig.publishing.published == true) {
       var viewportWidth2 = window.innerWidth;
 
-      const sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
+      const sleakWrap = document.querySelector("#sleak-widgetwrap");
       if (viewportWidth2 > 479) {
-        offset_xm = chatbotConfig.btn_offset.x_mobile;
-        offset_ym = chatbotConfig.btn_offset.y_mobile;
+        sleakWrap.setAttribute(
+          "style",
+          "right: " +
+            chatbotConfig.btn_offset.x_mobile +
+            "px; bottom: " +
+            chatbotConfig.btn_offset.y_mobile +
+            "px;"
+        );
       } else {
-        offset_xm = chatbotConfig.btn_offset.x_desktop;
-        offset_ym = chatbotConfig.btn_offset.y_desktop;
+        sleakWrap.setAttribute(
+          "style",
+          "right: " +
+            chatbotConfig.btn_offset.x_desktop +
+            "px; bottom: " +
+            chatbotConfig.btn_offset.y_desktop +
+            "px;"
+        );
       }
 
       // Set button position
-
-      //sleakButtonWrap.setAttribute("style", "right: " + chatbotConfig.btn_offset.x_mobile + "px; bottom: " + chatbotConfig.btn_offset.y_mobile + "px;");
 
       var iframeBtn = document.getElementById("sleak-button-iframe");
       iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
