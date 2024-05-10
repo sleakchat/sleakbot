@@ -50,13 +50,19 @@ async function sleakScript() {
   // rendering iframes
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
 
-  iframeWidgetbody.onload = async function () {
-    const response = await fetch(iframeWidgetbody.src);
+  // Start fetching the data as soon as possible
+  let chatbotConfigPromise = fetch(iframeWidgetbody.src).then((response) => {
     const rawChatbotConfig = response.headers.get("Data");
-    chatbotConfig = JSON.parse(rawChatbotConfig);
+    return JSON.parse(rawChatbotConfig);
+  });
+
+  iframeWidgetbody.onload = async function () {
+    // Wait for the data to be available
+    let chatbotConfig = await chatbotConfigPromise;
     console.log(chatbotConfig);
     console.log(chatbotConfig.publishing.published);
 
+    // main code
     if (chatbotConfig.publishing.published == true) {
       var iframePopup = document.getElementById("sleak-popup-iframe");
       var iframeBtn = document.getElementById("sleak-button-iframe");
