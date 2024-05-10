@@ -9,7 +9,7 @@ async function injectSleakScript() {
     var sleakJs = "https://cdn.dev.sleak.chat/sleakbot.js";
   } else {
     console.log("prod path");
-    var sleakHtml = "https://cdn.sleak.chat/sleakbot.js";
+    var sleakHtml = "https://cdn.sleak.chat/sleakbot.html";
     var sleakJs = "https://cdn.sleak.chat/sleakbot.js";
   }
 
