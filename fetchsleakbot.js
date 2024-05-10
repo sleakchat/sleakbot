@@ -2,15 +2,11 @@ async function injectSleakScript() {
   // env control
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
-
   if (scriptSrc.includes("dev")) {
-    console.log("dev path");
     var baseUrl = "https://cdn.dev.sleak.chat";
   } else {
-    console.log("prod path");
     var baseUrl = "https://cdn.sleak.chat";
   }
-
   const sleakHtml = `${baseUrl}/sleakbot.html`;
   const sleakJs = `${baseUrl}/sleakbot.js`;
   const sleakCss = `${baseUrl}/sleakbot.css`;
@@ -58,7 +54,7 @@ async function injectSleakScript() {
         .catch((error) => {
           console.error("Error occurred while loading resources:", error);
         });
-    }, 200);
+    }, 10);
   };
 }
 

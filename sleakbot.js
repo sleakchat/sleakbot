@@ -25,14 +25,9 @@ async function sleakScript() {
   const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
 
   // cookie handling
-
   let visitorId;
-
   if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
-    console.log(
-      "cookie exists, value = ",
-      Cookies.get(`sleakVisitorId_${chatbotId}`)
-    );
+    // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
     visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
   } else {
     visitorId = crypto.randomUUID();
@@ -41,7 +36,6 @@ async function sleakScript() {
       sameSite: "None",
       secure: true,
     });
-
     console.log("new cookie = ", visitorId);
   }
 
@@ -59,7 +53,7 @@ async function sleakScript() {
   var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
   sleakButtonWrap.style.opacity = "0";
   sleakButtonWrap.style.transform = "scale(0.8)";
-  sleakButtonWrap.style.transition = "all 0.2s ease";
+  sleakButtonWrap.style.transition = "all 0.1s ease";
   setTimeout(function () {
     sleakButtonWrap.style.opacity = "1";
     sleakButtonWrap.style.transform = "scale(1)";
