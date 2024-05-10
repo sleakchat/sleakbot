@@ -85,10 +85,8 @@
   opacity: 0;
   height: 70px;
   width: 70px;
-
-  bottom: 20px;
-  right: 0px;
-
+  bottom: 0;
+  right: 0;sleak-buttonwrap
   position: absolute;
 }
 
