@@ -9,7 +9,6 @@ async function sleakScript() {
       document.head.appendChild(script);
     });
   }
-
   await loadScript();
 
   const sleakbotScriptTag = document.querySelector("#sleakbot");
@@ -40,7 +39,6 @@ async function sleakScript() {
   }
 
   // for hiding popup after widget open
-
   // setting cookie for the first widget open flag
   let widgetOpenFlag = crypto.randomUUID();
   Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
@@ -48,6 +46,23 @@ async function sleakScript() {
     sameSite: "None",
     secure: true,
   });
+
+  // rendering iframes
+  var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
+
+  iframeWidgetbody.onload = function () {
+    fetch(iframeWidgetbody.src).then((response) => {
+      console.log(response.headers.get("Data"));
+      const data = response.headers.get("Data");
+    });
+  };
+  iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+
+  var iframePopup = document.getElementById("sleak-popup-iframe");
+  var iframeBtn = document.getElementById("sleak-button-iframe");
+
+  iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
+  iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
 
   // Set btn bg color and show btn btn (wordt een component/iframe)
   var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
@@ -58,22 +73,6 @@ async function sleakScript() {
     sleakButtonWrap.style.opacity = "1";
     sleakButtonWrap.style.transform = "scale(1)";
   }, 500);
-
-  // rendering iframes
-  var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-  var iframePopup = document.getElementById("sleak-popup-iframe");
-  var iframeBtn = document.getElementById("sleak-button-iframe");
-
-  iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
-  iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
-
-  iframeWidgetbody.onload = function () {
-    fetch(iframeWidgetbody.src).then((response) => {
-      console.log(response.headers.get("Data"));
-      const data = response.headers.get("Data");
-    });
-  };
-  iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   // delay setting shadow to avoid flickering
   async function setShadow() {
@@ -87,10 +86,9 @@ async function sleakScript() {
   const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
   const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
   const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
+  const sleakWidgetwrap = document.getElementById("sleak-widget-container");
 
   const sleakIframe = document.querySelector("#sleak-widget-iframe");
-
-  var sleakWidgetwrap = document.getElementById("sleak-widget-container");
 
   function openSleakWidget() {
     sleakBodyEmbed.style.display = "flex";
