@@ -1,16 +1,4 @@
 async function sleakScript() {
-  // async function loadScript() {
-  //   return new Promise((resolve, reject) => {
-  //     const script = document.createElement("script");
-  //     script.src =
-  //       "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
-  //     script.onload = resolve;
-  //     script.onerror = reject;
-  //     document.head.appendChild(script);
-  //   });
-  // }
-  // await loadScript();
-
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
   // env control
@@ -19,8 +7,6 @@ async function sleakScript() {
   } else {
     var widgetBaseUrl = "https://widget.sleak.chat";
   }
-
-  const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
 
   // cookie handling
   let visitorId;
@@ -39,15 +25,10 @@ async function sleakScript() {
 
   // rendering iframes
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
+  const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
   iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
-  async function mainScript() {
-    const response = await fetch(iframeWidgetbody.src);
-    const rawChatbotConfig = response.headers.get("Data");
-    const chatbotConfig = JSON.parse(rawChatbotConfig);
-    console.log(chatbotConfig);
-    console.log(chatbotConfig.publishing.published);
-
+  async function mainScript(chatbotConfig) {
     // main code
     if (chatbotConfig.publishing.published == true) {
       var iframePopup = document.getElementById("sleak-popup-iframe");
@@ -292,8 +273,12 @@ async function sleakScript() {
       // }
     }
   }
-
-  mainScript();
+  const response = await fetch(iframeWidgetbody.src);
+  const rawChatbotConfig = response.headers.get("Data");
+  const chatbotConfig = JSON.parse(rawChatbotConfig);
+  console.log(chatbotConfig);
+  console.log(chatbotConfig.publishing.published);
+  mainScript(chatbotConfig);
 }
 
 sleakScript();
