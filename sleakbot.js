@@ -58,7 +58,7 @@ async function sleakScript() {
   // Set btn bg color and show btn btn (wordt een component/iframe)
   var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
   sleakButtonWrap.style.opacity = "0";
-  sleakButtonWrap.style.transform = "scale(0.95)";
+  sleakButtonWrap.style.transform = "scale(0.8)";
   sleakButtonWrap.style.transition = "all 0.2s ease";
   setTimeout(function () {
     sleakButtonWrap.style.opacity = "1";
