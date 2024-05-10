@@ -35,6 +35,7 @@ async function sleakScript() {
 
       const sleakWrap = document.querySelector("#sleak-widgetwrap");
       const sleakButton = document.querySelector("#sleak-buttonwrap");
+      const sleakPopup = document.querySelector("#sleak-popup-embed");
       if (viewportWidth2 < 479) {
         sleakButton.setAttribute(
           "style",
@@ -43,6 +44,10 @@ async function sleakScript() {
             "px; bottom: " +
             chatbotConfig.btn_offset.y_mobile +
             "px;"
+        );
+        sleakPopup.setAttribute(
+          "style",
+          "right: " + chatbotConfig.btn_offset.x_mobile + "px"
         );
       } else {
         sleakWrap.setAttribute(
@@ -81,7 +86,7 @@ async function sleakScript() {
       // setShadow();
 
       const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
-      const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
+      // already declared: const sleakEmbeddedPopup = document.querySelector("#sleak-popup-embed");
       const sleakWidgetwrap = document.getElementById("sleak-widget-container");
       // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
 
