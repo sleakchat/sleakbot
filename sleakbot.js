@@ -34,8 +34,9 @@ async function sleakScript() {
       var viewportWidth2 = window.innerWidth;
 
       const sleakWrap = document.querySelector("#sleak-widgetwrap");
+      const sleakButton = document.querySelector("#sleak-buttonwrap");
       if (viewportWidth2 < 479) {
-        sleakWrap.setAttribute(
+        sleakButton.setAttribute(
           "style",
           "right: " +
             chatbotConfig.btn_offset.x_mobile +
