@@ -1,6 +1,7 @@
 async function sleakScript() {
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
+  const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
   // env control
   if (scriptSrc.includes("dev")) {
     var widgetBaseUrl = "https://staging.sleak.chat";
@@ -25,7 +26,6 @@ async function sleakScript() {
 
   // rendering iframes
   var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-  const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
   iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   async function mainScript(chatbotConfig) {
