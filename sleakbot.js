@@ -187,6 +187,8 @@ async function sleakScript() {
         sleakChimeOperator.play();
       }
 
+      console.log(sleakWidgetOpenState);
+
       // disable popup/chime after first page
       if (sleakWidgetOpenState == false) {
         var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
