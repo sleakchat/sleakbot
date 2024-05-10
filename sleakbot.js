@@ -31,13 +31,26 @@ async function sleakScript() {
   async function mainScript(chatbotConfig) {
     // main code
     if (chatbotConfig.publishing.published == true) {
+      var viewportWidth2 = window.innerWidth;
+
+      const sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
+
+      sleakButtonWrap.setAttribute(
+        "style",
+        "right: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_mobile +
+          "px;"
+      );
+
       var iframeBtn = document.getElementById("sleak-button-iframe");
       iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
       var iframePopup = document.getElementById("sleak-popup-iframe");
       iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
       // Set btn bg color and show btn
-      var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
+      // already declared: var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
       sleakButtonWrap.style.opacity = "0";
       sleakButtonWrap.style.transform = "scale(0.8)";
       sleakButtonWrap.style.transition = "all 0.1s ease";
@@ -189,8 +202,7 @@ async function sleakScript() {
 
       console.log(sleakWidgetOpenState);
 
-      // disable popup/chime after first page
-
+      // disable popup/chime after first page load
       var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
       // var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
       var hasPopupBeenTriggered = false; // remove line in prod
