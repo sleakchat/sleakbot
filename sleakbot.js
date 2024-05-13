@@ -35,7 +35,7 @@ async function sleakScript() {
 
       const sleakWrap = document.querySelector("#sleak-widgetwrap");
       const sleakButton = document.querySelector("#sleak-buttonwrap");
-      const sleakPopup = document.querySelector("#sleak-popup-embed");
+      var sleakPopup = document.querySelector("#sleak-popup-embed");
       if (viewportWidth2 < 479) {
         var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 85;
         sleakButton.setAttribute(
