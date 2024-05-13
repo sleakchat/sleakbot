@@ -35,7 +35,7 @@ async function sleakScript() {
 
       const sleakWrap = document.querySelector("#sleak-widgetwrap");
       const sleakButtonPopup = document.querySelector("#elements-wrap");
-      const sleakPopup = document.querySelector("#sleak-popup-embed");
+      // const sleakPopup = document.querySelector("#sleak-popup-embed");
       if (viewportWidth2 < 479) {
         sleakButtonPopup.setAttribute(
           "style",
@@ -44,10 +44,6 @@ async function sleakScript() {
             "px; bottom: " +
             chatbotConfig.btn_offset.y_mobile +
             "px;"
-        );
-        sleakPopup.setAttribute(
-          "style",
-          "right: " + chatbotConfig.btn_offset.x_mobile + "px"
         );
       } else {
         sleakWrap.setAttribute(
