@@ -16,6 +16,7 @@ async function sleakScript() {
       "Content-Type": "application/json",
     },
   });
+  console.log("chatbotConfig =:", chatbotConfig);
   //  .then((response) => {
   //    return response.json();
   //  })
