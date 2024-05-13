@@ -9,23 +9,14 @@ async function sleakScript() {
     var widgetBaseUrl = "https://widget.sleak.chat";
   }
 
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}`;
-  const chatbotConfig = await fetch(chatbotConfigEndpoint, {
+  const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
+  const chatbotConfig = await chatbotConfigResponse.json();
   console.log("chatbotConfig =:", chatbotConfig);
-  //  .then((response) => {
-  //    return response.json();
-  //  })
-  //  .then((data) => {
-  //    console.log(data);
-  //  })
-  //  .catch((error) => {
-  //    console.error("Error:", error);
-  //  });
 
   // cookie handling
   let visitorId;
