@@ -34,15 +34,24 @@ async function sleakScript() {
       var viewportWidth2 = window.innerWidth;
 
       const sleakWrap = document.querySelector("#sleak-widgetwrap");
-      const sleakButtonPopup = document.querySelector("#elements-wrap");
-      // const sleakPopup = document.querySelector("#sleak-popup-embed");
+      const sleakButton = document.querySelector("#sleak-buttonwrap");
+      const sleakPopup = document.querySelector("#sleak-popup-embed");
       if (viewportWidth2 < 479) {
-        sleakButtonPopup.setAttribute(
+        var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 85;
+        sleakButton.setAttribute(
           "style",
           "right: " +
             chatbotConfig.btn_offset.x_mobile +
             "px; bottom: " +
             chatbotConfig.btn_offset.y_mobile +
+            "px;"
+        );
+        sleakPopup.setAttribute(
+          "style",
+          "right: " +
+            chatbotConfig.btn_offset.x_mobile +
+            "px; bottom: " +
+            mobilePopupHeight +
             "px;"
         );
       } else {
