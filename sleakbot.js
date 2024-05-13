@@ -10,21 +10,21 @@ async function sleakScript() {
   }
 
   const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}`;
-  fetch(chatbotConfigEndpoint, {
+  const chatbotConfig = await fetch(chatbotConfigEndpoint, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  });
+  //  .then((response) => {
+  //    return response.json();
+  //  })
+  //  .then((data) => {
+  //    console.log(data);
+  //  })
+  //  .catch((error) => {
+  //    console.error("Error:", error);
+  //  });
 
   // cookie handling
   let visitorId;
@@ -42,8 +42,8 @@ async function sleakScript() {
   }
 
   // rendering iframes
-  var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-  iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+  // var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
+  // iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
 
   async function mainScript(chatbotConfig) {
     // main code
@@ -86,6 +86,8 @@ async function sleakScript() {
 
       var iframeBtn = document.getElementById("sleak-button-iframe");
       iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
+      var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
+      iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
       var iframePopup = document.getElementById("sleak-popup-iframe");
       iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
@@ -334,10 +336,10 @@ async function sleakScript() {
       // }
     }
   }
-  const response = await fetch(iframeWidgetbody.src);
-  const rawChatbotConfig = response.headers.get("Data");
-  const chatbotConfig = JSON.parse(rawChatbotConfig);
-  console.log(chatbotConfig);
+  // const response = await fetch(iframeWidgetbody.src);
+  // const rawChatbotConfig = response.headers.get("Data");
+  // const chatbotConfig = JSON.parse(rawChatbotConfig);
+  // console.log(chatbotConfig);
   mainScript(chatbotConfig);
 }
 
