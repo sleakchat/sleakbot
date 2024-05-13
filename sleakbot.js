@@ -16,8 +16,6 @@ async function sleakScript() {
       "Content-Type": "application/json",
     },
   });
-  const chatbotConfig = await chatbotConfigResponse.json();
-  console.log("chatbotConfig =:", chatbotConfig);
 
   // cookie handling
   let visitorId;
@@ -34,9 +32,9 @@ async function sleakScript() {
     console.log("new cookie = ", visitorId);
   }
 
-  // rendering iframes
-  // var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-  // iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+  // aawait chatbotConfig
+  const chatbotConfig = await chatbotConfigResponse.json();
+  console.log("chatbotConfig =:", chatbotConfig);
 
   // async function mainScript(chatbotConfig) {
   // main code
@@ -75,8 +73,7 @@ async function sleakScript() {
       );
     }
 
-    // Set button position
-
+    // render iframes
     var iframeBtn = document.getElementById("sleak-button-iframe");
     iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
     var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
@@ -84,7 +81,7 @@ async function sleakScript() {
     var iframePopup = document.getElementById("sleak-popup-iframe");
     iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
-    // Set btn bg color and show btn
+    // btn visibility
     var sleakButtonWrap = document.querySelector("#sleak-buttonwrap");
     sleakButtonWrap.style.opacity = "0";
     sleakButtonWrap.style.transform = "scale(0.8)";
@@ -333,7 +330,7 @@ async function sleakScript() {
 // const rawChatbotConfig = response.headers.get("Data");
 // const chatbotConfig = JSON.parse(rawChatbotConfig);
 // console.log(chatbotConfig);
-//  mainScript(chatbotConfig);
+// mainScript(chatbotConfig);
 //}
 
 sleakScript();
