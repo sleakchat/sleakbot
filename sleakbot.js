@@ -12,9 +12,6 @@ async function sleakScript() {
   const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}`;
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: "get",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 
   // cookie handling
