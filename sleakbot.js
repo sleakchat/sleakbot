@@ -16,7 +16,6 @@ async function sleakScript() {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(ob),
   });
 
   // cookie handling
