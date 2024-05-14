@@ -11,11 +11,12 @@ async function sleakScript() {
 
   const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}`;
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
-    method: "GET",
     mode: "no-cors",
+    method: "get",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(ob),
   });
 
   // cookie handling
