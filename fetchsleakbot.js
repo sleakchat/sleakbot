@@ -1,28 +1,35 @@
 async function injectSleakScript() {
+  async function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+  loadScript();
+
   // env control
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
-
   if (scriptSrc.includes("dev")) {
-    console.log("dev path");
     var baseUrl = "https://cdn.dev.sleak.chat";
   } else {
-    console.log("prod path");
     var baseUrl = "https://cdn.sleak.chat";
   }
-
   const sleakHtml = `${baseUrl}/sleakbot.html`;
   const sleakJs = `${baseUrl}/sleakbot.js`;
   const sleakCss = `${baseUrl}/sleakbot.css`;
 
-  function appendStylesheet(url) {
+  async function appendStylesheet(url) {
     var link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
     link.href = url;
     document.head.appendChild(link);
   }
-
   appendStylesheet(sleakCss);
 
   // append div to body
@@ -58,7 +65,7 @@ async function injectSleakScript() {
         .catch((error) => {
           console.error("Error occurred while loading resources:", error);
         });
-    }, 200);
+    }, 10);
   };
 }
 

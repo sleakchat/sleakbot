@@ -35,57 +35,6 @@
   align-self: center !important;
 }
 
-#sleak-widget-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 36px;
-  width: 36px;
-  border-radius: 99px;
-  right: 39px;
-  top: 38px;
-  z-index: 999;
-  color: rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  /* transition: display 1s ease-in-out; */
-  border-radius: 6px;
-  pointer-events: auto !important;
-}
-
-#sleak-widget-close:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-#sleak-widget-close img {
-  opacity: 0.8;
-  width: 12px;
-  height: 12px;
-  align-self: center;
-}
-
-#sleak-popup-close {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 18px;
-  width: 18px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 99px;
-  top: 70px;
-  left: 0;
-  z-index: 99999999999;
-  color: #fff;
-  font-size: 12px;
-  cursor: pointer;
-  /* transition: display 1s ease-in-out; */
-}
-
-#sleak-popup-embed:hover #sleak-popup-close {
-  display: flex !important;
-}
-
 #sleak-popup-embed {
   position: absolute;
   z-index: 9999999999;
@@ -94,8 +43,8 @@
   width: auto;
   background-color: rgba(255, 255, 255, 0);
   display: none;
-  bottom: 100px;
-  right: 25px;
+  bottom: 82px;
+  right: 0;
   width: 230px;
   height: 110px;
   align-items: flex-end;
@@ -120,7 +69,7 @@
   top: auto;
   bottom: 0%;
   left: auto;
-  right: 0%;
+  right: 0;
   z-index: 99999999;
   width: 440px;
   height: auto;
@@ -134,11 +83,10 @@
   pointer-events: auto;
   z-index: 9999999999999999;
   opacity: 0;
-  /**/
-  height: 70px;
-  width: 70px;
-  bottom: 20px;
-  right: 25px;
+  height: 80px;
+  width: 80px;
+  bottom: 0;
+  right: 0;
   position: absolute;
 }
 
@@ -166,32 +114,6 @@
   border-color: #fff;
 }
 
-#sleak-btn-container {
-  z-index: 99999999999999;
-  width: auto;
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-  margin-right: 30px;
-  display: flex;
-  position: static;
-  top: auto;
-  bottom: 30px;
-  left: auto;
-  right: 30px;
-
-  -webkit-mask-image: url("https://uploads-ssl.webflow.com/64558916e4efcf5c5355b1d1/6458d058560e97be74ebb657_Sleak%20logo%20-%20beeldmerk%20open.svg");
-  mask-image: url("https://uploads-ssl.webflow.com/64558916e4efcf5c5355b1d1/6458d058560e97be74ebb657_Sleak%20logo%20-%20beeldmerk%20open.svg");
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  background-color: #7e79f0; /* fallback color */
-}
-
 #sleak-widgetwrap {
   pointer-events: none;
   z-index: 999999999;
@@ -204,7 +126,7 @@
   top: auto;
   bottom: 0%;
   left: auto;
-  right: 0%;
+  right: 0;
 }
 
 #sleak-bgoverlay {
@@ -218,36 +140,14 @@
 #sleak-body-embed {
   height: 700px;
   pointer-events: auto;
+  bottom: 82px;
 
   position: absolute;
-  right: 20px;
-  bottom: 100px;
+  right: 0;
 }
 
 #sleak-widget-open {
   display: none;
-}
-
-#sleak-btn-openclosed {
-  width: 65px;
-  height: 65px;
-}
-
-#sleak-btn-openclosed img {
-  max-width: 100%;
-  cursor: pointer;
-}
-
-.sleakbody {
-  all: unset !important;
-}
-
-.sleakhtml {
-  all: unset !important;
-}
-
-.sleakhead {
-  all: unset !important;
 }
 
 @media screen and (max-width: 479px) {
@@ -256,18 +156,6 @@
     width: 100%;
     margin: 0 0 0 0;
     pointer-events: auto;
-  }
-
-  #sleak-widget-close {
-    height: 36px;
-    width: 36px;
-    right: 18px;
-    top: 18px;
-    pointer-events: auto;
-  }
-
-  #sleak-widget-close:active {
-    background-color: rgba(0, 0, 0, 0.05);
   }
 
   #sleak-widgetwrap {
@@ -279,10 +167,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    /*padding-bottom: 0;
-    padding-right: 0;*/
     display: flex;
-    position: fixed;
     max-height: unset;
     box-shadow: unset;
     /* transition: all 0.05s ease-in-out; */
@@ -315,7 +200,7 @@
     top: auto;
     bottom: 0%;
     left: 0%;
-    right: 0%;
+    right: 0;
     overflow: hidden;
   }
 
@@ -335,20 +220,6 @@
   #sleak-buttonwrap {
     z-index: 0;
   }
-  /*
-.sleak-embed {
-    width: 100vw;
-    height: 100%;
-    height: -webkit-fill-available;
-    top: 0;
-    top: 0px;
-
-    min-width: 300px;
-    object-fit: fill;
-    overflow: visible;
-    z-index: 9999999999999;
-}
-*/
 
   .sleak-embed:focus {
     margin-bottom: 0;
@@ -356,10 +227,5 @@
 
   #sleak-popup-embed {
     max-height: 175px !important;
-  }
-
-  #sleak-popup-close {
-    display: flex !important;
-    opacity: 1 !important;
   }
 }
