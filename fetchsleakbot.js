@@ -1,4 +1,8 @@
 async function injectSleakScript() {
+  if (window.sleakScriptInjected) {
+    return;
+  }
+  window.sleakScriptInjected = true;
   async function loadScript() {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
