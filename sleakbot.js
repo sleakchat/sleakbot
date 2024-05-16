@@ -88,13 +88,12 @@ async function sleakScript() {
       sleakButtonWrap.style.transform = "scale(1)";
     }, 500);
 
-    // // delay setting shadow to avoid flickering
-    // async function setShadow() {
-    //   await new Promise((resolve) => setTimeout(resolve, 3000));
-    //   iframeWidgetbody.style.boxShadow =
-    //     "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
-    // }
-    // setShadow();
+    // delay setting shadow to avoid flickering
+    async function setShadow() {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      iframeWidgetbody.style.boxShadow = "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
+    }
+    setShadow();
 
     const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
     const sleakWidgetwrap = document.getElementById("sleak-widget-container");
