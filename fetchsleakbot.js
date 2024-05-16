@@ -2,7 +2,7 @@ async function injectSleakScript() {
   if (window.sleakScriptInjected) {
     return;
   }
-  window.sleakScriptInjected = true;
+
   async function loadScript() {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -60,16 +60,20 @@ async function injectSleakScript() {
   }
 
   window.onload = function () {
-    setTimeout(function () {
-      fetchAndAppendHtml()
-        .then(() => {
-          appendSleakJsToBody();
-          console.log("Sleak initialized");
-        })
-        .catch((error) => {
-          console.error("Error occurred while loading resources:", error);
-        });
-    }, 10);
+    if (!window.sleakScriptInjected) {
+      console.log(sleakScriptInjected);
+      window.sleakScriptInjected = true;
+      setTimeout(function () {
+        fetchAndAppendHtml()
+          .then(() => {
+            appendSleakJsToBody();
+            console.log("Sleak initialized");
+          })
+          .catch((error) => {
+            console.error("Error occurred while loading resources:", error);
+          });
+      }, 10);
+    }
   };
 }
 
