@@ -61,7 +61,7 @@ async function injectSleakScript() {
 
   window.onload = function () {
     if (!window.sleakScriptInjected) {
-      console.log(window.sleakScriptInjected);
+      console.log("sleakScript flag = ", window.sleakScriptInjected);
       window.sleakScriptInjected = true;
       setTimeout(function () {
         fetchAndAppendHtml()
