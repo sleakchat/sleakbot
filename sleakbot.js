@@ -26,12 +26,12 @@ async function sleakScript() {
       sameSite: "None",
       secure: true,
     });
-    console.log("new cookie = ", visitorId);
+    // console.log("new cookie = ", visitorId);
   }
 
   // aawait chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
-  console.log("chatbotConfig =:", chatbotConfig);
+  // console.log("chatbotConfig =:", chatbotConfig);
 
   // async function mainScript(chatbotConfig) {
   // main code
@@ -228,7 +228,7 @@ async function sleakScript() {
       sleakChimeOperator.play();
     }
 
-    console.log(sleakWidgetOpenState);
+    // console.log(sleakWidgetOpenState);
 
     // disable popup/chime after first page load
     var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
@@ -276,7 +276,7 @@ async function sleakScript() {
         event: event.data,
         postMessageData: event,
       });
-      console.log("Pushed to dataLayer:", event);
+      // console.log("Pushed to dataLayer:", event);
     }
 
     window.addEventListener("message", (event) => {
@@ -285,7 +285,7 @@ async function sleakScript() {
         event.origin === "https://staging.sleak.chat" ||
         event.origin === "https://widget.sleak.chat"
       ) {
-        console.log("Received message:", event);
+        // console.log("Received message:", event);
 
         if (event.data === "closePopup") {
           closeSleakWidget();
