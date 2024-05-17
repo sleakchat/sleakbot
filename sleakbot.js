@@ -135,7 +135,7 @@ async function sleakScript() {
     let sleakWidgetOpenState = false;
     let firstButtonClick = true;
 
-    function toggleSleakWidget() {
+    window.toggleSleakWidget = function () {
       // check if widget is open
       if (sleakWidgetOpenState == false) {
         sleakWidgetOpenState = true;
@@ -181,7 +181,7 @@ async function sleakScript() {
           // console.log("overflow auto");
         }
       }
-    }
+    };
 
     // event listener for scrolling
     window.addEventListener("scroll", function () {
