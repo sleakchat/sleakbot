@@ -1,3 +1,9 @@
+function notify() {
+  new Notification("Viewport dimensions", {
+    body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
+  });
+}
+
 console.log(Notification.permission);
 
 if (!("Notification" in window)) {
@@ -12,18 +18,6 @@ if (!("Notification" in window)) {
     if (permission === "granted") {
       notify();
     }
-  });
-}
-
-function notify() {
-  new Notification("Viewport dimensions", {
-    body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
-  });
-}
-
-function notify() {
-  new Notification("Viewport dimensions", {
-    body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
   });
 }
 
