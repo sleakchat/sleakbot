@@ -1,3 +1,24 @@
+if (!("Notification" in window)) {
+  console.log("This browser does not support desktop notification");
+} else if (Notification.permission === "granted") {
+  notify();
+} else if (
+  Notification.permission !== "denied" ||
+  Notification.permission === "default"
+) {
+  Notification.requestPermission(function (permission) {
+    if (permission === "granted") {
+      notify();
+    }
+  });
+}
+
+function notify() {
+  var notification = new Notification("Viewport dimensions", {
+    body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
+  });
+}
+
 async function sleakScript() {
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
