@@ -14,7 +14,7 @@ if (!("Notification" in window)) {
 }
 
 function notify() {
-  var notification = new Notification("Viewport dimensions", {
+  new Notification("Viewport dimensions", {
     body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
   });
 }
