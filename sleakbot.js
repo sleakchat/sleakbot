@@ -1,3 +1,5 @@
+console.log(Notification.permission);
+
 if (!("Notification" in window)) {
   console.log("This browser does not support desktop notification");
 } else if (Notification.permission === "granted") {
@@ -10,6 +12,12 @@ if (!("Notification" in window)) {
     if (permission === "granted") {
       notify();
     }
+  });
+}
+
+function notify() {
+  new Notification("Viewport dimensions", {
+    body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
   });
 }
 
