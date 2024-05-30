@@ -135,9 +135,9 @@ async function sleakScript() {
     async function changeButtonState(state) {
       var iframeBtnWindow = document.getElementById("sleak-button-iframe");
       if (state == true) {
-        iframeBtnWindow.contentWindow.postMessage("openWidgetBody", "*");
+        iframeBtnWindow.contentWindow.postMessage("openButton", "*");
       } else if (state == false) {
-        iframeBtnWindow.contentWindow.postMessage("closeWidgetBody", "*");
+        iframeBtnWindow.contentWindow.postMessage("closeButton", "*");
       }
       console.log("Posted message to button window", state);
     }
