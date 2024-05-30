@@ -133,7 +133,7 @@ async function sleakScript() {
     // Handle widget opening
 
     async function changeButtonState(state) {
-      var iframeBtnWindow = windowdocument.getElementById(
+      var iframeBtnWindow = window.document.getElementById(
         "sleak-button-iframe"
       );
 
