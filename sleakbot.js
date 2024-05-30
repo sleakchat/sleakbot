@@ -142,7 +142,6 @@ async function sleakScript() {
       } else if (state == false) {
         iframeBtnWindow.postMessage("closeButton", "*");
       }
-      console.log("Posted message to button window", state);
     }
 
     let sleakWidgetOpenState = false;
@@ -305,9 +304,6 @@ async function sleakScript() {
         if (event.data === "closePopup") {
           closeSleakWidget();
         } else if (event.data === "toggleChat") {
-          toggleSleakWidget();
-        } else if (event.data === "closeWidgetBody") {
-          postMessageToBtnWindow();
           toggleSleakWidget();
         } else if (event.data === "operatorMessage") {
           playSleakChime();
