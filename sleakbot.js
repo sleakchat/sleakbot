@@ -1,26 +1,3 @@
-function notify() {
-  new Notification("Viewport dimensions", {
-    body: "Width: " + window.innerWidth + ", Height: " + window.innerHeight,
-  });
-}
-
-console.log(Notification.permission);
-
-if (!("Notification" in window)) {
-  console.log("This browser does not support desktop notification");
-} else if (Notification.permission === "granted") {
-  notify();
-} else if (
-  Notification.permission !== "denied" ||
-  Notification.permission === "default"
-) {
-  Notification.requestPermission(function (permission) {
-    if (permission === "granted") {
-      notify();
-    }
-  });
-}
-
 async function sleakScript() {
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
@@ -301,6 +278,12 @@ async function sleakScript() {
       // console.log("Pushed to dataLayer:", event);
     }
 
+    async function postMessageToBtnWindow() {
+      var iframeBtnWindow = document.getElementById("sleak-button-iframe");
+      iframeBtnWindow.contentWindow.postMessage("closeWidgetBody", "*");
+      console.log("Posted message to button window");
+    }
+
     window.addEventListener("message", (event) => {
       if (
         event.origin === "https://sleak.vercel.app" ||
@@ -312,6 +295,9 @@ async function sleakScript() {
         if (event.data === "closePopup") {
           closeSleakWidget();
         } else if (event.data === "toggleChat") {
+          toggleSleakWidget();
+        } else if (event.data === "closeWidgetBody") {
+          postMessageToBtnWindow();
           toggleSleakWidget();
         } else if (event.data === "operatorMessage") {
           playSleakChime();
