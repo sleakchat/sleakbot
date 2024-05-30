@@ -132,6 +132,16 @@ async function sleakScript() {
 
     // Handle widget opening
 
+    async function changeButtonState(state) {
+      var iframeBtnWindow = document.getElementById("sleak-button-iframe");
+      if (state == true) {
+        iframeBtnWindow.contentWindow.postMessage("openWidgetBody", "*");
+      } else if (state == false) {
+        iframeBtnWindow.contentWindow.postMessage("closeWidgetBody", "*");
+      }
+      console.log("Posted message to button window", state);
+    }
+
     let sleakWidgetOpenState = false;
     let firstButtonClick = true;
 
@@ -140,6 +150,8 @@ async function sleakScript() {
       if (sleakWidgetOpenState == false) {
         sleakWidgetOpenState = true;
         // console.log(sleakWidgetOpenState);
+
+        changeButtonState(true);
 
         openSleakWidget();
         if (window.matchMedia("(max-width: 768px)").matches) {
@@ -173,6 +185,7 @@ async function sleakScript() {
         }
       } else if (sleakWidgetOpenState == true) {
         sleakWidgetOpenState = false;
+        changeButtonState(false);
         // console.log(sleakWidgetOpenState);
         closeSleakWidget();
 
@@ -276,12 +289,6 @@ async function sleakScript() {
         postMessageData: event,
       });
       // console.log("Pushed to dataLayer:", event);
-    }
-
-    async function postMessageToBtnWindow() {
-      var iframeBtnWindow = document.getElementById("sleak-button-iframe");
-      iframeBtnWindow.contentWindow.postMessage("closeWidgetBody", "*");
-      console.log("Posted message to button window");
     }
 
     window.addEventListener("message", (event) => {
