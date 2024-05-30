@@ -133,12 +133,14 @@ async function sleakScript() {
     // Handle widget opening
 
     async function changeButtonState(state) {
-      var iframeBtnWindow = document.getElementById("sleak-button-iframe");
+      var iframeBtnWindow = document.getElementById(
+        "sleak-button-iframe"
+      ).contentWindow;
 
       if (state == true) {
-        iframeBtnWindow.contentWindow.postMessage("openButton", "*");
+        iframeBtnWindow.postMessage("openButton", "*");
       } else if (state == false) {
-        iframeBtnWindow.contentWindow.postMessage("closeButton", "*");
+        iframeBtnWindow.postMessage("closeButton", "*");
       }
       console.log("Posted message to button window", state);
     }
