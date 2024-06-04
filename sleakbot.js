@@ -132,6 +132,18 @@ async function sleakScript() {
 
     // Handle widget opening
 
+    async function changeButtonState(state) {
+      var iframeBtnWindow = document.getElementById(
+        "sleak-button-iframe"
+      ).contentWindow;
+
+      if (state == true) {
+        iframeBtnWindow.postMessage("openButton", "*");
+      } else if (state == false) {
+        iframeBtnWindow.postMessage("closeButton", "*");
+      }
+    }
+
     let sleakWidgetOpenState = false;
     let firstButtonClick = true;
 
@@ -140,6 +152,8 @@ async function sleakScript() {
       if (sleakWidgetOpenState == false) {
         sleakWidgetOpenState = true;
         // console.log(sleakWidgetOpenState);
+
+        changeButtonState(true);
 
         openSleakWidget();
         if (window.matchMedia("(max-width: 768px)").matches) {
@@ -173,6 +187,7 @@ async function sleakScript() {
         }
       } else if (sleakWidgetOpenState == true) {
         sleakWidgetOpenState = false;
+        changeButtonState(false);
         // console.log(sleakWidgetOpenState);
         closeSleakWidget();
 
