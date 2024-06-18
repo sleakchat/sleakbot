@@ -33,7 +33,7 @@ async function injectSleakScript() {
 
   const sleakHtml = `${baseUrl}/${fileName}.html`;
   const sleakJs = `${baseUrl}/${fileName}.js`;
-  const sleakCss = `${baseUrl}/sleakbot.css`;
+  const sleakCss = `${baseUrl}/${fileName}.css`;
 
   if (placement !== "fullwidth") {
     async function appendStylesheet(url) {
