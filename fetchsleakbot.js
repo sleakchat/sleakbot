@@ -49,14 +49,14 @@ async function injectSleakScript() {
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
     const sleakFullwidthWidget = document.createElement("div");
-    sleak_div.innerHTML = sleak_html;
+    sleakFullwidthWidget.innerHTML = sleak_html;
     if (placement === "fullwidth") {
       sleakbotScriptTag.parentNode.insertBefore(
         sleakFullwidthWidget,
         sleakbotScriptTag.nextSibling
       );
     } else {
-      document.body.appendChild(sleak_div);
+      document.body.appendChild(sleakFullwidthWidget);
     }
   }
 
