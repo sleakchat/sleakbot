@@ -2,3 +2,9 @@
   height: 100%;
   width: 100%;
 }
+
+#sleak-widget-iframe {
+  z-index: 1 !important;
+  border-radius: 20px;
+  transition: box-shadow 3s ease-in-out;
+}
