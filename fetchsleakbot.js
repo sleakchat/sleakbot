@@ -17,6 +17,7 @@ async function injectSleakScript() {
 
   // env control
   const sleakbotScriptTag = document.querySelector("#sleakbot");
+
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
   if (scriptSrc.includes("dev")) {
     var baseUrl = "https://cdn.dev.sleak.chat";
@@ -32,26 +33,32 @@ async function injectSleakScript() {
 
   const sleakHtml = `${baseUrl}/${fileName}.html`;
   const sleakJs = `${baseUrl}/${fileName}.js`;
-  const sleakCss = `${baseUrl}/sleakbot.css`;
+  const sleakCss = `${baseUrl}/${fileName}.css`;
 
-  if (placement !== "fullwidth") {
-    async function appendStylesheet(url) {
-      var link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css";
-      link.href = url;
-      document.head.appendChild(link);
-    }
-    appendStylesheet(sleakCss);
+  async function appendStylesheet(url) {
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = url;
+    document.head.appendChild(link);
   }
+  appendStylesheet(sleakCss);
 
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
-    const sleak_div = document.createElement("div");
-    sleak_div.innerHTML = sleak_html;
-    document.body.appendChild(sleak_div);
+    const sleakHtml = document.createElement("div");
+    sleakHtml.innerHTML = sleak_html;
+    if (placement === "fullwidth") {
+      sleakHtml.style.width = "100%";
+      sleakHtml.style.height = "100%";
+      sleakbotScriptTag.parentNode.insertBefore(
+        sleakHtml,
+        sleakbotScriptTag.nextSibling
+      );
+    } else {
+      document.body.appendChild(sleakHtml);
+    }
   }
-
   // append js to body
   function appendSleakJsToBody() {
     const sleak_script = document.createElement("script");
