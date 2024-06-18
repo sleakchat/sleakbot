@@ -33,7 +33,6 @@ async function sleakScript() {
   const chatbotConfig = await chatbotConfigResponse.json();
   // console.log("chatbotConfig =:", chatbotConfig);
 
-  // async function mainScript(chatbotConfig) {
   // main code
   if (chatbotConfig.publishing.published == true) {
     var viewportWidth2 = window.innerWidth;
@@ -90,10 +89,9 @@ async function sleakScript() {
 
     // delay setting shadow to avoid flickering
     async function setShadow() {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 50));
       iframeWidgetbody.style.boxShadow = "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
     }
-    setShadow();
 
     const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
     const sleakWidgetwrap = document.getElementById("sleak-widget-container");
@@ -310,6 +308,7 @@ async function sleakScript() {
         } else if (event.data === "operatorChanged") {
           playSleakChimeOperator();
         } else if (event.data === "domInitialized") {
+          setShadow();
         } else if (event.data === "sleakChatInitiated") {
           pushGtmEvent(event);
         } else if (event.data === "sleakSentContactDetails") {
