@@ -337,11 +337,5 @@ async function sleakScript() {
     // }
   }
 }
-// const response = await fetch(iframeWidgetbody.src);
-// const rawChatbotConfig = response.headers.get("Data");
-// const chatbotConfig = JSON.parse(rawChatbotConfig);
-// console.log(chatbotConfig);
-// mainScript(chatbotConfig);
-//}
 
 sleakScript();

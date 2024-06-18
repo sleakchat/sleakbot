@@ -23,18 +23,27 @@ async function injectSleakScript() {
   } else {
     var baseUrl = "https://cdn.sleak.chat";
   }
-  const sleakHtml = `${baseUrl}/sleakbot.html`;
-  const sleakJs = `${baseUrl}/sleakbot.js`;
+  const placement = sleakbotScriptTag.getAttribute("placement");
+  if (placement == "fullwidth") {
+    var fileName = "sleakbot-fw";
+  } else {
+    var fileName = "sleakbot";
+  }
+
+  const sleakHtml = `${baseUrl}/${fileName}.html`;
+  const sleakJs = `${baseUrl}/${fileName}.js`;
   const sleakCss = `${baseUrl}/sleakbot.css`;
 
-  async function appendStylesheet(url) {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.type = "text/css";
-    link.href = url;
-    document.head.appendChild(link);
+  if (placement !== "fullwidth") {
+    async function appendStylesheet(url) {
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = url;
+      document.head.appendChild(link);
+    }
+    appendStylesheet(sleakCss);
   }
-  appendStylesheet(sleakCss);
 
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
