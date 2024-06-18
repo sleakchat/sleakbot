@@ -45,21 +45,21 @@ async function injectSleakScript() {
     }
     appendStylesheet(sleakCss);
   }
-
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
-    const sleakFullwidthWidget = document.createElement("div");
-    sleakFullwidthWidget.innerHTML = sleak_html;
+    const sleakHtml = document.createElement("div");
+    sleakHtml.innerHTML = sleak_html;
     if (placement === "fullwidth") {
+      sleakHtml.style.width = "100%";
+      sleakHtml.style.height = "100%";
       sleakbotScriptTag.parentNode.insertBefore(
-        sleakFullwidthWidget,
+        sleakHtml,
         sleakbotScriptTag.nextSibling
       );
     } else {
-      document.body.appendChild(sleakFullwidthWidget);
+      document.body.appendChild(sleakHtml);
     }
   }
-
   // append js to body
   function appendSleakJsToBody() {
     const sleak_script = document.createElement("script");
