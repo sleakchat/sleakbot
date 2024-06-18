@@ -17,6 +17,7 @@ async function injectSleakScript() {
 
   // env control
   const sleakbotScriptTag = document.querySelector("#sleakbot");
+
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
   if (scriptSrc.includes("dev")) {
     var baseUrl = "https://cdn.dev.sleak.chat";
@@ -47,9 +48,16 @@ async function injectSleakScript() {
 
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
-    const sleak_div = document.createElement("div");
+    const sleakFullwidthWidget = document.createElement("div");
     sleak_div.innerHTML = sleak_html;
-    document.body.appendChild(sleak_div);
+    if (placement === "fullwidth") {
+      sleakbotScriptTag.parentNode.insertBefore(
+        sleakFullwidthWidget,
+        sleakbotScriptTag.nextSibling
+      );
+    } else {
+      document.body.appendChild(sleak_div);
+    }
   }
 
   // append js to body
