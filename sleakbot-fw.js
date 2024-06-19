@@ -34,7 +34,8 @@ async function sleakScript() {
   // main code
   if (chatbotConfig.publishing.published == true) {
     var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-    iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+    iframeWidgetbody.src =
+      widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
 
     // delay setting shadow to avoid flickering
     async function setShadow() {
