@@ -42,66 +42,64 @@ async function sleakScript() {
     });
   }
 
-  function handleCookies(Cookies) {
-    console.log("handleCookies called.");
+  async function loadScript() {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+    script.onload = () => {
+      console.log("js-cookie script loaded successfully.");
+      resolve();
+    };
+    script.onerror = () => {
+      console.error("Failed to load js-cookie script.");
+      reject();
+    };
+    document.head.appendChild(script);
+  });
+}
 
-    // Ensure visitorId is defined within this function scope
-    let visitorId;
-    const cookieName = `sleakVisitorId_${chatbotId}`;
+function handleCookies(Cookies) {
+  console.log("handleCookies called.");
 
-    if (Cookies.get(cookieName)) {
-      visitorId = Cookies.get(cookieName);
-      console.log(`Cookie exists, value = ${visitorId}`);
-    } else {
-      visitorId = crypto.randomUUID();
-      Cookies.set(cookieName, visitorId, {
-        expires: 365,
-        sameSite: "None",
-        secure: true,
-      });
-      console.log(`New cookie set, value = ${visitorId}`);
-    }
+  // Ensure visitorId is defined within this function scope
+  let visitorId;
+  const cookieName = `sleakVisitorId_${chatbotId}`;
 
-    console.log("Visitor ID:", visitorId); // Debugging
-  }
-
-  if (window.location.href === "https://www.zonwering-onderdelen.nl/") {
-    console.log("Using mage/cookies for cookie handling.");
-    require(["mage/cookies"], function (CookieHelper) {
-      // Update the Cookies object to correctly use CookieHelper methods
-      const Cookies = {
-        get: function (name) {
-          console.log(`Reading cookie: ${name}`);
-          return CookieHelper.read(name);
-        },
-        set: function (name, value, options) {
-          console.log(`Setting cookie: ${name} with value: ${value}`);
-          CookieHelper.write(name, value, {
-            expires: options.expires,
-            path: options.path || "/",
-            domain: options.domain,
-            secure: options.secure,
-            samesite: options.sameSite,
-          });
-        },
-      };
-      handleCookies(Cookies);
-    });
+  if (Cookies.get(cookieName)) {
+    visitorId = Cookies.get(cookieName);
+    console.log(`Cookie exists, value = ${visitorId}`);
   } else {
-    console.log("Loading js-cookie script for cookie handling.");
-    loadScript()
-      .then(() => {
-        if (typeof Cookies !== "undefined") {
-          console.log("js-cookie is defined, handling cookies.");
-          handleCookies(Cookies);
-        } else {
-          console.error("Cookies library is not loaded");
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to load the script:", error);
-      });
+    visitorId = crypto.randomUUID();
+    Cookies.set(cookieName, visitorId, {
+      expires: 365,
+      sameSite: "None",
+      secure: true,
+    });
+    console.log(`New cookie set, value = ${visitorId}`);
   }
+
+  console.log("Visitor ID:", visitorId); // Debugging
+}
+
+if (window.location.href === "https://www.zonwering-onderdelen.nl/") {
+  console.log("Using mage/cookies for cookie handling.");
+  require(['mage/cookies'], function(CookieHelper) {
+    const Cookies = {
+      get: function(name) {
+        console.log(`Reading cookie: ${name}`);
+        return CookieHelper.cookie.get(name);
+      },
+      set: function(name, value, options) {
+        console.log(`Setting cookie: ${name} with value: ${value}`);
+        CookieHelper.cookie.set(name, value, {
+          expires: options.expires,
+          path: options.path || '/',
+          domain: options.domain,
+          secure: options.secure,
+          samesite: options.sameSite
+        });
+   
+
 
   // aawait chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
