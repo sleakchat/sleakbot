@@ -33,15 +33,15 @@ async function sleakScript() {
   } else {
     // Fallback to using localStorage
     if (localStorage.getItem(`sleakVisitorId_${chatbotId}`)) {
-      console.log(
-        "localStorage exists, value = ",
-        localStorage.getItem(`sleakVisitorId_${chatbotId}`)
-      );
+      // console.log(
+      //   "localStorage exists, value = ",
+      //   localStorage.getItem(`sleakVisitorId_${chatbotId}`)
+      // );
       visitorId = localStorage.getItem(`sleakVisitorId_${chatbotId}`);
     } else {
       visitorId = crypto.randomUUID();
       localStorage.setItem(`sleakVisitorId_${chatbotId}`, visitorId);
-      console.log("new localStorage = ", visitorId);
+      // console.log("new localStorage = ", visitorId);
     }
   }
 
@@ -183,7 +183,7 @@ async function sleakScript() {
         // console.log("Viewport Height window:", viewportHeight);
 
         /// check for first button click of page load
-        if (firstButtonClick) {
+        if (firstButtonClick & !scriptCookies) {
           const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
 
           if (!widgetOpenFlag) {
