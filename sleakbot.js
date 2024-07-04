@@ -14,19 +14,60 @@ async function sleakScript() {
     method: "get",
   });
 
-  // cookie handling
-  let visitorId;
-  if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
-    // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
-    visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
-  } else {
-    visitorId = crypto.randomUUID();
-    Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
-      expires: 365,
-      sameSite: "None",
-      secure: true,
+  if (window.location.href == "https://www.zonwering-onderdelen.nl/") {
+    require(["mage/cookies"], function (CookieHelper) {
+      var Cookies = {
+        get: function (name) {
+          return CookieHelper.get(name);
+        },
+        set: function (name, value, options) {
+          CookieHelper.set(name, value, {
+            expires: options.expires,
+            path: options.path || "/",
+            domain: options.domain,
+            secure: options.secure,
+            samesite: options.sameSite,
+          });
+        },
+      };
+      handleCookies(Cookies); // Pass Cookies to handleCookies
     });
-    // console.log("new cookie = ", visitorId);
+  } else {
+    loadScript()
+      .then(() => {
+        if (typeof Cookies !== "undefined") {
+          handleCookies(Cookies); // Pass Cookies to handleCookies
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to load the script:", error);
+      });
+  }
+
+  function handleCookies(Cookies) {
+    // Your cookie handling logic
+    let visitorId;
+    if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
+      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+    } else {
+      visitorId = crypto.randomUUID();
+      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+        expires: 365,
+        sameSite: "None",
+        secure: true,
+      });
+    }
+  }
+
+  async function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
   }
 
   // aawait chatbotConfig
