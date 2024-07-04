@@ -14,9 +14,36 @@ async function sleakScript() {
     method: "get",
   });
 
-  if (window.location.href == "https://www.zonwering-onderdelen.nl/") {
+  async function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  function handleCookies(Cookies) {
+    // Your cookie handling logic
+    let visitorId;
+    if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
+      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+    } else {
+      visitorId = crypto.randomUUID();
+      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+        expires: 365,
+        sameSite: "None",
+        secure: true,
+      });
+    }
+    console.log("Visitor ID:", visitorId); // Add this line for debugging
+  }
+
+  if (window.location.href === "https://www.zonwering-onderdelen.nl/") {
     require(["mage/cookies"], function (CookieHelper) {
-      var Cookies = {
+      const Cookies = {
         get: function (name) {
           return CookieHelper.get(name);
         },
@@ -37,37 +64,13 @@ async function sleakScript() {
       .then(() => {
         if (typeof Cookies !== "undefined") {
           handleCookies(Cookies); // Pass Cookies to handleCookies
+        } else {
+          console.error("Cookies library is not loaded");
         }
       })
       .catch((error) => {
         console.error("Failed to load the script:", error);
       });
-  }
-
-  function handleCookies(Cookies) {
-    // Your cookie handling logic
-    let visitorId;
-    if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
-      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
-    } else {
-      visitorId = crypto.randomUUID();
-      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
-        expires: 365,
-        sameSite: "None",
-        secure: true,
-      });
-    }
-  }
-
-  async function loadScript() {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
   }
 
   // aawait chatbotConfig
