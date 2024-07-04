@@ -2,6 +2,7 @@ async function sleakScript() {
   const sleakbotScriptTag = document.querySelector("#sleakbot");
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
   const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
+  const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
   // env control
   if (scriptSrc.includes("dev")) {
     var widgetBaseUrl = "https://staging.sleak.chat";
@@ -14,19 +15,31 @@ async function sleakScript() {
     method: "get",
   });
 
-  // cookie handling
   let visitorId;
-  if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
-    // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
-    visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+
+  if (!scriptCookies) {
+    if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
+      // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
+      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+    } else {
+      visitorId = crypto.randomUUID();
+      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+        expires: 365,
+        sameSite: "None",
+        secure: true,
+      });
+      // console.log("new cookie = ", visitorId);
+    }
   } else {
-    visitorId = crypto.randomUUID();
-    Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
-      expires: 365,
-      sameSite: "None",
-      secure: true,
-    });
-    // console.log("new cookie = ", visitorId);
+    // fallback to using localStorage
+    if (localStorage.getItem(`sleakVisitorId_${chatbotId}`)) {
+      // console.log("localStorage exists, value = ", localStorage.getItem(`sleakVisitorId_${chatbotId}`));
+      visitorId = localStorage.getItem(`sleakVisitorId_${chatbotId}`);
+    } else {
+      visitorId = crypto.randomUUID();
+      localStorage.setItem(`sleakVisitorId_${chatbotId}`, visitorId);
+      // console.log("new localStorage = ", visitorId);
+    }
   }
 
   // aawait chatbotConfig
@@ -167,7 +180,7 @@ async function sleakScript() {
         // console.log("Viewport Height window:", viewportHeight);
 
         /// check for first button click of page load
-        if (firstButtonClick) {
+        if (firstButtonClick & !scriptCookies) {
           const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
 
           if (!widgetOpenFlag) {
