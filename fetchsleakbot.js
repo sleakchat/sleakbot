@@ -2,7 +2,11 @@ async function injectSleakScript() {
   if (window.sleakScriptInjected) {
     return;
   }
-  if (!window.location.href.includes("zonwering-onderdelen.nl/")) {
+
+  const sleakbotScriptTag = document.querySelector("#sleakbot");
+  const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
+
+  if (!scriptCookies) {
     console.log("cookie-js init");
     async function loadScript() {
       return new Promise((resolve, reject) => {
@@ -18,7 +22,6 @@ async function injectSleakScript() {
   }
 
   // env control
-  const sleakbotScriptTag = document.querySelector("#sleakbot");
 
   const scriptSrc = sleakbotScriptTag.getAttribute("src");
   if (scriptSrc.includes("dev")) {
