@@ -2,7 +2,7 @@ async function injectSleakScript() {
   if (window.sleakScriptInjected) {
     return;
   }
-  if (window.location.href !== "https://www.zonwering-onderdelen.nl/") {
+  if (!window.location.href.includes("zonwering-onderdelen.nl/")) {
     console.log("cookie-js init");
     async function loadScript() {
       return new Promise((resolve, reject) => {
