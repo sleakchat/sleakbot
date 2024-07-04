@@ -31,12 +31,9 @@ async function sleakScript() {
       // console.log("new cookie = ", visitorId);
     }
   } else {
-    // Fallback to using localStorage
+    // fallback to using localStorage
     if (localStorage.getItem(`sleakVisitorId_${chatbotId}`)) {
-      // console.log(
-      //   "localStorage exists, value = ",
-      //   localStorage.getItem(`sleakVisitorId_${chatbotId}`)
-      // );
+      // console.log("localStorage exists, value = ", localStorage.getItem(`sleakVisitorId_${chatbotId}`));
       visitorId = localStorage.getItem(`sleakVisitorId_${chatbotId}`);
     } else {
       visitorId = crypto.randomUUID();
