@@ -35,7 +35,7 @@ async function sleakScript() {
     if (localStorage.getItem(`sleakVisitorId_${chatbotId}`)) {
       console.log(
         "localStorage exists, value = ",
-        localStorage.getItem(cookieName)
+        localStorage.getItem(`sleakVisitorId_${chatbotId}`)
       );
       visitorId = localStorage.getItem(`sleakVisitorId_${chatbotId}`);
     } else {
