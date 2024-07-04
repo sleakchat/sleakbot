@@ -25,30 +25,58 @@ async function sleakScript() {
     });
   }
 
+  async function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = () => {
+        console.log("js-cookie script loaded successfully.");
+        resolve();
+      };
+      script.onerror = () => {
+        console.error("Failed to load js-cookie script.");
+        reject();
+      };
+      document.head.appendChild(script);
+    });
+  }
+
   function handleCookies(Cookies) {
-    // Your cookie handling logic
+    console.log("handleCookies called.");
+
+    // Ensure visitorId is defined within this function scope
     let visitorId;
-    if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
-      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+    const cookieName = `sleakVisitorId_${chatbotId}`;
+
+    if (Cookies.get(cookieName)) {
+      visitorId = Cookies.get(cookieName);
+      console.log(`Cookie exists, value = ${visitorId}`);
     } else {
       visitorId = crypto.randomUUID();
-      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+      Cookies.set(cookieName, visitorId, {
         expires: 365,
         sameSite: "None",
         secure: true,
       });
+      console.log(`New cookie set, value = ${visitorId}`);
     }
-    console.log("Visitor ID:", visitorId); // Add this line for debugging
+
+    console.log("Visitor ID:", visitorId); // Debugging
   }
 
   if (window.location.href === "https://www.zonwering-onderdelen.nl/") {
+    console.log("Using mage/cookies for cookie handling.");
     require(["mage/cookies"], function (CookieHelper) {
+      // Update the Cookies object to correctly use CookieHelper methods
       const Cookies = {
         get: function (name) {
-          return CookieHelper.get(name);
+          console.log(`Reading cookie: ${name}`);
+          return CookieHelper.read(name);
         },
         set: function (name, value, options) {
-          CookieHelper.set(name, value, {
+          console.log(`Setting cookie: ${name} with value: ${value}`);
+          CookieHelper.write(name, value, {
             expires: options.expires,
             path: options.path || "/",
             domain: options.domain,
@@ -57,13 +85,15 @@ async function sleakScript() {
           });
         },
       };
-      handleCookies(Cookies); // Pass Cookies to handleCookies
+      handleCookies(Cookies);
     });
   } else {
+    console.log("Loading js-cookie script for cookie handling.");
     loadScript()
       .then(() => {
         if (typeof Cookies !== "undefined") {
-          handleCookies(Cookies); // Pass Cookies to handleCookies
+          console.log("js-cookie is defined, handling cookies.");
+          handleCookies(Cookies);
         } else {
           console.error("Cookies library is not loaded");
         }
