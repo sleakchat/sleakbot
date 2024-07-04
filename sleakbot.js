@@ -43,63 +43,138 @@ async function sleakScript() {
   }
 
   async function loadScript() {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
-    script.onload = () => {
-      console.log("js-cookie script loaded successfully.");
-      resolve();
-    };
-    script.onerror = () => {
-      console.error("Failed to load js-cookie script.");
-      reject();
-    };
-    document.head.appendChild(script);
-  });
-}
-
-function handleCookies(Cookies) {
-  console.log("handleCookies called.");
-
-  // Ensure visitorId is defined within this function scope
-  let visitorId;
-  const cookieName = `sleakVisitorId_${chatbotId}`;
-
-  if (Cookies.get(cookieName)) {
-    visitorId = Cookies.get(cookieName);
-    console.log(`Cookie exists, value = ${visitorId}`);
-  } else {
-    visitorId = crypto.randomUUID();
-    Cookies.set(cookieName, visitorId, {
-      expires: 365,
-      sameSite: "None",
-      secure: true,
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = () => {
+        console.log("js-cookie script loaded successfully.");
+        resolve();
+      };
+      script.onerror = () => {
+        console.error("Failed to load js-cookie script.");
+        reject();
+      };
+      document.head.appendChild(script);
     });
-    console.log(`New cookie set, value = ${visitorId}`);
   }
 
-  console.log("Visitor ID:", visitorId); // Debugging
-}
+  async function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = () => {
+        console.log("js-cookie script loaded successfully.");
+        resolve();
+      };
+      script.onerror = () => {
+        console.error("Failed to load js-cookie script.");
+        reject();
+      };
+      document.head.appendChild(script);
+    });
+  }
 
-if (window.location.href === "https://www.zonwering-onderdelen.nl/") {
-  console.log("Using mage/cookies for cookie handling.");
-  require(['mage/cookies'], function(CookieHelper) {
-    const Cookies = {
-      get: function(name) {
-        console.log(`Reading cookie: ${name}`);
-        return CookieHelper.cookie.get(name);
-      },
-      set: function(name, value, options) {
-        console.log(`Setting cookie: ${name} with value: ${value}`);
-        CookieHelper.cookie.set(name, value, {
-          expires: options.expires,
-          path: options.path || '/',
-          domain: options.domain,
-          secure: options.secure,
-          samesite: options.sameSite
-        });
-   
+  function handleCookies(Cookies) {
+    console.log("handleCookies called.");
 
+    // Ensure visitorId is defined within this function scope
+    let visitorId;
+    const cookieName = `sleakVisitorId_${chatbotId}`;
+
+    if (Cookies.get(cookieName)) {
+      visitorId = Cookies.get(cookieName);
+      console.log(`Cookie exists, value = ${visitorId}`);
+    } else {
+      visitorId = crypto.randomUUID();
+      Cookies.set(cookieName, visitorId, {
+        expires: 365,
+        sameSite: "None",
+        secure: true,
+      });
+      console.log(`New cookie set, value = ${visitorId}`);
+    }
+
+    console.log("Visitor ID:", visitorId); // Debugging
+  }
+
+  async function initializeChatbot() {
+    if (window.location.href === "https://www.zonwering-onderdelen.nl/") {
+      console.log("Using mage/cookies for cookie handling.");
+      require(["mage/cookies"], function (CookieHelper) {
+        const Cookies = {
+          get: function (name) {
+            console.log(`Reading cookie: ${name}`);
+            return CookieHelper.cookie.get(name);
+          },
+          set: function (name, value, options) {
+            console.log(`Setting cookie: ${name} with value: ${value}`);
+            CookieHelper.cookie.set(name, value, {
+              expires: options.expires,
+              path: options.path || "/",
+              domain: options.domain,
+              secure: options.secure,
+              samesite: options.sameSite,
+            });
+          },
+        };
+        handleCookies(Cookies);
+      });
+    } else {
+      console.log("Loading js-cookie script for cookie handling.");
+      await loadScript();
+      if (typeof Cookies !== "undefined") {
+        console.log("js-cookie is defined, handling cookies.");
+        handleCookies(Cookies);
+      } else {
+        console.error("Cookies library is not loaded");
+      }
+    }
+
+    // Add your chatbot config code here
+    const chatbotConfig = await lwgist_chatbotConfigResponses_json(); // Make sure this function is properly defined
+    console.log("chatbotConfig =", chatbotConfig);
+
+    // main code
+    if (chatbotConfig.publishing.published == true) {
+      const viewportWidth = window.innerWidth;
+
+      const sleakWrap = document.querySelector("#sleak-widgetwrap");
+      const sleakButton = document.querySelector("#sleak-buttonwrap");
+      const sleakPopup = document.querySelector("#test-sleak-popup-embed");
+
+      const setAttribute = (element, attribute, value) => {
+        element.setAttribute(attribute, value);
+      };
+
+      if (viewportWidth < 479) {
+        sleakButton.style.right = chatbotConfig.btn_offset.x_mobile + 82 + "px";
+        setAttribute(
+          sleakPopup,
+          "style",
+          "right:" +
+            chatbotConfig.btn_offset.x_mobile +
+            "px; bottom: " +
+            chatbotConfig.btn_offset.y_mobile +
+            "px;"
+        );
+      } else {
+        setAttribute(
+          sleakButton,
+          "style",
+          "right:" +
+            chatbotConfig.btn_offset.x_mobile +
+            "px; bottom: " +
+            chatbotConfig.btn_offset.y_mobile +
+            "px;"
+        );
+      }
+    }
+  }
+
+  // Call the initializeChatbot function to start the process
+  initializeChatbot();
 
   // aawait chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
