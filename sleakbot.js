@@ -17,13 +17,12 @@ async function sleakScript() {
   // cookie handling
   let visitorId;
   if (typeof Cookies !== "undefined") {
-    // Using js-cookie library
-    if (Cookies.get(cookieName)) {
-      // console.log("cookie exists, value = ",Cookies.get(cookieName));
-      visitorId = Cookies.get(cookieName);
+    if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
+      // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
+      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
       visitorId = crypto.randomUUID();
-      Cookies.set(cookieName, visitorId, {
+      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
         expires: 365,
         sameSite: "None",
         secure: true,
@@ -32,13 +31,16 @@ async function sleakScript() {
     }
   } else {
     // Fallback to using localStorage
-    if (localStorage.getItem(cookieName)) {
-      // console.log("localStorage exists, value = ",localStorage.getItem(cookieName));
-      visitorId = localStorage.getItem(cookieName);
+    if (localStorage.getItem(`sleakVisitorId_${chatbotId}`)) {
+      console.log(
+        "localStorage exists, value = ",
+        localStorage.getItem(cookieName)
+      );
+      visitorId = localStorage.getItem(`sleakVisitorId_${chatbotId}`);
     } else {
       visitorId = crypto.randomUUID();
-      localStorage.setItem(cookieName, visitorId);
-      // console.log("new localStorage = ", visitorId);
+      localStorage.setItem(`sleakVisitorId_${chatbotId}`, visitorId);
+      console.log("new localStorage = ", visitorId);
     }
   }
 
