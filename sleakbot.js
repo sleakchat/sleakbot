@@ -116,6 +116,7 @@ async function sleakScript() {
             "width: 100vw; justify-content: flex-start; align-items: flex-start;"
         );
         sleakPopup.setAttribute("style", "right: unset; left: 0;");
+        sleakWidgetwrap.setAttribute("style", "width: 420px;");
       }
     }
 
