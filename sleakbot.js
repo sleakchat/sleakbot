@@ -247,18 +247,23 @@ async function sleakScript() {
     );
 
     function playSleakChime() {
-      sleakChime.play();
+      try {
+        sleakChime.play();
+      } catch (error) {}
     }
+
     function playSleakChimeOperator() {
-      sleakChimeOperator.play();
+      try {
+        sleakChimeOperator.play();
+      } catch (error) {}
     }
 
     // console.log(sleakWidgetOpenState);
 
     // disable popup/chime after first page load
     var sessionStorageKey = chatbotId + "_sleakPopupTriggered";
-    // var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-    var hasPopupBeenTriggered = false; // remove line in prod
+    var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
+    // var hasPopupBeenTriggered = false; // remove line in prod
 
     if (!hasPopupBeenTriggered) {
       // console.log("popup localStorage does not exist");

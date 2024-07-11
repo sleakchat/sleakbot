@@ -7,7 +7,6 @@ async function injectSleakScript() {
   const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
 
   if (!scriptCookies) {
-    console.log("cookie-js init");
     async function loadScript() {
       return new Promise((resolve, reject) => {
         const script = document.createElement("script");
@@ -82,16 +81,15 @@ async function injectSleakScript() {
 
   window.onload = function () {
     if (!window.sleakScriptInjected) {
-      // console.log("sleakScript flag = ", window.sleakScriptInjected);
       window.sleakScriptInjected = true;
       setTimeout(function () {
         fetchAndAppendHtml()
           .then(() => {
             appendSleakJsToBody();
-            console.log("Sleak initialized");
+            console.log("sleak.chat initialized");
           })
           .catch((error) => {
-            console.error("Error occurred while loading resources:", error);
+            console.error("Error occurred while loading sleak.chat:", error);
           });
       }, 10);
     }
