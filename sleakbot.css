@@ -18,15 +18,15 @@
   align-items: flex-start !important;
 }
 
-#sleak-widget-container {
-  height: 100%;
-  z-index: 1;
-}
-
 #sleak-popup-embed {
   right: unset !important;
   left: 0 !important;
 }*/
+
+#sleak-widget-container {
+  height: 100%;
+  z-index: 1;
+}
 
 #sleak-loadingwrap {
   position: absolute;
