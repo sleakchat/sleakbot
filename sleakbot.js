@@ -91,7 +91,7 @@ async function sleakScript() {
         var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
         sleakButton.setAttribute(
           "style",
-          "right: " +
+          "left: " +
             chatbotConfig.btn_offset.x_mobile +
             "px; bottom: " +
             chatbotConfig.btn_offset.y_mobile +
@@ -99,7 +99,7 @@ async function sleakScript() {
         );
         sleakPopup.setAttribute(
           "style",
-          "right: " +
+          "left: " +
             chatbotConfig.btn_offset.x_mobile +
             "px; bottom: " +
             mobilePopupHeight +
@@ -115,10 +115,13 @@ async function sleakScript() {
             "px;" +
             "width: 100vw; justify-content: flex-start; align-items: flex-start;"
         );
-        sleakPopup.setAttribute("style", "right: unset; left: 0;");
-        sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
-        sleakButton.setAttribute("style", "right: unset; left: 0;");
       }
+      sleakPopup.setAttribute("style", "right: unset; left: 0;");
+      sleakButton.setAttribute(
+        "style",
+        "right: unset; left: 0; transform: scaleX(-1)"
+      );
+      sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
     }
 
     // render iframes
