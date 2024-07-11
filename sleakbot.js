@@ -49,7 +49,7 @@ async function sleakScript() {
   // main code
   if (chatbotConfig.publishing.published == true) {
     var viewportWidth2 = window.innerWidth;
-    const mirrorring = true;
+    const mirrorring = { mobile: true, desktop: true };
     const sleakWrap = document.querySelector("#sleak-widgetwrap");
     const sleakButton = document.querySelector("#sleak-buttonwrap");
     var sleakPopup = document.querySelector("#sleak-popup-embed");
@@ -57,70 +57,87 @@ async function sleakScript() {
     const sleakWidgetwrap = document.getElementById("sleak-widget-container");
     // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
 
-    if (mirrorring !== true) {
-      if (viewportWidth2 < 479) {
-        var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-        sleakButton.setAttribute(
-          "style",
-          "right: " +
-            chatbotConfig.btn_offset.x_mobile +
-            "px; bottom: " +
-            chatbotConfig.btn_offset.y_mobile +
-            "px;"
-        );
-        sleakPopup.setAttribute(
-          "style",
-          "right: " +
-            chatbotConfig.btn_offset.x_mobile +
-            "px; bottom: " +
-            mobilePopupHeight +
-            "px;"
-        );
+    function setStylingMobile() {
+      var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+      sleakButton.setAttribute(
+        "style",
+        "right: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_mobile +
+          "px;"
+      );
+      sleakPopup.setAttribute(
+        "style",
+        "right: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          mobilePopupHeight +
+          "px;"
+      );
+    }
+
+    function setStylingDesktop() {
+      sleakWrap.setAttribute(
+        "style",
+        "right: " +
+          chatbotConfig.btn_offset.x_desktop +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_desktop +
+          "px;"
+      );
+    }
+
+    function setStylingMobileMirrored() {
+      var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+      var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+      sleakButton.setAttribute(
+        "style",
+        "left: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_mobile +
+          "px;"
+      );
+      sleakPopup.setAttribute(
+        "style",
+        "left: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          mobilePopupHeight +
+          "px;"
+      );
+    }
+
+    function setStylingDesktopMirrored() {
+      sleakWrap.setAttribute(
+        "style",
+        "left: " +
+          chatbotConfig.btn_offset.x_desktop +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_desktop +
+          "px;" +
+          "width: 100vw; justify-content: flex-start; align-items: flex-start;"
+      );
+      sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
+      sleakPopup.setAttribute("style", "right: unset; left: 0;");
+      sleakButton.setAttribute(
+        "style",
+        "right: unset; left: 0; transform: scaleX(-1) !important"
+      );
+    }
+
+    if (viewportWidth2 < 479) {
+      if (mirrorring.mobile !== true) {
+        setStylingMobile();
       } else {
-        sleakWrap.setAttribute(
-          "style",
-          "right: " +
-            chatbotConfig.btn_offset.x_desktop +
-            "px; bottom: " +
-            chatbotConfig.btn_offset.y_desktop +
-            "px;"
-        );
+        setStylingMobileMirrored();
       }
     } else {
-      if (viewportWidth2 < 479) {
-        var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-        sleakButton.setAttribute(
-          "style",
-          "left: " +
-            chatbotConfig.btn_offset.x_mobile +
-            "px; bottom: " +
-            chatbotConfig.btn_offset.y_mobile +
-            "px;"
-        );
-        sleakPopup.setAttribute(
-          "style",
-          "left: " +
-            chatbotConfig.btn_offset.x_mobile +
-            "px; bottom: " +
-            mobilePopupHeight +
-            "px;"
-        );
+      if (mirrorring.desktop !== true) {
+        setStylingDesktop();
       } else {
-        sleakWrap.setAttribute(
-          "style",
-          "left: " +
-            chatbotConfig.btn_offset.x_desktop +
-            "px; bottom: " +
-            chatbotConfig.btn_offset.y_desktop +
-            "px;" +
-            "width: 100vw; justify-content: flex-start; align-items: flex-start;"
-        );
-        sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
-        sleakPopup.setAttribute("style", "right: unset; left: 0;");
-        sleakButton.setAttribute(
-          "style",
-          "right: unset; left: 0; transform: scaleX(-1) !important"
-        );
+        setStylingDesktopMirrored();
       }
     }
 
