@@ -116,12 +116,12 @@ async function sleakScript() {
             "width: 100vw; justify-content: flex-start; align-items: flex-start;"
         );
         sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
+        sleakPopup.setAttribute("style", "right: unset; left: 0;");
+        sleakButton.setAttribute(
+          "style",
+          "right: unset; left: 0; transform: scaleX(-1) !important"
+        );
       }
-      sleakPopup.setAttribute("style", "right: unset; left: 0;");
-      sleakButton.setAttribute(
-        "style",
-        "right: unset; left: 0; transform: scaleX(-1) !important"
-      );
     }
 
     // render iframes
