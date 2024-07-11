@@ -1,3 +1,19 @@
+#sleak-buttonwrap {
+  transform: scaleX(-1) !important;
+  right: unset !important;
+  left: 0 !important;
+}
+
+#sleak-widget-container {
+  width: 400px !important;
+}
+
+#sleak-widgetwrap {
+  left: 20px !important;
+  right: unset !important;
+  width: 100vw !important;
+}
+
 #sleak-widget-container {
   height: 100%;
   z-index: 1;
