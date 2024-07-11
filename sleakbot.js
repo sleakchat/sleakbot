@@ -119,7 +119,7 @@ async function sleakScript() {
       sleakPopup.setAttribute("style", "right: unset; left: 0;");
       sleakButton.setAttribute(
         "style",
-        "right: unset; left: 0; transform: scaleX(-1)"
+        "right: unset; left: 0; transform: scaleX(-1) !important"
       );
       sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
     }
