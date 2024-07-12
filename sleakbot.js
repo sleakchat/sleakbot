@@ -48,14 +48,15 @@ async function sleakScript() {
 
   // main code
   if (chatbotConfig.publishing.published == true) {
-    var viewportWidth2 = window.innerWidth;
-    const mirrorring = { mobile: true, desktop: true };
     const sleakWrap = document.querySelector("#sleak-widgetwrap");
     const sleakButton = document.querySelector("#sleak-buttonwrap");
     var sleakPopup = document.querySelector("#sleak-popup-embed");
     const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
     const sleakWidgetwrap = document.getElementById("sleak-widget-container");
     // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
+
+    var viewportWidth2 = window.innerWidth;
+    // const mirrorring = { mobile: true, desktop: true };
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
@@ -128,13 +129,13 @@ async function sleakScript() {
     }
 
     if (viewportWidth2 < 479) {
-      if (mirrorring.mobile !== true) {
+      if (chatbotConfig.btn_offset.mirrorring.mobile !== true) {
         setStylingMobile();
       } else {
         setStylingMobileMirrored();
       }
     } else {
-      if (mirrorring.desktop !== true) {
+      if (chatbotConfig.btn_offset.mirrorring.desktop !== true) {
         setStylingDesktop();
       } else {
         setStylingDesktopMirrored();
