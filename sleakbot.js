@@ -129,13 +129,19 @@ async function sleakScript() {
     }
 
     if (viewportWidth2 < 479) {
-      if (chatbotConfig.btn_offset.mirrorring.mobile !== true) {
+      if (
+        chatbotConfig.btn_offset.mirrorring &&
+        chatbotConfig.btn_offset.mirrorring.mobile !== true
+      ) {
         setStylingMobile();
       } else {
         setStylingMobileMirrored();
       }
     } else {
-      if (chatbotConfig.btn_offset.mirrorring.desktop !== true) {
+      if (
+        chatbotConfig.btn_offset.mirrorring &&
+        chatbotConfig.btn_offset.mirrorring.desktop !== true
+      ) {
         setStylingDesktop();
       } else {
         setStylingDesktopMirrored();
