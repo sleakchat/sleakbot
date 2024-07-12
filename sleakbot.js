@@ -130,7 +130,7 @@ async function sleakScript() {
 
     if (viewportWidth2 < 479) {
       if (
-        chatbotConfig.btn_offset.mirrorring &&
+        !chatbotConfig.btn_offset.mirrorring ||
         chatbotConfig.btn_offset.mirrorring.mobile !== true
       ) {
         setStylingMobile();
@@ -139,8 +139,8 @@ async function sleakScript() {
       }
     } else {
       if (
-        chatbotConfig.btn_offset.mirrorring &&
-        chatbotConfig.btn_offset.mirrorring.desktop !== true
+        !chatbotConfig.btn_offset.mirrorring ||
+        chatbotConfig.btn_offset.mirrorring.mobile !== true
       ) {
         setStylingDesktop();
       } else {
