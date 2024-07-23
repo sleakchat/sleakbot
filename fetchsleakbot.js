@@ -80,21 +80,21 @@ async function injectSleakScript() {
       });
   }
 
-  window.onload = function () {
-    if (!window.sleakScriptInjected) {
-      window.sleakScriptInjected = true;
-      setTimeout(function () {
-        fetchAndAppendHtml()
-          .then(() => {
-            appendSleakJsToBody();
-            console.log("sleak.chat initialized");
-          })
-          .catch((error) => {
-            console.error("Error occurred while loading sleak.chat:", error);
-          });
-      }, 10);
-    }
-  };
+  // window.onload = function () {
+  if (!window.sleakScriptInjected) {
+    window.sleakScriptInjected = true;
+    setTimeout(function () {
+      fetchAndAppendHtml()
+        .then(() => {
+          appendSleakJsToBody();
+          console.log("sleak.chat initialized");
+        })
+        .catch((error) => {
+          console.error("Error occurred while loading sleak.chat:", error);
+        });
+    }, 10);
+  }
+  // };
 }
 
 injectSleakScript();
