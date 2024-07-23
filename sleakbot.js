@@ -4,7 +4,7 @@ async function sleakScript() {
   const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
   const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
   // env control
-  if (scriptSrc.includes("dev")) {
+  if (scriptSrc.includes("dev") || scriptSrc.includes("localhost")) {
     var widgetBaseUrl = "https://staging.sleak.chat";
   } else {
     var widgetBaseUrl = "https://widget.sleak.chat";
