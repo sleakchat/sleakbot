@@ -4,7 +4,7 @@ async function sleakScript() {
   const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
   const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
   // env control
-  if (scriptSrc.includes("dev")) {
+  if (scriptSrc.includes("dev") || scriptSrc.includes("localhost")) {
     var widgetBaseUrl = "https://staging.sleak.chat";
   } else {
     var widgetBaseUrl = "https://widget.sleak.chat";
@@ -48,12 +48,17 @@ async function sleakScript() {
 
   // main code
   if (chatbotConfig.publishing.published == true) {
-    var viewportWidth2 = window.innerWidth;
-
     const sleakWrap = document.querySelector("#sleak-widgetwrap");
     const sleakButton = document.querySelector("#sleak-buttonwrap");
     var sleakPopup = document.querySelector("#sleak-popup-embed");
-    if (viewportWidth2 < 479) {
+    const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
+    const sleakWidgetwrap = document.getElementById("sleak-widget-container");
+    // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
+
+    var viewportWidth2 = window.innerWidth;
+    // const mirrorring = { mobile: true, desktop: true };
+
+    function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
       sleakButton.setAttribute(
         "style",
@@ -71,7 +76,9 @@ async function sleakScript() {
           mobilePopupHeight +
           "px;"
       );
-    } else {
+    }
+
+    function setStylingDesktop() {
       sleakWrap.setAttribute(
         "style",
         "right: " +
@@ -80,6 +87,65 @@ async function sleakScript() {
           chatbotConfig.btn_offset.y_desktop +
           "px;"
       );
+    }
+
+    function setStylingMobileMirrored() {
+      var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+      var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+      sleakButton.setAttribute(
+        "style",
+        "left: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_mobile +
+          "px;"
+      );
+      sleakPopup.setAttribute(
+        "style",
+        "left: " +
+          chatbotConfig.btn_offset.x_mobile +
+          "px; bottom: " +
+          mobilePopupHeight +
+          "px;"
+      );
+    }
+
+    function setStylingDesktopMirrored() {
+      sleakWrap.setAttribute(
+        "style",
+        "left: " +
+          chatbotConfig.btn_offset.x_desktop +
+          "px; bottom: " +
+          chatbotConfig.btn_offset.y_desktop +
+          "px;" +
+          "width: 100vw; justify-content: flex-start; align-items: flex-start;"
+      );
+      sleakWidgetwrap.setAttribute("style", "width: 420px; height: 100%;");
+      sleakPopup.setAttribute("style", "right: unset; left: 0;");
+      sleakButton.setAttribute(
+        "style",
+        "right: unset; left: 0; transform: scaleX(-1) !important"
+      );
+    }
+
+    if (viewportWidth2 < 479) {
+      if (
+        !chatbotConfig.btn_offset.mirrorring ||
+        chatbotConfig.btn_offset.mirrorring.mobile !== true
+      ) {
+        setStylingMobile();
+      } else {
+        setStylingMobileMirrored();
+      }
+    } else {
+      if (
+        !chatbotConfig.btn_offset.mirrorring ||
+        chatbotConfig.btn_offset.mirrorring.mobile !== true
+      ) {
+        setStylingDesktop();
+      } else {
+        setStylingDesktopMirrored();
+      }
     }
 
     // render iframes
@@ -105,10 +171,6 @@ async function sleakScript() {
       await new Promise((resolve) => setTimeout(resolve, 50));
       iframeWidgetbody.style.boxShadow = "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
     }
-
-    const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
-    const sleakWidgetwrap = document.getElementById("sleak-widget-container");
-    // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
 
     function openSleakWidget() {
       sleakBodyEmbed.style.display = "flex";
@@ -266,7 +328,7 @@ async function sleakScript() {
     // var hasPopupBeenTriggered = false; // remove line in prod
 
     if (!hasPopupBeenTriggered) {
-      // console.log("popup localStorage does not exist");
+      console.log("popup localStorage does not exist");
 
       const viewportWidth = window.innerWidth;
       // console.log(viewportWidth);
