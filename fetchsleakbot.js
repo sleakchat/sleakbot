@@ -95,7 +95,15 @@ if (!scriptCookies) {
       console.log("js-cookie init");
     });
   }
-  loadScript();
-}
 
-injectSleakScript();
+  loadScript()
+    .then(() => {
+      console.log("js-cookie loaded successfully");
+      injectSleakScript();
+    })
+    .catch((error) => {
+      console.error("Error occurred while loading js-cookie:", error);
+    });
+} else {
+  injectSleakScript();
+}
