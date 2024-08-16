@@ -212,6 +212,7 @@ async function sleakScript() {
 
       if (state == true) {
         iframeBtnWindow.postMessage("openButton", "*");
+        iframeWidgetbody.contentWindow.postMessage("openButton", "*");
       } else if (state == false) {
         iframeBtnWindow.postMessage("closeButton", "*");
       }
@@ -328,7 +329,7 @@ async function sleakScript() {
     // var hasPopupBeenTriggered = false; // remove line in prod
 
     if (!hasPopupBeenTriggered) {
-      console.log("popup localStorage does not exist");
+      // console.log("popup localStorage does not exist");
 
       const viewportWidth = window.innerWidth;
       // console.log(viewportWidth);
