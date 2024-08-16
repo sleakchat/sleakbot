@@ -84,7 +84,7 @@ async function injectSleakScript() {
 }
 
 if (!scriptCookies) {
-  async function loadScript() {
+  function loadScript() {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src =
