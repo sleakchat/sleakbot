@@ -1,23 +1,9 @@
+const sleakbotScriptTag = document.querySelector("#sleakbot");
+const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
+
 async function injectSleakScript() {
   if (window.sleakScriptInjected) {
     return;
-  }
-
-  const sleakbotScriptTag = document.querySelector("#sleakbot");
-  const scriptCookies = sleakbotScriptTag.getAttribute("cookies");
-
-  if (!scriptCookies) {
-    async function loadScript() {
-      return new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src =
-          "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    }
-    loadScript();
   }
 
   // env control
@@ -95,6 +81,20 @@ async function injectSleakScript() {
     }, 10);
   }
   // };
+}
+
+if (!scriptCookies) {
+  async function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+  loadScript();
 }
 
 injectSleakScript();
