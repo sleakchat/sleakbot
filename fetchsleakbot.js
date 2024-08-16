@@ -92,7 +92,6 @@ if (!scriptCookies) {
       script.onload = resolve;
       script.onerror = reject;
       document.head.appendChild(script);
-      console.log("js-cookie init");
     });
   }
 
