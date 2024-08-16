@@ -97,7 +97,6 @@ if (!scriptCookies) {
 
   loadScript()
     .then(() => {
-      console.log("js-cookie loaded successfully");
       injectSleakScript();
     })
     .catch((error) => {
