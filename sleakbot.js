@@ -309,7 +309,7 @@ async function sleakScript() {
         event: event.data,
         postMessageData: event
       });
-      // console.log("Pushed to dataLayer:", event);
+      console.log('Pushed to dataLayer:', event);
     }
 
     window.addEventListener('message', event => {
