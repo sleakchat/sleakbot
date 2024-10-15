@@ -55,11 +55,7 @@ async function injectSleakScript() {
     document.body.appendChild(sleak_script);
   }
 
-  console.log('Fetching:', sleakHtml);
-
   async function fetchAndAppendHtml() {
-    // fallback to XMLHttpRequest if fetch is not supported
-    console.warn('Fetch not supported, using XMLHttpRequest fallback');
     const xhr = new XMLHttpRequest();
     xhr.open('GET', sleakHtml, true);
     xhr.onload = function () {

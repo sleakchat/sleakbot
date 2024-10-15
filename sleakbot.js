@@ -10,7 +10,9 @@ async function sleakScript() {
     var widgetBaseUrl = 'https://widget.sleak.chat';
   }
 
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}`;
+  const timestamp = new Date().getTime();
+  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
+
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: 'get'
   });
