@@ -35,6 +35,27 @@ async function injectSleakScript() {
   }
   appendStylesheet(sleakCss);
 
+  // append div to body
+  function appendSleakHtmlToBody(sleak_html) {
+    const sleakHtml = document.createElement('div');
+    sleakHtml.innerHTML = sleak_html;
+    if (placement === 'fullwidth') {
+      sleakHtml.style.width = '100%';
+      sleakHtml.style.height = '100%';
+      sleakbotScriptTag.parentNode.insertBefore(sleakHtml, sleakbotScriptTag.nextSibling);
+    } else {
+      document.body.appendChild(sleakHtml);
+    }
+  }
+  // append js to body
+  function appendSleakJsToBody() {
+    const sleak_script = document.createElement('script');
+    sleak_script.src = sleakJs;
+    document.body.appendChild(sleak_script);
+  }
+
+  console.log('Fetching:', sleakHtml);
+
   async function fetchAndAppendHtml() {
     try {
       const response = await fetch(sleakHtml);
@@ -46,26 +67,6 @@ async function injectSleakScript() {
     } catch (error) {
       console.error('Error occurred while fetching sleak HTML:', error);
     }
-  }
-
-  // append js to body
-  function appendSleakJsToBody() {
-    const sleak_script = document.createElement('script');
-    sleak_script.src = sleakJs;
-    document.body.appendChild(sleak_script);
-  }
-
-  console.log('Fetching:', sleakHtml);
-
-  function fetchAndAppendHtml() {
-    return fetch(sleakHtml)
-      .then(sleak_response => {
-        console.log(sleak_response);
-        return sleak_response.text();
-      })
-      .then(sleak_html => {
-        appendSleakHtmlToBody(sleak_html);
-      });
   }
 
   // window.onload = function () {
