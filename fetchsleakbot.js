@@ -57,15 +57,33 @@ async function injectSleakScript() {
   console.log('Fetching:', sleakHtml);
 
   async function fetchAndAppendHtml() {
-    try {
-      const response = await fetch(sleakHtml);
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+    if (typeof fetch === 'function') {
+      try {
+        const response = await fetch(sleakHtml);
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        const sleak_html = await response.text();
+        appendSleakHtmlToBody(sleak_html);
+      } catch (error) {
+        console.error('Error occurred while fetching sleak HTML:', error);
       }
-      const sleak_html = await response.text();
-      appendSleakHtmlToBody(sleak_html);
-    } catch (error) {
-      console.error('Error occurred while fetching sleak HTML:', error);
+    } else {
+      // Fallback to XMLHttpRequest if fetch is not supported
+      console.warn('Fetch not supported, using XMLHttpRequest fallback');
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', sleakHtml, true);
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          appendSleakHtmlToBody(xhr.responseText);
+        } else {
+          console.error('XHR Error: ', xhr.statusText);
+        }
+      };
+      xhr.onerror = function () {
+        console.error('XHR Error: Request failed');
+      };
+      xhr.send();
     }
   }
 
