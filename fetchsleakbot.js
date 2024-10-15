@@ -56,10 +56,12 @@ async function injectSleakScript() {
 
   console.log('Fetching:', sleakHtml);
 
-  // fetch sleak, append to dom
   function fetchAndAppendHtml() {
     return fetch(sleakHtml)
-      .then(sleak_response => sleak_response.text())
+      .then(sleak_response => {
+        console.log(sleak_response);
+        return sleak_response.text();
+      })
       .then(sleak_html => {
         appendSleakHtmlToBody(sleak_html);
       });
