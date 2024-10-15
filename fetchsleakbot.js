@@ -47,6 +47,7 @@ async function injectSleakScript() {
       document.body.appendChild(sleakHtml);
     }
   }
+
   // append js to body
   function appendSleakJsToBody() {
     const sleak_script = document.createElement('script');
@@ -57,7 +58,7 @@ async function injectSleakScript() {
   console.log('Fetching:', sleakHtml);
 
   async function fetchAndAppendHtml() {
-    // Fallback to XMLHttpRequest if fetch is not supported
+    // fallback to XMLHttpRequest if fetch is not supported
     console.warn('Fetch not supported, using XMLHttpRequest fallback');
     const xhr = new XMLHttpRequest();
     xhr.open('GET', sleakHtml, true);
