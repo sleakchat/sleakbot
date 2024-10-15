@@ -35,18 +35,19 @@ async function injectSleakScript() {
   }
   appendStylesheet(sleakCss);
 
-  // append div to body
-  function appendSleakHtmlToBody(sleak_html) {
-    const sleakHtml = document.createElement('div');
-    sleakHtml.innerHTML = sleak_html;
-    if (placement === 'fullwidth') {
-      sleakHtml.style.width = '100%';
-      sleakHtml.style.height = '100%';
-      sleakbotScriptTag.parentNode.insertBefore(sleakHtml, sleakbotScriptTag.nextSibling);
-    } else {
-      document.body.appendChild(sleakHtml);
+  async function fetchAndAppendHtml() {
+    try {
+      const response = await fetch(sleakHtml);
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      const sleak_html = await response.text();
+      appendSleakHtmlToBody(sleak_html);
+    } catch (error) {
+      console.error('Error occurred while fetching sleak HTML:', error);
     }
   }
+
   // append js to body
   function appendSleakJsToBody() {
     const sleak_script = document.createElement('script');
