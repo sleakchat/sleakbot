@@ -56,15 +56,17 @@ async function injectSleakScript() {
 
   console.log('Fetching:', sleakHtml);
 
-  function fetchAndAppendHtml() {
-    return fetch(sleakHtml)
-      .then(sleak_response => {
-        console.log(sleak_response);
-        return sleak_response.text();
-      })
-      .then(sleak_html => {
-        appendSleakHtmlToBody(sleak_html);
-      });
+  async function fetchAndAppendHtml() {
+    try {
+      const response = await fetch(sleakHtml);
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      const sleak_html = await response.text();
+      appendSleakHtmlToBody(sleak_html);
+    } catch (error) {
+      console.error('Error occurred while fetching sleak HTML:', error);
+    }
   }
 
   // window.onload = function () {
