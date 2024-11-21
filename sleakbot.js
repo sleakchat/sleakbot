@@ -334,6 +334,8 @@ async function sleakScript() {
           pushGtmEvent(event);
         } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
+        } else if (event.data === 'createdChat') {
+          console.log(event);
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
         }
