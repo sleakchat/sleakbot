@@ -34,7 +34,7 @@ async function sleakScript() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
-        createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID(););
+        createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID());
         urlParams.delete('resetChat');
         const updatedParams = urlParams.toString();
         const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
@@ -43,7 +43,7 @@ async function sleakScript() {
 
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
-      createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID(););
+      createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID());
       // console.log("new cookie = ", visitorId);
     }
   } else {
@@ -367,6 +367,14 @@ async function sleakScript() {
       }
     }
 
+    function handleEvent(event) {
+      console.log('Captured Event:', event.payload.type);
+
+      if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
+        iframeWidgetbody.contentWindow.postMessage(event, '*');
+      }
+    }
+
     async function postInitialEvents() {
       // get and parse cookie
       const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
@@ -381,14 +389,6 @@ async function sleakScript() {
       console.log('posted initial events');
       Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
       console.log('removed chat created cookie');
-    }
-
-    function handleEvent(event) {
-      console.log('Captured Event:', event.payload.type);
-
-      if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
-        iframeWidgetbody.contentWindow.postMessage(event, '*');
-      }
     }
 
     async function interceptGlobalEvents() {
