@@ -60,6 +60,7 @@ async function sleakScript() {
   }
 
   let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
+  console.log('chatCreated = ', chatCreated);
 
   // aawait chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
