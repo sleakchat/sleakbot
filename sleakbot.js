@@ -415,12 +415,10 @@ async function sleakScript() {
             type: 'sleakNewEvent',
             payload: {
               timestamp: new Date().toISOString(),
-              event: {
-                type: 'web_event',
-                event_group: 'conversions' || null,
-                event: event.target.type,
-                event_config: {}
-              }
+              type: 'web_event',
+              event_group: 'conversions' || null,
+              event: event.target.type,
+              event_config: {}
             }
           };
           iframeWidgetbody.contentWindow.postMessage(eventData, '*');
