@@ -36,8 +36,8 @@ async function sleakScript() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
-        createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID());
-        visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+        visitorId = createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID());
+        // visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
         urlParams.delete('resetChat');
         const updatedParams = urlParams.toString();
         const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
@@ -46,8 +46,8 @@ async function sleakScript() {
 
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
-      createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID());
-      visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+      visitorId = createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID());
+      // visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
       // console.log("new cookie = ", visitorId);
     }
   } else {
