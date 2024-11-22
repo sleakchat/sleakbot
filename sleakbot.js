@@ -413,8 +413,10 @@ async function sleakScript() {
         if (iframeWidgetbody) {
           const eventData = {
             type: event.type,
-            timestamp: new Date().toISOString(),
-            payload: event
+            payload: {
+              timestamp: new Date().toISOString(),
+              event: event
+            }
           };
           iframeWidgetbody.contentWindow.postMessage(eventData, '*');
         }
