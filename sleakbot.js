@@ -374,6 +374,7 @@ async function sleakScript() {
     async function interceptDataLayerPush() {
       // Store a reference to the original dataLayer.push method
       const originalPush = window.dataLayer.push;
+      console.log(originalPush);
 
       // Overwrite the dataLayer.push method to add custom functionality
       window.dataLayer.push = function () {
@@ -381,7 +382,7 @@ async function sleakScript() {
         const args = Array.from(arguments);
         originalPush.apply(window.dataLayer, args);
 
-        // Handle the intercepted event here
+        // Handle the intercepted event here (only new events after initialization)
         args.forEach(event => {
           if (event.event) {
             console.log('Intercepted DataLayer Event:', event.event);
@@ -397,6 +398,40 @@ async function sleakScript() {
       };
     }
     interceptDataLayerPush();
+
+    async function interceptGlobalEvents() {
+      // Events to listen for
+      const eventsToCapture = ['click', 'submit', 'change'];
+
+      // Function to handle and send event details to the iframe
+      function handleEvent(event) {
+        console.log('Captured Event:', event.type);
+
+        // Send event details to the iframe
+        const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+        if (iframeWidgetbody) {
+          const eventData = {
+            eventType: event.type,
+            target: {
+              tagName: event.target.tagName,
+              id: event.target.id,
+              className: event.target.className,
+              name: event.target.name
+            },
+            timestamp: new Date().toISOString()
+          };
+          iframeWidgetbody.contentWindow.postMessage(eventData, '*');
+        }
+      }
+
+      // Attach listeners for each event type
+      eventsToCapture.forEach(eventType => {
+        document.addEventListener(eventType, handleEvent, true);
+      });
+    }
+
+    // Call the function to start intercepting events
+    interceptGlobalEvents();
   }
 }
 
