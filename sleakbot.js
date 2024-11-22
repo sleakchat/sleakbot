@@ -36,7 +36,8 @@ async function sleakScript() {
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
         createNewCookie();
-        urlParams.delete('resetChat');
+        const newUrl = `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
+        window.history.replaceState(null, '', newUrl);
       }
 
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
