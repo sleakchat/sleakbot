@@ -370,6 +370,33 @@ async function sleakScript() {
     //     document.body.style.overflow = "hidden";
     //   });
     // }
+
+    async function interceptDataLayerPush() {
+      // Store a reference to the original dataLayer.push method
+      const originalPush = window.dataLayer.push;
+
+      // Overwrite the dataLayer.push method to add custom functionality
+      window.dataLayer.push = function () {
+        // Call the original push method
+        const args = Array.from(arguments);
+        originalPush.apply(window.dataLayer, args);
+
+        // Handle the intercepted event here
+        args.forEach(event => {
+          if (event.event) {
+            console.log('Intercepted DataLayer Event:', event.event);
+
+            // Now push this event to the iframe
+            const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+            if (iframeWidgetbody) {
+              console.log('postMessage to child window');
+              iframeWidgetbody.contentWindow.postMessage(event, '*');
+            }
+          }
+        });
+      };
+    }
+    interceptDataLayerPush();
   }
 }
 
