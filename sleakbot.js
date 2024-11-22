@@ -412,7 +412,7 @@ async function sleakScript() {
         console.log('event pushed to child window: ', event);
         if (iframeWidgetbody) {
           const eventData = {
-            type: event.data,
+            type: event.target.type,
             payload: {
               timestamp: new Date().toISOString(),
               event: event.target
