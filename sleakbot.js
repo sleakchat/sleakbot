@@ -368,7 +368,7 @@ async function sleakScript() {
     }
 
     function handleEvent(event) {
-      console.log('Captured Event:', event.payload.type);
+      console.log('Captured Event:', event);
 
       if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
         iframeWidgetbody.contentWindow.postMessage(event, '*');
