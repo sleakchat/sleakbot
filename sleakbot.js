@@ -388,6 +388,7 @@ async function sleakScript() {
 
       if (!chatCreated) {
         const cookieKey = `slkLocalEventQueue_${chatbotId}_${visitorId}`;
+        console.log('cookieKey in handle event function', cookieKey);
         let currentEvents = Cookies.get(cookieKey);
 
         currentEvents = currentEvents ? JSON.parse(currentEvents) : [];
