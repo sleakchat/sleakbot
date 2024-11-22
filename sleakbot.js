@@ -409,6 +409,7 @@ async function sleakScript() {
 
         // Send event details to the iframe
         const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+        console.log('event pushed to child window: ', event);
         if (iframeWidgetbody) {
           const eventData = {
             eventType: event.type,
