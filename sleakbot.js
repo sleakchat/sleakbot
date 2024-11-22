@@ -366,49 +366,49 @@ async function sleakScript() {
       }
     });
 
-    if (!chatCreated) {
-      if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
-        createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
-        console.log('created slkLocalEventQueue cookie');
-      } else {
-        const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
-        const parsedEvents = JSON.parse(rawEvents);
-
-        handleEvent({
-          type: 'sleakInitialEvents',
-          payload: {
-            events: parsedEvents
-          }
-        });
-        console.log('posted initial events');
-        // Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
-        // console.log('removed chat created cookie');
-      }
-    }
-
-    function handleEvent(event) {
-      console.log('Captured Event:', event);
-
-      if (!chatCreated && event.type == 'sleakNewEvent') {
-        const cookieKey = `slkLocalEventQueue_${chatbotId}_${visitorId}`;
-        console.log('cookieKey in handle event function', cookieKey);
-        let currentEvents = Cookies.get(cookieKey);
-
-        currentEvents = currentEvents ? JSON.parse(currentEvents) : [];
-
-        currentEvents.push(event);
-
-        createNewCookie(cookieKey, JSON.stringify(currentEvents));
-        const updatedCookie = Cookies.get(cookieKey);
-        console.log('updated cookie', updatedCookie);
-      }
-
-      if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
-        iframeWidgetbody.contentWindow.postMessage(event, '*');
-      }
-    }
-
     function eventHandling() {
+      if (!chatCreated) {
+        if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
+          createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
+          console.log('created slkLocalEventQueue cookie');
+        } else {
+          const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+          const parsedEvents = JSON.parse(rawEvents);
+
+          handleEvent({
+            type: 'sleakInitialEvents',
+            payload: {
+              events: parsedEvents
+            }
+          });
+          console.log('posted initial events');
+          // Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
+          // console.log('removed chat created cookie');
+        }
+      }
+
+      function handleEvent(event) {
+        console.log('Captured Event:', event);
+
+        if (!chatCreated && event.type == 'sleakNewEvent') {
+          const cookieKey = `slkLocalEventQueue_${chatbotId}_${visitorId}`;
+          console.log('cookieKey in handle event function', cookieKey);
+          let currentEvents = Cookies.get(cookieKey);
+
+          currentEvents = currentEvents ? JSON.parse(currentEvents) : [];
+
+          currentEvents.push(event);
+
+          createNewCookie(cookieKey, JSON.stringify(currentEvents));
+          const updatedCookie = Cookies.get(cookieKey);
+          console.log('updated cookie', updatedCookie);
+        }
+
+        if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
+          iframeWidgetbody.contentWindow.postMessage(event, '*');
+        }
+      }
+
       async function interceptGlobalEvents() {
         const eventsToCapture = ['click'];
 
