@@ -352,7 +352,7 @@ async function sleakScript() {
           pushGtmEvent(event);
         } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
-        } else if (event.data === 'chatCreated') {
+        } else if (event.data.type === 'chatCreated') {
           console.log('chat created = ', event);
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
