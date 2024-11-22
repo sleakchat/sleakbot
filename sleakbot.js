@@ -400,16 +400,11 @@ async function sleakScript() {
     interceptDataLayerPush();
 
     async function interceptGlobalEvents() {
-      // Events to listen for
-      const eventsToCapture = ['click', 'submit', 'change'];
-
-      // Function to handle and send event details to the iframe
       function handleEvent(event) {
         console.log('Captured Event from datalayer:', event.type);
 
-        // Send event details to the iframe
         const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-        console.log('event pushed to child window: ', event);
+
         if (iframeWidgetbody) {
           const eventData = {
             type: 'sleakNewEvent',
@@ -424,6 +419,8 @@ async function sleakScript() {
           iframeWidgetbody.contentWindow.postMessage(eventData, '*');
         }
       }
+
+      const eventsToCapture = ['click', 'submit', 'change', 'DOMContentLoaded'];
 
       eventsToCapture.forEach(eventType => {
         document.addEventListener(eventType, handleEvent, true);
