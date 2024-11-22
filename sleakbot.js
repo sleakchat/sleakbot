@@ -31,8 +31,8 @@ async function sleakScript() {
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
-      // resetting chat
-      const urlParams = new URLSearchParams(window.location.href);
+      // Resetting chat
+      const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
         createNewCookie();
