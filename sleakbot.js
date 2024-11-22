@@ -412,26 +412,19 @@ async function sleakScript() {
         console.log('event pushed to child window: ', event);
         if (iframeWidgetbody) {
           const eventData = {
-            eventType: event.type,
-            target: {
-              tagName: event.target.tagName,
-              id: event.target.id,
-              className: event.target.className,
-              name: event.target.name
-            },
-            timestamp: new Date().toISOString()
+            type: event.type,
+            timestamp: new Date().toISOString(),
+            payload: event
           };
           iframeWidgetbody.contentWindow.postMessage(eventData, '*');
         }
       }
 
-      // Attach listeners for each event type
       eventsToCapture.forEach(eventType => {
         document.addEventListener(eventType, handleEvent, true);
       });
     }
 
-    // Call the function to start intercepting events
     interceptGlobalEvents();
   }
 }
