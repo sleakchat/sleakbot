@@ -415,7 +415,7 @@ async function sleakScript() {
             type: event.target.type,
             payload: {
               timestamp: new Date().toISOString(),
-              event: event.target
+              event: 'event.target'
             }
           };
           iframeWidgetbody.contentWindow.postMessage(eventData, '*');
