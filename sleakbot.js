@@ -342,6 +342,7 @@ async function sleakScript() {
           playSleakChimeOperator();
         } else if (event.data === 'domInitialized') {
           setShadow();
+          eventHandling();
         } else if (event.data === 'sleakChatInitiated') {
           pushGtmEvent(event);
         } else if (event.data === 'sleakSentContactDetails') {
@@ -374,58 +375,60 @@ async function sleakScript() {
       }
     }
 
-    async function postInitialEvents() {
-      // get and parse cookie
-      const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
-      const parsedEvents = JSON.parse(rawEvents);
+    function eventHandling() {
+      async function postInitialEvents() {
+        // get and parse cookie
+        const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+        const parsedEvents = JSON.parse(rawEvents);
 
-      handleEvent({
-        type: 'sleakInitialEvents',
-        payload: {
-          events: parsedEvents
-        }
-      });
-      console.log('posted initial events');
-      Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
-      console.log('removed chat created cookie');
-    }
-    postInitialEvents();
+        handleEvent({
+          type: 'sleakInitialEvents',
+          payload: {
+            events: parsedEvents
+          }
+        });
+        console.log('posted initial events');
+        Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
+        console.log('removed chat created cookie');
+      }
+      postInitialEvents();
 
-    async function interceptGlobalEvents() {
-      const eventsToCapture = ['click'];
+      async function interceptGlobalEvents() {
+        const eventsToCapture = ['click'];
 
-      eventsToCapture.forEach(eventType => {
-        document.addEventListener(eventType, function (event) {
-          handleEvent({
-            type: 'sleakNewEvent',
-            payload: {
-              timestamp: new Date().toISOString(),
-              type: 'web_event',
-              event_group: 'conversions' || null,
-              event: event.type,
-              event_config: {}
-            }
+        eventsToCapture.forEach(eventType => {
+          document.addEventListener(eventType, function (event) {
+            handleEvent({
+              type: 'sleakNewEvent',
+              payload: {
+                timestamp: new Date().toISOString(),
+                type: 'web_event',
+                event_group: 'conversions' || null,
+                event: event.type,
+                event_config: {}
+              }
+            });
           });
         });
-      });
-    }
-    interceptGlobalEvents();
+      }
+      interceptGlobalEvents();
 
-    async function currentUrlEvent() {
-      handleEvent({
-        type: 'sleakNewEvent',
-        payload: {
-          timestamp: new Date().toISOString(),
-          type: 'page_visit',
-          event_group: null,
-          event: 'DOMContentLoaded',
-          event_config: {
-            url: window.location.href
+      async function currentUrlEvent() {
+        handleEvent({
+          type: 'sleakNewEvent',
+          payload: {
+            timestamp: new Date().toISOString(),
+            type: 'page_visit',
+            event_group: null,
+            event: 'DOMContentLoaded',
+            event_config: {
+              url: window.location.href
+            }
           }
-        }
-      });
+        });
+      }
+      currentUrlEvent();
     }
-    currentUrlEvent();
   }
 }
 
