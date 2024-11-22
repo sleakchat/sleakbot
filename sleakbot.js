@@ -352,7 +352,6 @@ async function sleakScript() {
           console.log('chat created = ', event);
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           console.log('created chat cookie');
-          postInitialEvents();
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
         }
@@ -390,6 +389,7 @@ async function sleakScript() {
       Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
       console.log('removed chat created cookie');
     }
+    postInitialEvents();
 
     async function interceptGlobalEvents() {
       const eventsToCapture = ['click'];
