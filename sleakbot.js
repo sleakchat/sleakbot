@@ -351,7 +351,7 @@ async function sleakScript() {
           pushGtmEvent(event);
         } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
-        } else if (event.data === 'createdChat') {
+        } else if (event.data === 'chatCreated') {
           console.log('chat created = ', event);
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
@@ -367,6 +367,19 @@ async function sleakScript() {
       if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
         createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
         console.log('created slkLocalEventQueue cookie');
+      } else {
+        const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+        const parsedEvents = JSON.parse(rawEvents);
+
+        handleEvent({
+          type: 'sleakInitialEvents',
+          payload: {
+            events: parsedEvents
+          }
+        });
+        console.log('posted initial events');
+        // Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
+        // console.log('removed chat created cookie');
       }
     }
 
@@ -392,23 +405,6 @@ async function sleakScript() {
     }
 
     function eventHandling() {
-      async function postInitialEvents() {
-        // get and parse cookie
-        const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
-        const parsedEvents = JSON.parse(rawEvents);
-
-        handleEvent({
-          type: 'sleakInitialEvents',
-          payload: {
-            events: parsedEvents
-          }
-        });
-        console.log('posted initial events');
-        Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
-        console.log('removed chat created cookie');
-      }
-      postInitialEvents();
-
       async function interceptGlobalEvents() {
         const eventsToCapture = ['click'];
 
