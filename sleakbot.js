@@ -31,12 +31,14 @@ async function sleakScript() {
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
-      // look for 'resetChat'=true in params
+      // resetting chat
       const urlParams = new URLSearchParams(window.location.href);
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
         createNewCookie();
-        const newUrl = `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
+        urlParams.delete('resetChat');
+        const updatedParams = urlParams.toString();
+        const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
         window.history.replaceState(null, '', newUrl);
       }
 
