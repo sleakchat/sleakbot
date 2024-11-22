@@ -365,7 +365,7 @@ async function sleakScript() {
 
     if (!chatCreated) {
       if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
-        createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`), JSON.stringify([]);
+        createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
         console.log('created slkLocalEventQueue cookie');
       }
     }
