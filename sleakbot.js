@@ -381,7 +381,7 @@ async function sleakScript() {
               events: parsedEvents
             }
           });
-          console.log('posted initial events');
+          console.log('posted initial events =', parsedEvents);
           // Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
           // console.log('removed chat created cookie');
         }
