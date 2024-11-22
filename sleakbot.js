@@ -405,7 +405,7 @@ async function sleakScript() {
 
       // Function to handle and send event details to the iframe
       function handleEvent(event) {
-        console.log('Captured Event:', event.type);
+        console.log('Captured Event from datalayer:', event.type);
 
         // Send event details to the iframe
         const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
@@ -417,7 +417,7 @@ async function sleakScript() {
               timestamp: new Date().toISOString(),
               type: 'web_event',
               event_group: 'conversions' || null,
-              event: event.target.type,
+              event: event.type,
               event_config: {}
             }
           };
