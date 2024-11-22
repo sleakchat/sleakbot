@@ -376,22 +376,22 @@ async function sleakScript() {
     }
 
     function eventHandling() {
-      async function postInitialEvents() {
-        // get and parse cookie
-        const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
-        const parsedEvents = JSON.parse(rawEvents);
+      // async function postInitialEvents() {
+      //   // get and parse cookie
+      //   const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+      //   const parsedEvents = JSON.parse(rawEvents);
 
-        handleEvent({
-          type: 'sleakInitialEvents',
-          payload: {
-            events: parsedEvents
-          }
-        });
-        console.log('posted initial events');
-        Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
-        console.log('removed chat created cookie');
-      }
-      postInitialEvents();
+      //   handleEvent({
+      //     type: 'sleakInitialEvents',
+      //     payload: {
+      //       events: parsedEvents
+      //     }
+      //   });
+      //   console.log('posted initial events');
+      //   Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
+      //   console.log('removed chat created cookie');
+      // }
+      // postInitialEvents();
 
       async function interceptGlobalEvents() {
         const eventsToCapture = ['click'];
