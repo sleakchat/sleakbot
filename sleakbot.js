@@ -19,17 +19,32 @@ async function sleakScript() {
 
   let visitorId;
 
+  function createNewCookie() {
+    visitorId = crypto.randomUUID();
+    Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+      expires: 365,
+      sameSite: 'None',
+      secure: true
+    });
+  }
+
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
+      // Resetting chat
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('resetChat')) {
+        Cookies.remove(`sleakVisitorId_${chatbotId}`);
+        createNewCookie();
+        urlParams.delete('resetChat');
+        const updatedParams = urlParams.toString();
+        const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
+        window.history.replaceState(null, '', newUrl);
+      }
+
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
-      visitorId = crypto.randomUUID();
-      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
-        expires: 365,
-        sameSite: 'None',
-        secure: true
-      });
+      createNewCookie();
       // console.log("new cookie = ", visitorId);
     }
   } else {
@@ -334,8 +349,10 @@ async function sleakScript() {
           pushGtmEvent(event);
         } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
+        } else if (event.data === 'createdChat') {
+          console.log(event);
         } else {
-          console.log('no declared event');
+          if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
         }
       }
     });
