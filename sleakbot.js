@@ -19,7 +19,7 @@ async function sleakScript() {
 
   let visitorId;
 
-  function createNewCookie() {
+  function createNewCookie(key) {
     visitorId = crypto.randomUUID();
     Cookies.set(key, visitorId, {
       expires: 365,
