@@ -19,17 +19,28 @@ async function sleakScript() {
 
   let visitorId;
 
+  function createNewCookie() {
+    visitorId = crypto.randomUUID();
+    Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+      expires: 365,
+      sameSite: 'None',
+      secure: true
+    });
+  }
+
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
+      // look for 'resetChat'=true in params
+      const urlParams = new URLSearchParams(window.location.href);
+      if (urlParams.has('resetChat')) {
+        Cookies.remove(`sleakVisitorId_${chatbotId}`);
+        createNewCookie();
+      }
+
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
-      visitorId = crypto.randomUUID();
-      Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
-        expires: 365,
-        sameSite: 'None',
-        secure: true
-      });
+      createNewCookie();
       // console.log("new cookie = ", visitorId);
     }
   } else {
