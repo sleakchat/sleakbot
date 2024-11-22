@@ -19,9 +19,8 @@ async function sleakScript() {
 
   let visitorId;
 
-  function createNewCookie(key) {
-    visitorId = crypto.randomUUID();
-    Cookies.set(key, visitorId, {
+  function createNewCookie(key, value) {
+    Cookies.set(key, value, {
       expires: 365,
       sameSite: 'None',
       secure: true
@@ -35,7 +34,7 @@ async function sleakScript() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
-        createNewCookie(`sleakVisitorId_${chatbotId}`);
+        createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID(););
         urlParams.delete('resetChat');
         const updatedParams = urlParams.toString();
         const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
@@ -44,7 +43,7 @@ async function sleakScript() {
 
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
-      createNewCookie(`sleakVisitorId_${chatbotId}`);
+      createNewCookie(`sleakVisitorId_${chatbotId}`, crypto.randomUUID(););
       // console.log("new cookie = ", visitorId);
     }
   } else {
@@ -351,7 +350,7 @@ async function sleakScript() {
           pushGtmEvent(event);
         } else if (event.data === 'createdChat') {
           console.log('chat created = ', event);
-          createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`);
+          createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           console.log('created chat cookie');
           postInitialEvents();
         } else {
@@ -363,7 +362,7 @@ async function sleakScript() {
     const chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`);
     if (!chatCreated) {
       if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
-        createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+        createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`), JSON.stringify([]);
         console.log('created slkLocalEventQueue cookie');
       }
     }
