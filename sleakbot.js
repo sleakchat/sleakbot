@@ -401,8 +401,6 @@ async function sleakScript() {
     // }
     // interceptDataLayerPush();
 
-    const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-
     function handleEvent(event) {
       console.log('Captured Event from datalayer:', event.payload.type);
 
