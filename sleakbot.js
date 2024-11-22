@@ -350,86 +350,85 @@ async function sleakScript() {
         } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
         } else if (event.data === 'createdChat') {
-          console.log(event);
+          console.log('chat created = ', event);
+          createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`);
+          console.log('created chat cookie');
+          postInitialEvents();
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
         }
       }
     });
 
-    // //// Background overlay for mobile //// LET OP: MOET MISSCHIEN NOG BLIJVEN (IN MAIN TOGGLECHAT FUNCTION VERWERKEN)
-
-    // var sleakWidgetOpened = document.getElementById("sleak-widget-close");
-    // var sleakWidgetClosed = document.getElementById("sleak-widget-closed");
-
-    // if (window.matchMedia("(max-width: 768px)").matches) {
-    //   sleakWidgetOpened.addEventListener("click", function () {
-    //     document.body.style.overflow = "auto";
-    //   });
-    //   sleakWidgetClosed.addEventListener("click", function () {
-    //     document.body.style.overflow = "hidden";
-    //   });
-    // }
-
-    //
-
-    // async function interceptDataLayerPush() {
-    //   // Store a reference to the original dataLayer.push method
-    //   const originalPush = window.dataLayer.push;
-    //   console.log(originalPush);
-
-    //   // Overwrite the dataLayer.push method to add custom functionality
-    //   window.dataLayer.push = function () {
-    //     // Call the original push method
-    //     const args = Array.from(arguments);
-    //     originalPush.apply(window.dataLayer, args);
-
-    //     // Handle the intercepted event here (only new events after initialization)
-    //     args.forEach(event => {
-    //       if (event.event) {
-    //         console.log('Intercepted DataLayer Event:', event.event);
-
-    //         // Now push this event to the iframe
-    //         const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-    //         if (iframeWidgetbody) {
-    //           console.log('postMessage to child window');
-    //           iframeWidgetbody.contentWindow.postMessage(event, '*');
-    //         }
-    //       }
-    //     });
-    //   };
-    // }
-    // interceptDataLayerPush();
-
-    function handleEvent(event) {
-      console.log('Captured Event from datalayer:', event.payload.type);
-
-      if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
-        iframeWidgetbody.contentWindow.postMessage(event, '*');
+    async function eventHandling() {
+      const chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`);
+      if (!chatCreated) {
+        if (!Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`)) {
+          createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+          console.log('created cookie');
+        }
       }
-    }
+      async function postInitialEvents() {
+        // get and parse cookie
+        const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+        const parsedEvents = JSON.parse(rawEvents);
 
-    async function interceptGlobalEvents() {
-      const eventsToCapture = ['click', 'submit', 'change', 'DOMContentLoaded'];
+        handleEvent({
+          type: 'sleakInitialEvents',
+          payload: {
+            events: parsedEvents
+          }
+        });
+        console.log('posted initial events');
+        Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
+        console.log('removed chat created cookie');
+      }
 
-      eventsToCapture.forEach(eventType => {
-        document.addEventListener(eventType, function (event) {
-          handleEvent({
-            type: 'sleakNewEvent',
-            payload: {
-              timestamp: new Date().toISOString(),
-              type: 'web_event',
-              event_group: 'conversions' || null,
-              event: event.type,
-              event_config: {}
-            }
+      function handleEvent(event) {
+        console.log('Captured Event from datalayer:', event.payload.type);
+
+        if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
+          iframeWidgetbody.contentWindow.postMessage(event, '*');
+        }
+      }
+
+      async function interceptGlobalEvents() {
+        const eventsToCapture = ['click'];
+
+        eventsToCapture.forEach(eventType => {
+          document.addEventListener(eventType, function (event) {
+            handleEvent({
+              type: 'sleakNewEvent',
+              payload: {
+                timestamp: new Date().toISOString(),
+                type: 'web_event',
+                event_group: 'conversions' || null,
+                event: event.type,
+                event_config: {}
+              }
+            });
           });
         });
-      });
-    }
+      }
+      interceptGlobalEvents();
 
-    // Call the function to intercept global events
-    interceptGlobalEvents();
+      async function currentUrlEvent() {
+        handleEvent({
+          type: 'sleakNewEvent',
+          payload: {
+            timestamp: new Date().toISOString(),
+            type: 'page_visit',
+            event_group: null,
+            event: 'DOMContentLoaded',
+            event_config: {
+              url: window.location.href
+            }
+          }
+        });
+      }
+      currentUrlEvent();
+    }
+    eventHandling();
   }
 }
 
