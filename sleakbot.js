@@ -18,6 +18,8 @@ async function sleakScript() {
   });
 
   let visitorId;
+  let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
+  console.log('chatCreated = ', chatCreated);
 
   function createNewCookie(key, value) {
     Cookies.set(key, value, {
@@ -352,6 +354,8 @@ async function sleakScript() {
         } else if (event.data === 'createdChat') {
           console.log('chat created = ', event);
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
+          Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+          chatCreated = true;
           console.log('created chat cookie');
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
@@ -359,7 +363,6 @@ async function sleakScript() {
       }
     });
 
-    const chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`);
     if (!chatCreated) {
       if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
         createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`), JSON.stringify([]);
@@ -369,6 +372,19 @@ async function sleakScript() {
 
     function handleEvent(event) {
       console.log('Captured Event:', event);
+
+      if (chatCreated) {
+        const cookieKey = `slkLocalEventQueue_${chatbotId}_${visitorId}`;
+        let currentEvents = Cookies.get(cookieKey);
+
+        currentEvents = currentEvents ? JSON.parse(currentEvents) : [];
+
+        currentEvents.push(event);
+
+        createNewCookie(cookieKey, JSON.stringify(currentEvents));
+        const updatedCookie = Cookies.get(cookieKey);
+        console.log('updated cookie', updatedCookie);
+      }
 
       if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
         iframeWidgetbody.contentWindow.postMessage(event, '*');
