@@ -403,7 +403,7 @@ async function sleakScript() {
               payload: {
                 timestamp: new Date().toISOString(),
                 type: 'web_event',
-                event_group: 'conversions' || null,
+                event_group: 'conversions',
                 event: event.type,
                 event_config: {}
               }
@@ -419,7 +419,7 @@ async function sleakScript() {
           payload: {
             timestamp: new Date().toISOString(),
             type: 'page_visit',
-            event_group: null,
+            event_group: 'page_views',
             event: 'DOMContentLoaded',
             event_config: {
               url: window.location.href
