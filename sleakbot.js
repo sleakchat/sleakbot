@@ -21,7 +21,7 @@ async function sleakScript() {
 
   function createNewCookie() {
     visitorId = crypto.randomUUID();
-    Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
+    Cookies.set(key, visitorId, {
       expires: 365,
       sameSite: 'None',
       secure: true
@@ -35,7 +35,7 @@ async function sleakScript() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('resetChat')) {
         Cookies.remove(`sleakVisitorId_${chatbotId}`);
-        createNewCookie();
+        createNewCookie(`sleakVisitorId_${chatbotId}`);
         urlParams.delete('resetChat');
         const updatedParams = urlParams.toString();
         const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
@@ -44,7 +44,7 @@ async function sleakScript() {
 
       visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
     } else {
-      createNewCookie();
+      createNewCookie(`sleakVisitorId_${chatbotId}`);
       // console.log("new cookie = ", visitorId);
     }
   } else {
@@ -371,42 +371,52 @@ async function sleakScript() {
     //   });
     // }
 
-    async function interceptDataLayerPush() {
-      // Store a reference to the original dataLayer.push method
-      const originalPush = window.dataLayer.push;
-      console.log(originalPush);
+    //
 
-      // Overwrite the dataLayer.push method to add custom functionality
-      window.dataLayer.push = function () {
-        // Call the original push method
-        const args = Array.from(arguments);
-        originalPush.apply(window.dataLayer, args);
+    // async function interceptDataLayerPush() {
+    //   // Store a reference to the original dataLayer.push method
+    //   const originalPush = window.dataLayer.push;
+    //   console.log(originalPush);
 
-        // Handle the intercepted event here (only new events after initialization)
-        args.forEach(event => {
-          if (event.event) {
-            console.log('Intercepted DataLayer Event:', event.event);
+    //   // Overwrite the dataLayer.push method to add custom functionality
+    //   window.dataLayer.push = function () {
+    //     // Call the original push method
+    //     const args = Array.from(arguments);
+    //     originalPush.apply(window.dataLayer, args);
 
-            // Now push this event to the iframe
-            const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-            if (iframeWidgetbody) {
-              console.log('postMessage to child window');
-              iframeWidgetbody.contentWindow.postMessage(event, '*');
-            }
-          }
-        });
-      };
+    //     // Handle the intercepted event here (only new events after initialization)
+    //     args.forEach(event => {
+    //       if (event.event) {
+    //         console.log('Intercepted DataLayer Event:', event.event);
+
+    //         // Now push this event to the iframe
+    //         const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+    //         if (iframeWidgetbody) {
+    //           console.log('postMessage to child window');
+    //           iframeWidgetbody.contentWindow.postMessage(event, '*');
+    //         }
+    //       }
+    //     });
+    //   };
+    // }
+    // interceptDataLayerPush();
+
+    const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+
+    function handleEvent(event) {
+      console.log('Captured Event from datalayer:', event.payload.type);
+
+      if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
+        iframeWidgetbody.contentWindow.postMessage(event, '*');
+      }
     }
-    interceptDataLayerPush();
 
     async function interceptGlobalEvents() {
-      function handleEvent(event) {
-        console.log('Captured Event from datalayer:', event.type);
+      const eventsToCapture = ['click', 'submit', 'change', 'DOMContentLoaded'];
 
-        const iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-
-        if (iframeWidgetbody) {
-          const eventData = {
+      eventsToCapture.forEach(eventType => {
+        document.addEventListener(eventType, function (event) {
+          handleEvent({
             type: 'sleakNewEvent',
             payload: {
               timestamp: new Date().toISOString(),
@@ -415,18 +425,12 @@ async function sleakScript() {
               event: event.type,
               event_config: {}
             }
-          };
-          iframeWidgetbody.contentWindow.postMessage(eventData, '*');
-        }
-      }
-
-      const eventsToCapture = ['click', 'submit', 'change', 'DOMContentLoaded'];
-
-      eventsToCapture.forEach(eventType => {
-        document.addEventListener(eventType, handleEvent, true);
+          });
+        });
       });
     }
 
+    // Call the function to intercept global events
     interceptGlobalEvents();
   }
 }
