@@ -19,6 +19,7 @@ async function sleakScript() {
 
   let visitorId;
   let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
+  console.log(Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`));
   console.log('chatCreated = ', chatCreated);
 
   function createNewCookie(key, value) {
@@ -357,6 +358,7 @@ async function sleakScript() {
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
           chatCreated = true;
+
           console.log('created chat cookie');
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
