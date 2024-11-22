@@ -18,9 +18,6 @@ async function sleakScript() {
   });
 
   let visitorId;
-  let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
-  console.log(Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`));
-  console.log('chatCreated = ', chatCreated);
 
   function createNewCookie(key, value) {
     Cookies.set(key, value, {
@@ -61,6 +58,8 @@ async function sleakScript() {
       // console.log("new localStorage = ", visitorId);
     }
   }
+
+  let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
 
   // aawait chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
