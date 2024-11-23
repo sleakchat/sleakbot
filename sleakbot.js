@@ -446,7 +446,18 @@ async function sleakScript() {
 
       // custom fields
       function customFields() {
-        const customFields = chatbotConfig.custom_fields_config;
+        const customFieldsConfig = chatbotConfig.custom_fields_config;
+        // example payload for the custom_fields_config object
+        customFieldsConfig = [
+          {
+            key: 'email',
+            updateChatName: true
+          },
+          {
+            key: 'user_id',
+            updateChatName: false
+          }
+        ];
 
         // end user will push custom fields in an object to this function
         window.seakPushCustomFields = function (customFields) {
@@ -456,9 +467,9 @@ async function sleakScript() {
             return;
           }
           // validate if the object is valid, not empty, and the keys exist in customFields
-          const keys = Object.keys(customFields);
-          const validKeys = keys.filter(key => customFields[key] !== undefined);
-          const invalidKeys = keys.filter(key => customFields[key] === undefined);
+          const validKeys = Object.keys(customFields).filter(key => customFieldsConfig.map(cf => cf.key).includes(key));
+          const invalidKeys = Object.keys(customFields).filter(key => !customFieldsConfig.map(cf => cf.key).includes(key));
+
           if (invalidKeys.length > 0) {
             console.error(`invalid custom fields: ${invalidKeys.join(', ')}`);
             return;
@@ -473,15 +484,35 @@ async function sleakScript() {
             console.error(`empty custom field values: ${emptyValues.join(', ')}`);
             return;
           }
+
+          // the child window should also now if updateChatName is true for a key - we should reformat back into an array?
+          const outputObject = validKeys.map(key => {
+            const updateChatName = chatbotConfig.custom_fields_config.find(cf => cf.key === key).updateChatName;
+            return {
+              key,
+              value: customFields[key],
+              updateChatName: updateChatName
+            };
+          });
+
+          console.log('valid custom fields:', outputObject);
+
           // push the valid custom fields
           handleEvent({
             type: 'updateCustomFields',
             payload: {
               timestamp: new Date().toISOString(),
-              customFields: customFields
+              customFields: outputObject
             }
           });
         };
+
+        // set example payload for the customFields argument and call function
+        customFields = {
+          email: 'email@email.com',
+          user_id: '123456'
+        };
+        window.seakPushCustomFields(examplePayload);
 
         handleEvent({
           type: 'updateCustomFields',
