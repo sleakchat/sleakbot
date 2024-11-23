@@ -358,7 +358,6 @@ async function sleakScript() {
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
           chatCreated = true;
-
           console.log('created chat cookie');
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
@@ -444,6 +443,58 @@ async function sleakScript() {
         });
       }
       currentUrlEvent();
+
+      // custom fields
+      function customFields() {
+        const customFields = chatbotConfig.custom_fields_config;
+
+        // end user will push custom fields in an object to this function
+        window.seakPushCustomFields = function (customFields) {
+          // validate if the object is valid
+          if (!customFields || typeof customFields !== 'object') {
+            console.error('invalid type. object expected.');
+            return;
+          }
+          // validate if the object is valid, not empty, and the keys exist in customFields
+          const keys = Object.keys(customFields);
+          const validKeys = keys.filter(key => customFields[key] !== undefined);
+          const invalidKeys = keys.filter(key => customFields[key] === undefined);
+          if (invalidKeys.length > 0) {
+            console.error(`invalid custom fields: ${invalidKeys.join(', ')}`);
+            return;
+          }
+          if (validKeys.length === 0) {
+            console.error('no valid custom fields to push');
+            return;
+          }
+          // validate if there are empty values
+          const emptyValues = validKeys.filter(key => customFields[key] === '');
+          if (emptyValues.length > 0) {
+            console.error(`empty custom field values: ${emptyValues.join(', ')}`);
+            return;
+          }
+          // push the valid custom fields
+          handleEvent({
+            type: 'updateCustomFields',
+            payload: {
+              timestamp: new Date().toISOString(),
+              customFields: customFields
+            }
+          });
+        };
+
+        handleEvent({
+          type: 'updateCustomFields',
+          payload: {
+            timestamp: new Date().toISOString()
+            // type: 'custom_field',
+            // event_group: 'custom_fields',
+            // event: 'custom_field',
+            // event_config: chatbotConfig.custom_fields_config
+          }
+        });
+      }
+      if (chatbotConfig.custom_fields_config) customFields();
     }
   }
 }
