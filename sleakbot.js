@@ -514,17 +514,6 @@ async function sleakScript() {
           user_id: '123456'
         };
         window.seakPushCustomFields(examplePayload);
-
-        handleEvent({
-          type: 'updateCustomFields',
-          payload: {
-            timestamp: new Date().toISOString()
-            // type: 'custom_field',
-            // event_group: 'custom_fields',
-            // event: 'custom_field',
-            // event_config: chatbotConfig.custom_fields_config
-          }
-        });
       }
       if (chatbotConfig.custom_fields_config) customFields();
     }
