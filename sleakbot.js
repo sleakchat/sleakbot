@@ -518,6 +518,8 @@ async function sleakScript() {
       if (chatbotConfig.custom_fields_config) {
         console.log('custom fields config exists, calling customFields function');
         customFields();
+      } else {
+        console.log('no custom fields config');
       }
     }
   }
