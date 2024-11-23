@@ -486,7 +486,7 @@ async function sleakScript() {
             return;
           }
 
-          console.log('valid custom fields:', outputObject);
+          console.log('valid custom fields:', customFields);
 
           // push the valid custom fields
           handleEvent({
