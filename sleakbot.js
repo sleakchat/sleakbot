@@ -515,6 +515,7 @@ async function sleakScript() {
         };
         window.seakPushCustomFields(examplePayload);
       }
+      console.log('chatbotConfig', chatbotConfig);
       if (chatbotConfig.custom_fields_config) {
         console.log('custom fields config exists, calling customFields function');
         customFields();
