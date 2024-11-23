@@ -509,7 +509,7 @@ async function sleakScript() {
         };
 
         // set example payload for the customFields argument and call function
-        customFields = {
+        examplePayload = {
           email: 'email@email.com',
           user_id: '123456'
         };
