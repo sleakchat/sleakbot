@@ -486,16 +486,6 @@ async function sleakScript() {
             return;
           }
 
-          // the child window should also now if updateChatName is true for a key - we should reformat back into an array?
-          const outputObject = validKeys.map(key => {
-            const updateChatName = chatbotConfig.custom_fields_config.find(cf => cf.key === key).updateChatName;
-            return {
-              key,
-              value: customFields[key],
-              updateChatName: updateChatName
-            };
-          });
-
           console.log('valid custom fields:', outputObject);
 
           // push the valid custom fields
@@ -503,7 +493,7 @@ async function sleakScript() {
             type: 'updateCustomFields',
             payload: {
               timestamp: new Date().toISOString(),
-              customFields: outputObject
+              customFields: customFields
             }
           });
         };
