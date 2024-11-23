@@ -459,7 +459,7 @@ async function sleakScript() {
           }
         ];
 
-        // end user will push custom fields in an object to this function
+        // end user will push custom fields in an object to this functionnn
         window.seakPushCustomFields = function (customFields) {
           // validate if the object is valid
           if (!customFields || typeof customFields !== 'object') {
