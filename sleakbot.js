@@ -502,11 +502,11 @@ async function sleakScript() {
         window.dispatchEvent(sleakCustomFieldsHandlerInitialized);
 
         // set example payload for the customFields argument and call function
-        examplePayload = {
-          email: 'email@email.com',
-          user_id: '123456'
-        };
-        window.seakPushCustomFields(examplePayload);
+        // examplePayload = {
+        //   email: 'email@email.com',
+        //   user_id: '123456'
+        // };
+        // window.seakPushCustomFields(examplePayload);
       }
 
       console.log('chatbotConfig', chatbotConfig);
