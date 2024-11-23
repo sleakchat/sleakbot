@@ -498,6 +498,9 @@ async function sleakScript() {
           });
         };
 
+        // dispatch event when custom fields can be updated
+        window.dispatchEvent(sleakCustomFieldsHandlerInitialized);
+
         // set example payload for the customFields argument and call function
         examplePayload = {
           email: 'email@email.com',
@@ -505,13 +508,9 @@ async function sleakScript() {
         };
         window.seakPushCustomFields(examplePayload);
       }
+
       console.log('chatbotConfig', chatbotConfig);
-      if (chatbotConfig.custom_fields_config) {
-        console.log('custom fields config exists, calling customFields function');
-        customFields();
-      } else {
-        console.log('no custom fields config');
-      }
+      if (chatbotConfig.custom_fields_config) customFields();
     }
   }
 }
