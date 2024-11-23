@@ -447,17 +447,18 @@ async function sleakScript() {
       // custom fields
       function customFields() {
         const customFieldsConfig = chatbotConfig.custom_fields_config;
-        // example payload for the custom_fields_config object
-        customFieldsConfig = [
-          {
-            key: 'email',
-            updateChatName: true
-          },
-          {
-            key: 'user_id',
-            updateChatName: false
-          }
-        ];
+        // // example payload for the custom_fields_config object
+        // customFieldsConfig = [
+        //   {
+        //     key: 'email',
+        //     updateChatName: true
+        //   },
+        //   {
+        //     key: 'user_id',
+        //     updateChatName: false
+        //   }
+        // ];
+        console.log('customFieldsConfig:', customFieldsConfig);
 
         // end user will push custom fields in an object to this functionnn
         window.seakPushCustomFields = function (customFields) {
