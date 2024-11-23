@@ -515,7 +515,10 @@ async function sleakScript() {
         };
         window.seakPushCustomFields(examplePayload);
       }
-      if (chatbotConfig.custom_fields_config) customFields();
+      if (chatbotConfig.custom_fields_config) {
+        console.log('custom fields config exists, calling customFields function');
+        customFields();
+      }
     }
   }
 }
