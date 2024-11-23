@@ -499,7 +499,7 @@ async function sleakScript() {
         };
 
         // dispatch event when custom fields can be updated
-        window.dispatchEvent(sleakCustomFieldsHandlerInitialized);
+        window.dispatchEvent(new CustomEvent('sleakCustomFieldsHandlerInitialized'));
 
         // set example payload for the customFields argument and call function
         // examplePayload = {
