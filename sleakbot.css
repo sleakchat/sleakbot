@@ -46,7 +46,7 @@
   display: none;
   bottom: 82px;
   right: 0;
-  width: 230px;
+  width: 340px;
   height: 110px;
   align-items: flex-end;
   align-content: flex-end;
@@ -57,6 +57,7 @@
 #sleak-popup-iframe {
   z-index: 99999999999999;
   height: 110px;
+  width: 340px;
 }
 
 .sleak-embed {
