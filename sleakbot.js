@@ -409,7 +409,7 @@ async function sleakScript() {
       }
 
       async function interceptGlobalEvents() {
-        const eventsToCapture = ['click'];
+        const eventsToCapture = ['purchase'];
 
         eventsToCapture.forEach(eventType => {
           document.addEventListener(eventType, function (event) {
