@@ -47,7 +47,7 @@
   bottom: 82px;
   right: 0;
   width: 340px;
-  height: 110px;
+  height: 116px;
   align-items: flex-end;
   align-content: flex-end;
   border-radius: 18px;
@@ -56,7 +56,7 @@
 
 #sleak-popup-iframe {
   z-index: 99999999999999;
-  height: 110px;
+  height: 116px;
   width: 340px;
 }
 
