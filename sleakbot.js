@@ -409,23 +409,56 @@ async function sleakScript() {
       }
 
       async function interceptGlobalEvents() {
-        const eventsToCapture = ['purchase'];
+        // Group-based structure for events and their aliases
+        const eventGroups = {
+          page_view: ['DOMContentLoaded'],
+          form_submission: ['submit', 'formSubmit'],
+          purchase: ['purchase', 'orderComplete', 'orderPlaced', 'order_complete', 'order_placed'],
+          add_to_cart: ['addToCart', 'add_to_cart'],
+          login: ['logIn', 'log_in', 'login'],
+          sign_up: ['signUp', 'signup', 'sign_up'],
+          click: ['click', 'clickEvent']
+        };
 
-        eventsToCapture.forEach(eventType => {
-          document.addEventListener(eventType, function (event) {
-            handleEvent({
-              type: 'sleakNewEvent',
-              payload: {
-                timestamp: new Date().toISOString(),
-                type: 'web_event',
-                event_group: 'conversions',
-                event: event.type,
-                event_config: {}
-              }
+        function extractEventConfig(event) {
+          const eventConfig = {};
+
+          // For form submissions, extract the target element details
+          if (event.type === 'submit' || event.type === 'formSubmit') {
+            eventConfig.formName = event.target ? event.target.name || event.target.id || null : null;
+          }
+
+          // For e-commerce-related events, extract order details if available
+          if (['purchase', 'orderComplete', 'orderPlaced', 'order_complete', 'order_placed'].includes(event.type)) {
+            // Check if event has a `detail` property containing order info
+            if (event.detail) {
+              eventConfig = event.detail || {};
+            }
+          }
+
+          return eventConfig;
+        }
+
+        // Loop through each group and set up listeners for its events
+        Object.entries(eventGroups).forEach(([group, events]) => {
+          events.forEach(event => {
+            document.addEventListener(event, function (eventDetails) {
+              handleEvent({
+                type: 'sleakNewEvent', // Custom event type
+                payload: {
+                  timestamp: new Date().toISOString(), // Capture event time
+                  type: 'web_event', // Fixed type for standard events
+                  event_group: group, // Use the group name directly
+                  event: eventDetails.type, // The raw event name/type
+                  event_config: extractEventConfig(eventDetails) // Optional event details
+                }
+              });
             });
           });
         });
       }
+
+      // Initialize the global event listener
       interceptGlobalEvents();
 
       async function currentUrlEvent() {
@@ -433,7 +466,7 @@ async function sleakScript() {
           type: 'sleakNewEvent',
           payload: {
             timestamp: new Date().toISOString(),
-            type: 'page_visit',
+            type: 'web_event',
             event_group: 'page_views',
             event: 'DOMContentLoaded',
             event_config: {
