@@ -411,7 +411,6 @@ async function sleakScript() {
       async function interceptGlobalEvents() {
         // Group-based structure for events and their aliases
         const eventGroups = {
-          page_view: ['DOMContentLoaded'],
           form_submission: ['submit', 'formSubmit'],
           purchase: ['purchase', 'orderComplete', 'orderPlaced', 'order_complete', 'order_placed'],
           add_to_cart: ['addToCart', 'add_to_cart'],
@@ -468,7 +467,7 @@ async function sleakScript() {
           payload: {
             timestamp: new Date().toISOString(),
             type: 'web_event',
-            event_group: 'page_views',
+            event_group: 'page_view',
             event: 'DOMContentLoaded',
             event_config: {
               url: window.location.href
