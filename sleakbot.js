@@ -443,6 +443,7 @@ async function sleakScript() {
         Object.entries(eventGroups).forEach(([group, events]) => {
           events.forEach(event => {
             document.addEventListener(event, function (eventDetails) {
+              console.log('group', group);
               handleEvent({
                 type: 'sleakNewEvent', // Custom event type
                 payload: {
