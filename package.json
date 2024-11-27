@@ -1,2 +1,7 @@
-{"dev": "build": "esbuild sleakbot.js fetchsleakbot.js --outdir=./ --allow-overwrite --minify && esbuild sleakbot.css --outdir=./ --allow-overwrite --minify && html-minifier --input-dir ./ --output-dir ./ --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true && next dev"
-"build": "build": "esbuild sleakbot.js fetchsleakbot.js --outdir=./ --allow-overwrite --minify && esbuild sleakbot.css --outdir=./ --allow-overwrite --minify && html-minifier --input-dir ./ --output-dir ./ --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true && next build"}
+{
+  "scripts": {
+    "dev": "esbuild sleakbot.js fetchsleakbot.js --outdir=./ --allow-overwrite --minify && esbuild sleakbot.css --outdir=./ --allow-overwrite --minify && html-minifier --input-dir ./ --output-dir ./ --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true && next dev",
+    "build": "esbuild sleakbot.js fetchsleakbot.js --outdir=./ --allow-overwrite --minify && esbuild sleakbot.css --outdir=./ --allow-overwrite --minify && html-minifier --input-dir ./ --output-dir ./ --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true && next build",
+    "start": "next start"
+  }
+}
