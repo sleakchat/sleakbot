@@ -359,6 +359,9 @@ async function sleakScript() {
           Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
           chatCreated = true;
           console.log('created chat cookie');
+        } else if (event.data.type === 'initiateTriggerBasedPopup') {
+          console.log('initiateTriggerBasedPopup = ', event);
+          eventHandling();
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
         }
