@@ -342,6 +342,12 @@ async function sleakScript() {
       }, 5000);
 
       sessionStorage.setItem(sessionStorageKey, 'true');
+
+      document.querySelectorAll('[open-widget]').forEach(element => {
+        element.addEventListener('click', function () {
+          toggleSleakWidget();
+        });
+      });
     }
 
     if (!hasPopupBeenTriggered && !blockDefaultPopup) {
