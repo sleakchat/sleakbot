@@ -293,17 +293,20 @@ async function sleakScript() {
 
     const pagePath = window.location.pathname;
     const popupRules = chatbotConfig.popups.rules || [];
+    console.log('popupRules:', popupRules);
     if (popupRules.length > 0) {
-      const pagePopup = popupRules.some(rule => rule.pages.includes(pagePath));
+      const pagePopup = popupRules.some(rule => rule.page.includes(pagePath));
       if (pagePopup) {
         triggerBasedPopup = true;
         async function showTriggerBasedPopup() {
           const liveChatPopup = document.getElementById('sleak-popup-embed');
 
+          console.log('showing livechat popup');
           liveChatPopup.style.display = 'flex';
           playSleakChimeOperator();
 
           setTimeout(function () {
+            console.log('showing main popup');
             showPopup();
             playSleakChime();
           }, liveChatPopup.timeout);
