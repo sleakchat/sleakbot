@@ -75,6 +75,7 @@ async function sleakScript() {
     const sleakWidgetwrap = document.getElementById('sleak-widget-container');
     const liveChatPopup = document.getElementById('sleak-operatorchanged-popup');
     const chatInput = document.querySelector('.sleak-popup-chatinpupt-input-wrapper');
+    const btnPulse = document.querySelector('#sleak-button-pulse');
 
     var viewportWidth2 = window.innerWidth;
     const mirrorring = { mobile: false, desktop: false };
@@ -163,6 +164,7 @@ async function sleakScript() {
       sleakPopup.style.display = 'none';
       chatInput.style.display = 'none';
       liveChatPopup.style.display = 'none';
+      btnPulse.style.display = 'none';
 
       sleakBodyEmbed.style.transition = 'opacity 0.15s ease-in-out';
       sleakBodyEmbed.style.transition = 'transform 0.15s ease-in-out';
@@ -354,6 +356,8 @@ async function sleakScript() {
               chatInput.style.opacity = '1';
               chatInput.style.transform = 'translateY(0)';
             }, 50);
+            btnPulse.style.display = 'flex';
+            btnPulse.style.opacity = '1–';
           }
         }, 500);
       }, 5000);
