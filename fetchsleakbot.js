@@ -11,7 +11,7 @@ async function injectSleakScript() {
   if (scriptSrc.includes('dev')) {
     var baseUrl = 'https://cdn.dev.sleak.chat';
   } else if (scriptSrc.includes('localhost')) {
-    var baseUrl = 'http://localhost:3000';
+    var baseUrl = 'http://localhost:8000';
   } else {
     var baseUrl = 'https://cdn.sleak.chat';
   }
