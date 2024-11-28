@@ -286,7 +286,32 @@ async function sleakScript() {
     // disable popup/chime after first page load
     var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
     var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-    // var hasPopupBeenTriggered = false; // remove line in prod
+    var hasPopupBeenTriggered = false; // remove line in prod
+
+    let triggerBasedPopup = false;
+    var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
+
+    const pagePath = window.location.pathname;
+    const popupRules = chatbotConfig.popups.rules || [];
+    if (popupRules.length > 0) {
+      const pagePopup = popupRules.some(rule => rule.pages.includes(pagePath));
+      if (pagePopup) {
+        triggerBasedPopup = true;
+        async function showTriggerBasedPopup() {
+          const liveChatPopup = document.getElementById('sleak-popup-embed');
+
+          liveChatPopup.style.display = 'flex';
+          playSleakChimeOperator();
+
+          setTimeout(function () {
+            showPopup();
+            playSleakChime();
+          }, liveChatPopup.timeout);
+
+          sessionStorage.setItem(sessionStorageKey, 'true');
+        }
+      }
+    }
 
     if (!hasPopupBeenTriggered) {
       // console.log("popup localStorage does not exist");
@@ -297,6 +322,7 @@ async function sleakScript() {
       if (viewportWidth < 479) {
         if (chatbotConfig.popup.mobile == true) {
           setTimeout(function () {
+            if (triggerBasedPopup == true) return;
             if (sleakWidgetOpenState == false) {
               showPopup();
               if (chatbotConfig.popup.chime.mobile == true) {
@@ -345,7 +371,6 @@ async function sleakScript() {
         } else if (event.data === 'operatorChanged') {
           playSleakChimeOperator();
         } else if (event.data === 'domInitialized') {
-          const pagePath = window.location.pathname;
           const sleakPageLoad = {
             type: 'sleakPageLoad',
             payload: {
