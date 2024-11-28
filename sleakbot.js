@@ -76,6 +76,8 @@ async function sleakScript() {
     const liveChatPopup = document.getElementById('sleak-operatorchanged-popup');
     const chatInput = document.querySelector('.sleak-popup-chatinpupt-input-wrapper');
     const btnPulse = document.querySelector('#sleak-button-pulse');
+    const btnNotificaiton = document.querySelector('#sleak-btn-notification-count');
+    const isTypingIndicator = document.querySelector('#sleak-loader-container');
 
     var viewportWidth2 = window.innerWidth;
     const mirrorring = { mobile: false, desktop: false };
@@ -165,6 +167,8 @@ async function sleakScript() {
       chatInput.style.display = 'none';
       liveChatPopup.style.display = 'none';
       btnPulse.style.display = 'none';
+      btnNotificaiton.style.display = 'none';
+      isTypingIndicator.style.display = 'none';
 
       sleakBodyEmbed.style.transition = 'opacity 0.15s ease-in-out';
       sleakBodyEmbed.style.transition = 'transform 0.15s ease-in-out';
@@ -334,9 +338,10 @@ async function sleakScript() {
           liveChatPopup.style.transform = 'translateY(0)';
         }, 50);
 
+        setTimeout(() => (isTypingIndicator.style.display = 'flex'), 500);
+
         playSleakChimeOperator();
       }
-
       setTimeout(function () {
         blockDefaultPopup = false;
         if (!chatCreated) {
@@ -346,6 +351,7 @@ async function sleakScript() {
             playSleakChime();
           }
         }
+        setTimeout(() => (isTypingIndicator.style.display = 'none'), 4000);
         setTimeout(function () {
           if (!sleakWidgetOpenState) {
             chatInput.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
@@ -356,8 +362,17 @@ async function sleakScript() {
               chatInput.style.opacity = '1';
               chatInput.style.transform = 'translateY(0)';
             }, 50);
+
             btnPulse.style.display = 'flex';
-            btnPulse.style.opacity = '1–';
+            btnPulse.style.opacity = '1';
+            btnPulse.style.transform = 'scale(1)';
+
+            btnNotificaiton.style.transform = 'scale(0.5)';
+            btnNotificaiton.style.display = 'flex';
+            setTimeout(function () {
+              btnNotificaiton.style.opacity = '1';
+              btnNotificaiton.style.transform = 'scale(1)';
+            }, 50);
           }
         }, 500);
       }, 5000);
