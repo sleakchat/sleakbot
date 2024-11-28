@@ -345,6 +345,16 @@ async function sleakScript() {
         } else if (event.data === 'operatorChanged') {
           playSleakChimeOperator();
         } else if (event.data === 'domInitialized') {
+          const pagePath = window.location.pathname;
+          const sleakPageLoad = {
+            type: 'sleakPageLoad',
+            payload: {
+              currentPage: pagePath
+            }
+          };
+          console.log('sleakPageLoad message posted =', sleakPageLoad);
+          iframeWidgetbody.contentWindow.postMessage(sleakPageLoad, '*');
+
           setShadow();
           eventHandling();
         } else if (event.data === 'sleakChatInitiated') {
