@@ -323,7 +323,15 @@ async function sleakScript() {
       liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
 
       if (!sleakWidgetOpenState) {
+        liveChatPopup.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        liveChatPopup.style.transform = 'translateY(20px)';
+        liveChatPopup.style.opacity = '0';
         liveChatPopup.style.display = 'flex';
+        setTimeout(function () {
+          liveChatPopup.style.opacity = '1';
+          liveChatPopup.style.transform = 'translateY(0)';
+        }, 50);
+
         playSleakChimeOperator();
       }
 
@@ -337,17 +345,26 @@ async function sleakScript() {
           }
         }
         setTimeout(function () {
-          if (!sleakWidgetOpenState) chatInput.style.display = 'flex';
+          if (!sleakWidgetOpenState) {
+            chatInput.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+            chatInput.style.transform = 'translateY(20px)';
+            chatInput.style.opacity = '0';
+            chatInput.style.display = 'flex';
+            setTimeout(function () {
+              chatInput.style.opacity = '1';
+              chatInput.style.transform = 'translateY(0)';
+            }, 50);
+          }
         }, 500);
       }, 5000);
 
       sessionStorage.setItem(sessionStorageKey, 'true');
 
-      document.querySelectorAll('[open-widget]').forEach(element => {
-        element.addEventListener('click', function () {
-          toggleSleakWidget();
-        });
-      });
+      // document.querySelectorAll('[open-widget]').forEach(element => {
+      //   element.addEventListener('click', function () {
+      //     toggleSleakWidget();
+      //   });
+      // });
     }
 
     if (!hasPopupBeenTriggered && !blockDefaultPopup) {
