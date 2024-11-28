@@ -73,10 +73,18 @@ async function sleakScript() {
     var sleakPopup = document.querySelector('#sleak-popup-embed');
     const sleakEmbeddedWidget = document.querySelector('#sleak-body-embed');
     const sleakWidgetwrap = document.getElementById('sleak-widget-container');
-    // const sleakBgOverlay = document.querySelector("#sleak-bgoverlay");
+    const liveChatPopup = document.getElementById('sleak-operatorchanged-popup');
+    const chatInput = document.querySelector('.sleak-popup-chatinpupt-input-wrapper');
 
     var viewportWidth2 = window.innerWidth;
-    // const mirrorring = { mobile: true, desktop: true };
+    const mirrorring = { mobile: false, desktop: false };
+    chatbotConfig.btn_offset = {
+      x_mobile: 20,
+      y_mobile: 20,
+      x_desktop: 20,
+      y_desktop: 20,
+      mirrorring: mirrorring
+    };
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
@@ -151,8 +159,10 @@ async function sleakScript() {
       sleakBodyEmbed.style.transform = 'translateY(800px)';
       sleakBodyEmbed.style.transform = 'scale(0.99)';
 
-      sleakPopup.style.display = 'none';
       sleakBodyEmbed.style.opacity = '0';
+      sleakPopup.style.display = 'none';
+      chatInput.style.display = 'none';
+      liveChatPopup.style.display = 'none';
 
       sleakBodyEmbed.style.transition = 'opacity 0.15s ease-in-out';
       sleakBodyEmbed.style.transition = 'transform 0.15s ease-in-out';
@@ -288,35 +298,53 @@ async function sleakScript() {
     var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
     var hasPopupBeenTriggered = false; // remove line in prod
 
-    let triggerBasedPopup = false;
+    let blockDefaultPopup = false;
     var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
 
-    const pagePath = window.location.pathname;
+    let pagePath = window.location.pathname;
+    pagePath = '/'; // remove limne in prod
+    console.log('pagePath:', pagePath);
     const popupRules = chatbotConfig.popups.rules || [];
     console.log('popupRules:', popupRules);
+
     if (popupRules.length > 0) {
-      const pagePopup = popupRules.some(rule => rule.page.includes(pagePath));
+      const pagePopup = popupRules.find(rule => rule.page);
+      console.log('disabling default popup as pagePopup exists = ', pagePopup);
       if (pagePopup) {
-        triggerBasedPopup = true;
-        async function showTriggerBasedPopup() {
-          const liveChatPopup = document.getElementById('sleak-popup-embed');
-
-          console.log('showing livechat popup');
-          liveChatPopup.style.display = 'flex';
-          playSleakChimeOperator();
-
-          setTimeout(function () {
-            console.log('showing main popup');
-            showPopup();
-            playSleakChime();
-          }, liveChatPopup.timeout);
-
-          sessionStorage.setItem(sessionStorageKey, 'true');
-        }
+        blockDefaultPopup = true;
+        console.log('blockDefaultPopup = ', blockDefaultPopup);
       }
     }
 
-    if (!hasPopupBeenTriggered) {
+    async function showTriggerBasedPopup(payload) {
+      console.log('showing livechat popup with payload = ', payload);
+
+      liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
+      liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
+
+      if (!sleakWidgetOpenState) {
+        liveChatPopup.style.display = 'flex';
+        playSleakChimeOperator();
+      }
+
+      setTimeout(function () {
+        blockDefaultPopup = false;
+        if (!chatCreated) {
+          console.log('showing main popup');
+          if (!sleakWidgetOpenState) {
+            showPopup();
+            playSleakChime();
+          }
+        }
+        setTimeout(function () {
+          if (!sleakWidgetOpenState) chatInput.style.display = 'flex';
+        }, 500);
+      }, 5000);
+
+      sessionStorage.setItem(sessionStorageKey, 'true');
+    }
+
+    if (!hasPopupBeenTriggered && !blockDefaultPopup) {
       // console.log("popup localStorage does not exist");
 
       const viewportWidth = window.innerWidth;
@@ -325,7 +353,6 @@ async function sleakScript() {
       if (viewportWidth < 479) {
         if (chatbotConfig.popup.mobile == true) {
           setTimeout(function () {
-            if (triggerBasedPopup == true) return;
             if (sleakWidgetOpenState == false) {
               showPopup();
               if (chatbotConfig.popup.chime.mobile == true) {
@@ -363,7 +390,7 @@ async function sleakScript() {
 
     window.addEventListener('message', event => {
       if (event.origin === 'https://sleak.vercel.app' || event.origin === 'https://staging.sleak.chat' || event.origin === 'https://widget.sleak.chat') {
-        console.log('Received message:', event);
+        // console.log('Received message:', event);
 
         if (event.data === 'closePopup') {
           closeSleakWidget();
@@ -380,7 +407,7 @@ async function sleakScript() {
               currentPage: pagePath
             }
           };
-          console.log('sleakPageLoad message posted =', sleakPageLoad);
+          // console.log('sleakPageLoad message posted =', sleakPageLoad);
           iframeWidgetbody.contentWindow.postMessage(sleakPageLoad, '*');
 
           setShadow();
@@ -398,8 +425,8 @@ async function sleakScript() {
           chatCreated = true;
           console.log('created chat cookie');
         } else if (event.data.type === 'initiateTriggerBasedPopup') {
-          console.log('initiateTriggerBasedPopup = ', event);
-          eventHandling();
+          console.log('trigger initiateTriggerBasedPopup = ', event);
+          showTriggerBasedPopup(event.data.payload);
         } else {
           if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
         }
@@ -410,7 +437,7 @@ async function sleakScript() {
       if (!chatCreated) {
         if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
           createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
-          console.log('created slkLocalEventQueue cookie');
+          // console.log('created slkLocalEventQueue cookie');
         } else {
           const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
           const parsedEvents = JSON.parse(rawEvents);
@@ -421,18 +448,18 @@ async function sleakScript() {
               events: parsedEvents
             }
           });
-          console.log('posted initial events =', parsedEvents);
+          // console.log('posted initial events =', parsedEvents);
           // Cookies.remove(`slkChatCreated_${chatbotId}_${visitorId}`);
           // console.log('removed chat created cookie');
         }
       }
 
       function handleEvent(event) {
-        console.log('Captured Event:', event);
+        // console.log('Captured Event:', event);
 
         if (!chatCreated && event.type == 'sleakNewEvent') {
           const cookieKey = `slkLocalEventQueue_${chatbotId}_${visitorId}`;
-          console.log('cookieKey in handle event function', cookieKey);
+          // console.log('cookieKey in handle event function', cookieKey);
           let currentEvents = Cookies.get(cookieKey);
 
           currentEvents = currentEvents ? JSON.parse(currentEvents) : [];
@@ -441,7 +468,7 @@ async function sleakScript() {
 
           createNewCookie(cookieKey, JSON.stringify(currentEvents));
           const updatedCookie = Cookies.get(cookieKey);
-          console.log('updated cookie', updatedCookie);
+          // console.log('updated cookie', updatedCookie);
         }
 
         if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
@@ -483,7 +510,7 @@ async function sleakScript() {
         Object.entries(eventGroups).forEach(([group, events]) => {
           events.forEach(event => {
             document.addEventListener(event, function (eventDetails) {
-              console.log('group', group);
+              // console.log('group', group);
               handleEvent({
                 type: 'sleakNewEvent', // Custom event type
                 payload: {
@@ -532,7 +559,7 @@ async function sleakScript() {
         //     updateChatName: false
         //   }
         // ];
-        console.log('customFieldsConfig:', customFieldsConfig);
+        // console.log('customFieldsConfig:', customFieldsConfig);
 
         // end user will push custom fields in an object to this functionnn
         window.seakPushCustomFields = function (customFields) {
@@ -583,7 +610,7 @@ async function sleakScript() {
         // window.seakPushCustomFields(examplePayload);
       }
 
-      console.log('chatbotConfig', chatbotConfig);
+      // console.log('chatbotConfig', chatbotConfig);
       if (chatbotConfig.custom_fields_config) customFields();
     }
   }
