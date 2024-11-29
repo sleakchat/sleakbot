@@ -78,14 +78,15 @@ async function sleakScript() {
     const btnPulse = document.querySelector('#sleak-button-pulse');
     const btnNotificaiton = document.querySelector('#sleak-btn-notification-count');
     const isTypingIndicator = document.querySelector('#sleak-loader-container');
+    const popupListWrap = document.querySelector('#popup-list-wrap');
 
     var viewportWidth2 = window.innerWidth;
     const mirrorring = { mobile: true, desktop: true };
     chatbotConfig.btn_offset = {
-      x_mobile: 20,
-      y_mobile: 20,
-      x_desktop: 20,
-      y_desktop: 20,
+      x_mobile: 40,
+      y_mobile: 40,
+      x_desktop: 100,
+      y_desktop: 100,
       mirrorring: mirrorring
     };
     console.log('mirrorring:', chatbotConfig.btn_offset.mirrorring);
@@ -93,7 +94,7 @@ async function sleakScript() {
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
       sleakButton.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
-      sleakPopup.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px;');
+      popupListWrap.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px;');
     }
 
     function setStylingDesktop() {
@@ -102,10 +103,9 @@ async function sleakScript() {
 
     function setStylingMobileMirrored() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-      var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
       sleakButton.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
-      sleakPopup.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px;');
-      document.querySelector('#popup-list-wrap').style.alignItems = 'start';
+      popupListWrap.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px; align-items: start;');
+      sleakWrap.style.alignItems = 'flex-start';
     }
 
     function setStylingDesktopMirrored() {
@@ -114,7 +114,7 @@ async function sleakScript() {
         'left: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;' + 'width: 100vw; justify-content: flex-start; align-items: flex-start;'
       );
       sleakWidgetwrap.setAttribute('style', 'width: 420px; height: 100%;');
-      sleakPopup.setAttribute('style', 'right: unset; left: 0;');
+      popupListWrap.setAttribute('style', 'right: unset; left: 0;');
       sleakButton.setAttribute('style', 'right: unset; left: 0; transform: scaleX(-1) !important');
       document.querySelector('#popup-list-wrap').style.alignItems = 'start';
     }
@@ -225,8 +225,8 @@ async function sleakScript() {
         }
 
         const viewportHeight = window.innerHeight;
-        document.getElementById('sleak-widgetwrap').style.height = viewportHeight + 'px';
-        document.getElementById('sleak-widgetwrap').style.minHeight = viewportHeight + 'px';
+        sleakWrap.style.height = viewportHeight + 'px';
+        sleakWrap.style.minHeight = viewportHeight + 'px';
         // console.log("Viewport Height window:", viewportHeight);
 
         /// check for first button click of page load
@@ -312,7 +312,7 @@ async function sleakScript() {
     var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
 
     let pagePath = window.location.pathname;
-    pagePath = '/'; // remove limne in prod
+    pagePath = '/asdf'; // remove limne in prod
     console.log('pagePath:', pagePath);
     const popupRules = chatbotConfig.popups.rules || [];
     console.log('popupRules:', popupRules);
