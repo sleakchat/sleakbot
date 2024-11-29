@@ -81,14 +81,14 @@ async function sleakScript() {
     const popupListWrap = document.querySelector('#popup-list-wrap');
 
     var viewportWidth2 = window.innerWidth;
-    const mirrorring = { mobile: true, desktop: true };
-    chatbotConfig.btn_offset = {
-      x_mobile: 40,
-      y_mobile: 40,
-      x_desktop: 600,
-      y_desktop: 300,
-      mirrorring: mirrorring
-    };
+    // const mirrorring = { mobile: true, desktop: true };
+    // chatbotConfig.btn_offset = {
+    //   x_mobile: 40,
+    //   y_mobile: 40,
+    //   x_desktop: 600,
+    //   y_desktop: 300,
+    //   mirrorring: mirrorring
+    // };
     console.log('mirrorring:', chatbotConfig.btn_offset.mirrorring);
 
     function setStylingMobile() {
