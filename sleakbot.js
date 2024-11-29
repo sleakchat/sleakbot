@@ -312,7 +312,7 @@ async function sleakScript() {
     let pagePath = window.location.pathname;
     // pagePath = '/asdf'; // remove limne in prod
     console.log('pagePath:', pagePath);
-    const popupRules = chatbotConfig.popups.rules || [];
+    const popupRules = chatbotConfig.popups?.rules || [];
     console.log('popupRules:', popupRules);
 
     if (popupRules.length > 0) {
