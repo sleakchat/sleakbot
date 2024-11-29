@@ -442,7 +442,8 @@ async function sleakScript() {
           const sleakPageLoad = {
             type: 'sleakPageLoad',
             payload: {
-              currentPage: pagePath
+              currentPath: pagePath,
+              fullUrl: window.location.href
             }
           };
           // console.log('sleakPageLoad message posted =', sleakPageLoad);
