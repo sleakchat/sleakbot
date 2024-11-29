@@ -106,6 +106,7 @@ async function sleakScript() {
       sleakButton.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
       popupListWrap.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px; align-items: start;');
       sleakWrap.style.alignItems = 'flex-start';
+      sleakEmbeddedWidget.setAttribute('style', 'justify-content: flex-start !important');
     }
 
     function setStylingDesktopMirrored() {
@@ -159,14 +160,14 @@ async function sleakScript() {
     }
 
     function openSleakWidget() {
-      sleakBodyEmbed.style.display = 'flex';
+      sleakEmbeddedWidget.style.display = 'flex';
       // sleakBgOverlay.style.display = "block";
 
       sleakWidgetwrap.style.transform = 'translateY(20px)';
-      sleakBodyEmbed.style.transform = 'translateY(800px)';
-      sleakBodyEmbed.style.transform = 'scale(0.99)';
+      sleakEmbeddedWidget.style.transform = 'translateY(800px)';
+      sleakEmbeddedWidget.style.transform = 'scale(0.99)';
 
-      sleakBodyEmbed.style.opacity = '0';
+      sleakEmbeddedWidget.style.opacity = '0';
       sleakPopup.style.display = 'none';
       chatInput.style.display = 'none';
       liveChatPopup.style.display = 'none';
@@ -174,19 +175,19 @@ async function sleakScript() {
       btnNotificaiton.style.display = 'none';
       isTypingIndicator.style.display = 'none';
 
-      sleakBodyEmbed.style.transition = 'opacity 0.15s ease-in-out';
-      sleakBodyEmbed.style.transition = 'transform 0.15s ease-in-out';
+      sleakEmbeddedWidget.style.transition = 'opacity 0.15s ease-in-out';
+      sleakEmbeddedWidget.style.transition = 'transform 0.15s ease-in-out';
       sleakWidgetwrap.style.transition = 'transform 0.15s ease-in-out';
 
       setTimeout(function () {
-        sleakBodyEmbed.style.opacity = '1';
+        sleakEmbeddedWidget.style.opacity = '1';
         sleakWidgetwrap.style.transform = 'translateY(0)';
-        sleakBodyEmbed.style.transform = 'translateY(0)';
-        sleakBodyEmbed.style.transform = 'scale(1)';
+        sleakEmbeddedWidget.style.transform = 'translateY(0)';
+        sleakEmbeddedWidget.style.transform = 'scale(1)';
       }, 50);
     }
     function closeSleakWidget() {
-      sleakBodyEmbed.classList.remove('open');
+      sleakEmbeddedWidget.classList.remove('open');
       iframeWidgetbody.classList.remove('open');
 
       sleakEmbeddedWidget.style.display = 'none';
@@ -272,17 +273,14 @@ async function sleakScript() {
 
     // Chime & popup
 
-    var sleakBodyEmbed = document.getElementById('sleak-body-embed');
-    var sleakPopupOpen = document.getElementById('sleak-popup-embed');
-
     function showPopup() {
-      sleakPopupOpen.style.display = 'flex';
-      sleakPopupOpen.style.opacity = '0';
-      sleakPopupOpen.style.transform = 'translateY(20px)';
-      sleakPopupOpen.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      sleakPopup.style.display = 'flex';
+      sleakPopup.style.opacity = '0';
+      sleakPopup.style.transform = 'translateY(20px)';
+      sleakPopup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
       setTimeout(function () {
-        sleakPopupOpen.style.opacity = '1';
-        sleakPopupOpen.style.transform = 'translateY(0)';
+        sleakPopup.style.opacity = '1';
+        sleakPopup.style.transform = 'translateY(0)';
       }, 50);
     }
 
@@ -312,15 +310,15 @@ async function sleakScript() {
     var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
 
     let pagePath = window.location.pathname;
-    pagePath = '/asdf'; // remove limne in prod
+    // pagePath = '/asdf'; // remove limne in prod
     console.log('pagePath:', pagePath);
     const popupRules = chatbotConfig.popups.rules || [];
     console.log('popupRules:', popupRules);
 
     if (popupRules.length > 0) {
-      const pagePopup = popupRules.find(rule => rule.page);
-      console.log('disabling default popup as pagePopup exists = ', pagePopup);
+      const pagePopup = popupRules.find(rule => rule.page == pagePath);
       if (pagePopup) {
+        console.log('disabling default popup as pagePopup exists = ', pagePopup);
         blockDefaultPopup = true;
         console.log('blockDefaultPopup = ', blockDefaultPopup);
       }
