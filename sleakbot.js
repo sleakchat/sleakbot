@@ -85,8 +85,8 @@ async function sleakScript() {
     chatbotConfig.btn_offset = {
       x_mobile: 40,
       y_mobile: 40,
-      x_desktop: 100,
-      y_desktop: 100,
+      x_desktop: 600,
+      y_desktop: 300,
       mirrorring: mirrorring
     };
     console.log('mirrorring:', chatbotConfig.btn_offset.mirrorring);
