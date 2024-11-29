@@ -448,6 +448,7 @@ async function sleakScript() {
           };
           console.log('sleakPageLoad message posted =', sleakPageLoad);
           iframeWidgetbody.contentWindow.postMessage(sleakPageLoad, '*');
+          iframePopup.contentWindow.postMessage(sleakPageLoad, '*');
 
           setShadow();
           eventHandling();
