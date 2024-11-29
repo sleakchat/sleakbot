@@ -80,7 +80,7 @@ async function sleakScript() {
     const isTypingIndicator = document.querySelector('#sleak-loader-container');
 
     var viewportWidth2 = window.innerWidth;
-    const mirrorring = { mobile: false, desktop: false };
+    const mirrorring = { mobile: true, desktop: true };
     chatbotConfig.btn_offset = {
       x_mobile: 20,
       y_mobile: 20,
@@ -88,6 +88,7 @@ async function sleakScript() {
       y_desktop: 20,
       mirrorring: mirrorring
     };
+    console.log('mirrorring:', chatbotConfig.btn_offset.mirrorring);
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
@@ -104,6 +105,7 @@ async function sleakScript() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
       sleakButton.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
       sleakPopup.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px;');
+      document.querySelector('#popup-list-wrap').style.alignItems = 'start';
     }
 
     function setStylingDesktopMirrored() {
@@ -114,6 +116,7 @@ async function sleakScript() {
       sleakWidgetwrap.setAttribute('style', 'width: 420px; height: 100%;');
       sleakPopup.setAttribute('style', 'right: unset; left: 0;');
       sleakButton.setAttribute('style', 'right: unset; left: 0; transform: scaleX(-1) !important');
+      document.querySelector('#popup-list-wrap').style.alignItems = 'start';
     }
 
     if (viewportWidth2 < 479) {
@@ -123,10 +126,11 @@ async function sleakScript() {
         setStylingMobileMirrored();
       }
     } else {
-      if (!chatbotConfig.btn_offset.mirrorring || chatbotConfig.btn_offset.mirrorring.mobile !== true) {
+      if (!chatbotConfig.btn_offset.mirrorring || chatbotConfig.btn_offset.mirrorring.desktop !== true) {
         setStylingDesktop();
       } else {
         setStylingDesktopMirrored();
+        console.log('mirrored desktop');
       }
     }
 
@@ -338,10 +342,11 @@ async function sleakScript() {
           liveChatPopup.style.transform = 'translateY(0)';
         }, 50);
 
-        setTimeout(() => (isTypingIndicator.style.display = 'flex'), 500);
+        setTimeout(() => (isTypingIndicator.style.display = 'flex'), 1000);
 
         playSleakChimeOperator();
       }
+      setTimeout(() => (isTypingIndicator.style.display = 'none'), 6000);
       setTimeout(function () {
         blockDefaultPopup = false;
         if (!chatCreated) {
@@ -351,7 +356,6 @@ async function sleakScript() {
             playSleakChime();
           }
         }
-        setTimeout(() => (isTypingIndicator.style.display = 'none'), 4000);
         setTimeout(function () {
           if (!sleakWidgetOpenState) {
             chatInput.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
@@ -375,15 +379,9 @@ async function sleakScript() {
             }, 50);
           }
         }, 500);
-      }, 5000);
+      }, 7000);
 
       sessionStorage.setItem(sessionStorageKey, 'true');
-
-      // document.querySelectorAll('[open-widget]').forEach(element => {
-      //   element.addEventListener('click', function () {
-      //     toggleSleakWidget();
-      //   });
-      // });
     }
 
     if (!hasPopupBeenTriggered && !blockDefaultPopup) {
