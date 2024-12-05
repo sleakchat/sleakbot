@@ -383,7 +383,7 @@ async function sleakScript() {
     }
 
     if (!hasPopupBeenTriggered && !blockDefaultPopup) {
-      // console.log("popup localStorage does not exist");
+      console.log('popup localStorage does not exist');
 
       const viewportWidth = window.innerWidth;
       // console.log(viewportWidth);
