@@ -89,7 +89,7 @@ async function sleakScript() {
     //   y_desktop: 300,
     //   mirrorring: mirrorring
     // };
-    console.log('mirrorring:', chatbotConfig.btn_offset.mirrorring);
+    console.log('mirrorring:', chatbotConfig.btn_offset.align_right);
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
@@ -121,13 +121,13 @@ async function sleakScript() {
     }
 
     if (viewportWidth2 < 479) {
-      if (!chatbotConfig.btn_offset.mirrorring || chatbotConfig.btn_offset.mirrorring.mobile !== true) {
+      if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.mobile !== false) {
         setStylingMobile();
       } else {
         setStylingMobileMirrored();
       }
     } else {
-      if (!chatbotConfig.btn_offset.mirrorring || chatbotConfig.btn_offset.mirrorring.desktop !== true) {
+      if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.desktop !== false) {
         setStylingDesktop();
       } else {
         setStylingDesktopMirrored();
@@ -446,7 +446,7 @@ async function sleakScript() {
               fullUrl: window.location.href
             }
           };
-          console.log('sleakPageLoad message posted =', sleakPageLoad);
+          // console.log('sleakPageLoad message posted =', sleakPageLoad);
           iframeWidgetbody.contentWindow.postMessage(sleakPageLoad, '*');
           iframePopup.contentWindow.postMessage(sleakPageLoad, '*');
 
