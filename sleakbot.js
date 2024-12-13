@@ -602,7 +602,7 @@ async function sleakScript() {
         // console.log('customFieldsConfig:', customFieldsConfig);
 
         // end user will push custom fields in an object to this functionnn
-        window.seakPushCustomFields = function (customFields) {
+        window.sleakPushCustomFields = function (customFields) {
           // validate if the object is valid
           if (!customFields || typeof customFields !== 'object') {
             console.error('invalid type. object expected.');
