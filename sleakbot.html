@@ -3,7 +3,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
+    /> 
   </div>
   <body>
     <div id="sleak-widgetwrap">
@@ -22,18 +22,41 @@
           ></iframe>
         </div>
       </div>
-
-      <div id="sleak-popup-embed" class="">
-        <iframe
-          referrerpolicy="no-referrer"
-          id="sleak-popup-iframe"
-          frameborder="0"
-          scrolling="no"
-          src=""
-          allowtransparency="true"
-        ></iframe>
+      <div id="popup-list-wrap">
+        <div id="sleak-loader-container"> 
+          <svg height="40" width="40" class="sleak-loader">
+          <circle class="sleak-loading-dot" cx="10" cy="20" r="3" style="fill: #7e79f0" />
+          <circle class="sleak-loading-dot" cx="20" cy="20" r="3" style="fill: #7e79f0" />
+          <circle class="sleak-loading-dot" cx="30" cy="20" r="3" style="fill: #7e79f0" />
+          </svg>
+        </div>
+        <div id="sleak-operatorchanged-popup" open-widge onclick="toggleSleakWidget()">
+          <img src="https://uploads-ssl.webflow.com/65911e9735540c235757642f/65b53f83acecf90e74bd8844_profile_pic_default.png" id="sleak-operatorchanged-avatar"/>
+          <div id="sleak-operatorchanged-text">
+            <strong id="sleak-operatorchanged-name">Sjef</strong> heeft de chat overgenomen
+          </div>
+        </div>
+        </svg>
+        <div id="sleak-popup-embed" class="">
+          <iframe
+            referrerpolicy="no-referrer"
+            id="sleak-popup-iframe"
+            frameborder="0"
+            scrolling="no"
+            src=""
+            allowtransparency="true"
+          ></iframe>
+        </div>
+        <div class="sleak-popup-chatinpupt-input-wrapper" open-widget>
+          <textarea id="sleak-popup-chatinpupt-widget-textarea" rows="1" placeholder="Typ hier je bericht..." dir="auto" cols="20" autocomplete="off" tab="0" onclick="toggleSleakWidget()"></textarea>
+          <div id="sleak-popup-chatinpupt-send-button-wrap">
+            <button id="sleak-popup-chatinpupt-submit-message-form-button"></button>
+          </div>
+        </div>
       </div>
       <div id="sleak-buttonwrap">
+        <div id="sleak-button-pulse"></div>
+        <div id="sleak-btn-notification-count">1</div>
         <iframe
           referrerpolicy="no-referrer"
           id="sleak-button-iframe"
