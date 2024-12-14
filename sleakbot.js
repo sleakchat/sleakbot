@@ -60,7 +60,7 @@ async function sleakScript() {
   }
 
   let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
-  console.log('chatCreated = ', chatCreated);
+  // console.log('chatCreated = ', chatCreated);
 
   // aawait chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
@@ -89,7 +89,7 @@ async function sleakScript() {
     //   y_desktop: 300,
     //   mirrorring: mirrorring
     // };
-    console.log('mirrorring:', chatbotConfig.btn_offset.align_right);
+    // console.log('mirrorring:', chatbotConfig.btn_offset.align_right);
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
@@ -459,11 +459,11 @@ async function sleakScript() {
         } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
         } else if (event.data.type === 'chatCreated') {
-          console.log('chat created = ', event);
+          // console.log('chat created = ', event);
           createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
           Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
           chatCreated = true;
-          console.log('created chat cookie');
+          // console.log('created chat cookie');
         } else if (event.data.type === 'initiateTriggerBasedPopup') {
           console.log('trigger initiateTriggerBasedPopup = ', event);
           showTriggerBasedPopup(event.data.payload);
