@@ -48,7 +48,8 @@
   /* bottom: 82px; */
   /* right: 0; */
   /* width: 340px; */
-  height: 116px;
+  height: auto;
+  /* height: 116px; */
   align-items: flex-end;
   align-content: flex-end;
   border-radius: 12px;
@@ -57,7 +58,8 @@
 
 #sleak-popup-iframe {
   z-index: 99999999999999;
-  height: 116px;
+  /* height: 116px; */
+  height: auto;
 }
 
 #popup-list-wrap {
