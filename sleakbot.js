@@ -143,6 +143,14 @@ async function sleakScript() {
     var iframePopup = document.getElementById('sleak-popup-iframe');
     iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
+    async function calculatePopupHeight() {
+      setTimeout(() => {
+        const popupHeight = iframePopup.contentWindow.document.body.scrollHeight;
+        console.log('popupHeight:', popupHeight);
+      }, 2000);
+    }
+    calculatePopupHeight();
+
     // btn visibility
     var sleakButtonWrap = document.querySelector('#sleak-buttonwrap');
     sleakButtonWrap.style.opacity = '0';
