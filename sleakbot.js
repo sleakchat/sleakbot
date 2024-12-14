@@ -647,7 +647,7 @@ async function sleakScript() {
         //   email: 'email@email.com',
         //   user_id: '123456'
         // };
-        // window.seakPushCustomFields(examplePayload);
+        // window.sleakPushCustomFields(examplePayload);
       }
 
       // console.log('chatbotConfig', chatbotConfig);

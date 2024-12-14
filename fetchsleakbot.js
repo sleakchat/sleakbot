@@ -1,5 +1,6 @@
 const sleakbotScriptTag = document.querySelector('#sleakbot');
 const scriptCookies = sleakbotScriptTag.getAttribute('cookies');
+const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
 
 async function injectSleakScript() {
   if (window.sleakScriptInjected) {
@@ -83,24 +84,26 @@ async function injectSleakScript() {
   // };
 }
 
-if (!scriptCookies) {
-  function loadScript() {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js';
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
+if (chatbotId == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec') {
+  if (!scriptCookies) {
+    function loadScript() {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
 
-  loadScript()
-    .then(() => {
-      injectSleakScript();
-    })
-    .catch(error => {
-      console.error('Error occurred while loading js-cookie:', error);
-    });
-} else {
-  injectSleakScript();
+    loadScript()
+      .then(() => {
+        injectSleakScript();
+      })
+      .catch(error => {
+        console.error('Error occurred while loading js-cookie:', error);
+      });
+  } else {
+    injectSleakScript();
+  }
 }
