@@ -85,7 +85,7 @@ async function injectSleakScript() {
 }
 
 console.log('chatbotId2:', chatbotId2);
-if (chatbotId2 == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec') {
+if (chatbotId2 == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec' || chatbotId2 == '7785e220-6b5b-4c3c-80ba-f08f52ac99de') {
   console.log('sleak.chat is enabled for this chatbot');
   if (!scriptCookies) {
     function loadScript() {
