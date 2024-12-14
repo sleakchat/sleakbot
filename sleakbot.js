@@ -274,23 +274,23 @@ async function sleakScript() {
     // Chime & popup
 
     function showPopup() {
-      // sleakPopup.style.display = 'flex';
-      // sleakPopup.style.opacity = '0';
-      // sleakPopup.style.transform = 'translateY(20px)';
-      // sleakPopup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      // setTimeout(function () {
-      //   sleakPopup.style.opacity = '1';
-      //   sleakPopup.style.transform = 'translateY(0)';
-      // }, 50);
+      sleakPopup.style.display = 'flex';
+      sleakPopup.style.opacity = '0';
+      sleakPopup.style.transform = 'translateY(20px)';
+      sleakPopup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      setTimeout(function () {
+        sleakPopup.style.opacity = '1';
+        sleakPopup.style.transform = 'translateY(0)';
+      }, 50);
     }
 
     let sleakChime = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3');
     let sleakChimeOperator = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3');
 
     function playSleakChime() {
-      // try {
-      //   sleakChime.play();
-      // } catch (error) {}
+      try {
+        sleakChime.play();
+      } catch (error) {}
     }
 
     function playSleakChimeOperator() {
