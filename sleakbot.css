@@ -58,8 +58,7 @@
 
 #sleak-popup-iframe {
   z-index: 99999999999999;
-  /* height: 116px; */
-  height: auto;
+  height: 116px;
 }
 
 #popup-list-wrap {
