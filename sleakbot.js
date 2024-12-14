@@ -523,8 +523,7 @@ async function sleakScript() {
           purchase: ['purchase', 'orderComplete', 'orderPlaced', 'order_complete', 'order_placed'],
           add_to_cart: ['addToCart', 'add_to_cart'],
           login: ['logIn', 'log_in', 'login'],
-          sign_up: ['signUp', 'signup', 'sign_up'],
-          click: ['click', 'clickEvent']
+          sign_up: ['signUp', 'signup', 'sign_up']
         };
 
         function extractEventConfig(event) {
