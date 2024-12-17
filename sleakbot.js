@@ -304,7 +304,7 @@ async function sleakScript() {
     // disable popup/chime after first page load
     var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
     var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-    var hasPopupBeenTriggered = false; // remove line in prod
+    // var hasPopupBeenTriggered = false; // remove line in prod
 
     let blockDefaultPopup = false;
     var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
