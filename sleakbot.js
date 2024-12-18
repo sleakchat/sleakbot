@@ -27,6 +27,10 @@ async function sleakScript() {
     });
   }
 
+  function createLocalStorage(key, value) {
+    console.log('creating local storage =', { key, value });
+  }
+
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
@@ -234,17 +238,19 @@ async function sleakScript() {
 
         /// check for first button click of page load
         if (firstButtonClick & !scriptCookies) {
-          const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
+          // const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
+          const widgetOpenFlag = localStorage.getItem(`sleakWidget_${chatbotId}`);
 
           if (!widgetOpenFlag) {
             // for hiding popup after widget open
             // setting cookie for the first widget open flag
             let widgetOpenFlag = crypto.randomUUID();
-            Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
-              expires: 365,
-              sameSite: 'None',
-              secure: true
-            });
+            // Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
+            //   expires: 365,
+            //   sameSite: 'None',
+            //   secure: true
+            // });
+            localStorage.setItem(`sleakWidget_${chatbotId}`, widgetOpenFlag);
           }
 
           firstButtonClick = false;
@@ -516,7 +522,13 @@ async function sleakScript() {
 
           currentEvents.push(event);
 
-          createNewCookie(cookieKey, JSON.stringify(currentEvents));
+          if (currentEvents.length > 100) {
+            currentEvents = currentEvents.slice(-100);
+          }
+
+          // createNewCookie(cookieKey, JSON.stringify(currentEvents));
+          localStorage.setItem(cookieKey, JSON.stringify(currentEvents));
+
           // const updatedCookie = localStorage.getItem(cookieKey);
           // console.log('updated cookie', updatedCookie);
         }
