@@ -27,6 +27,10 @@ async function sleakScript() {
     });
   }
 
+  function createLocalStorage(key, value) {
+    console.log('creating local storage =', { key, value });
+  }
+
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
@@ -59,7 +63,9 @@ async function sleakScript() {
     }
   }
 
-  let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
+  // let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
+  let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
+
   // console.log('chatCreated = ', chatCreated);
 
   // aawait chatbotConfig
@@ -232,17 +238,19 @@ async function sleakScript() {
 
         /// check for first button click of page load
         if (firstButtonClick & !scriptCookies) {
-          const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
+          // const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
+          const widgetOpenFlag = localStorage.getItem(`sleakWidget_${chatbotId}`);
 
           if (!widgetOpenFlag) {
             // for hiding popup after widget open
             // setting cookie for the first widget open flag
             let widgetOpenFlag = crypto.randomUUID();
-            Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
-              expires: 365,
-              sameSite: 'None',
-              secure: true
-            });
+            // Cookies.set(`sleakWidget_${chatbotId}`, widgetOpenFlag, {
+            //   expires: 365,
+            //   sameSite: 'None',
+            //   secure: true
+            // });
+            localStorage.setItem(`sleakWidget_${chatbotId}`, widgetOpenFlag);
           }
 
           firstButtonClick = false;
@@ -304,7 +312,7 @@ async function sleakScript() {
     // disable popup/chime after first page load
     var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
     var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-    var hasPopupBeenTriggered = false; // remove line in prod
+    // var hasPopupBeenTriggered = false; // remove line in prod
 
     let blockDefaultPopup = false;
     var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
@@ -383,7 +391,7 @@ async function sleakScript() {
     }
 
     if (!hasPopupBeenTriggered && !blockDefaultPopup) {
-      console.log('popup localStorage does not exist');
+      // console.log('popup localStorage does not exist');
 
       const viewportWidth = window.innerWidth;
       // console.log(viewportWidth);
@@ -460,8 +468,12 @@ async function sleakScript() {
           pushGtmEvent(event);
         } else if (event.data.type === 'chatCreated') {
           // console.log('chat created = ', event);
-          createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
-          Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+
+          // createNewCookie(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
+          // Cookies.remove(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+          localStorage.setItem(`slkChatCreated_${chatbotId}_${visitorId}`, 'true');
+          localStorage.removeItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+
           chatCreated = true;
           // console.log('created chat cookie');
         } else if (event.data.type === 'initiateTriggerBasedPopup') {
@@ -475,11 +487,15 @@ async function sleakScript() {
 
     function eventHandling() {
       if (!chatCreated) {
-        if (!Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
-          createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
+        if (!localStorage.getItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
+          // createNewCookie(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
+          localStorage.setItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
+
           // console.log('created slkLocalEventQueue cookie');
         } else {
-          const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+          // const rawEvents = Cookies.get(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+          const rawEvents = localStorage.getItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+
           const parsedEvents = JSON.parse(rawEvents);
 
           handleEvent({
@@ -500,14 +516,20 @@ async function sleakScript() {
         if (!chatCreated && event.type == 'sleakNewEvent') {
           const cookieKey = `slkLocalEventQueue_${chatbotId}_${visitorId}`;
           // console.log('cookieKey in handle event function', cookieKey);
-          let currentEvents = Cookies.get(cookieKey);
+          let currentEvents = localStorage.getItem(cookieKey);
 
           currentEvents = currentEvents ? JSON.parse(currentEvents) : [];
 
           currentEvents.push(event);
 
-          createNewCookie(cookieKey, JSON.stringify(currentEvents));
-          const updatedCookie = Cookies.get(cookieKey);
+          if (currentEvents.length > 100) {
+            currentEvents = currentEvents.slice(-100);
+          }
+
+          // createNewCookie(cookieKey, JSON.stringify(currentEvents));
+          localStorage.setItem(cookieKey, JSON.stringify(currentEvents));
+
+          // const updatedCookie = localStorage.getItem(cookieKey);
           // console.log('updated cookie', updatedCookie);
         }
 
