@@ -59,7 +59,7 @@ async function injectSleakScript() {
   function fetchAndAppendHtml() {
     return fetch(sleakHtml)
       .then(sleak_response => {
-        console.log(sleak_response);
+        // console.log(sleak_response);
         return sleak_response.text();
       })
       .then(sleak_html => {
