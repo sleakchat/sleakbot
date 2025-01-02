@@ -147,6 +147,7 @@ async function sleakScript() {
       iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
     }
     if (chatCreated) {
+      console.log('chat created, rendering widget');
       slkRenderWidgetBody();
       slkBodyRendered = true;
     }
