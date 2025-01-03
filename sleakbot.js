@@ -228,7 +228,7 @@ async function sleakScript() {
       if (sleakWidgetOpenState == false) {
         if (firstButtonClick && !slkBodyRendered) {
           slkRenderWidgetBody();
-          setTimeout(() => {}, 1000);
+          setTimeout(() => console.log('Done waiting!'), 1000);
         }
 
         sleakWidgetOpenState = true;
