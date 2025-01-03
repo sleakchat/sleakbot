@@ -27,10 +27,6 @@ async function sleakScript() {
     });
   }
 
-  function createLocalStorage(key, value) {
-    console.log('creating local storage =', { key, value });
-  }
-
   if (!scriptCookies) {
     if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
       // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
@@ -319,9 +315,9 @@ async function sleakScript() {
 
     let pagePath = window.location.pathname;
     // pagePath = '/asdf'; // remove limne in prod
-    console.log('pagePath:', pagePath);
+    // console.log('pagePath:', pagePath);
     const popupRules = chatbotConfig.popups?.rules || [];
-    console.log('popupRules:', popupRules);
+    // console.log('popupRules:', popupRules);
 
     if (popupRules.length > 0) {
       const pagePopup = popupRules.find(rule => rule.page == pagePath);
