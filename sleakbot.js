@@ -140,18 +140,8 @@ async function sleakScript() {
     // render iframes
     var iframeBtn = document.getElementById('sleak-button-iframe');
     iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
-
-    let slkBodyRendered = false;
-    function slkRenderWidgetBody() {
-      var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-      iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
-    }
-    if (chatCreated) {
-      console.log('chat created, rendering widget');
-      slkRenderWidgetBody();
-      slkBodyRendered = true;
-    }
-
+    var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+    iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
     var iframePopup = document.getElementById('sleak-popup-iframe');
     iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
@@ -226,10 +216,6 @@ async function sleakScript() {
     window.toggleSleakWidget = function () {
       // check if widget is open
       if (sleakWidgetOpenState == false) {
-        if (firstButtonClick && !slkBodyRendered) {
-          slkRenderWidgetBody();
-        }
-
         sleakWidgetOpenState = true;
         // console.log(sleakWidgetOpenState);
 
