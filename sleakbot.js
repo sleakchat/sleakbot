@@ -66,10 +66,10 @@ async function sleakScript() {
   let supaClient;
   async function initSupabase(chatbot_id, visitor_id) {
     supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
-    async function getChatbotConfig(chatbotId) {
+    async function getChatbotConfig(chatbot_id, visitor_id) {
       const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbot_id, visitor_id });
     }
-    const temporaryResult = await getChatbotConfig(chatbotId, visitorId);
+    const temporaryResult = await getChatbotConfig(chatbot_id, visitor_id);
     console.log(temporaryResult);
   }
 
@@ -79,7 +79,7 @@ async function sleakScript() {
       script.src = 'https://unpkg.com/@supabase/supabase-js@2';
       script.onload = () => {
         console.log('Supabase script loaded');
-        resolve(initSupabase());
+        resolve(initSupabase(chatbotId, visitorId));
       };
       document.head.appendChild(script);
     });
