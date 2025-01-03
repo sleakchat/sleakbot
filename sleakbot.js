@@ -6,8 +6,12 @@ async function sleakScript() {
   // env control
   if (scriptSrc.includes('dev') || scriptSrc.includes('localhost')) {
     var widgetBaseUrl = 'https://staging.sleak.chat';
+    var supaBaseUrl = 'https://xvqjuiyrmzkhsfosfozs.supabase.co';
+    var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2cWp1aXlybXpraHNmb3Nmb3pzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkzMDgyNDQsImV4cCI6MjAzNDg4NDI0NH0.l4EDmKGcSXAolPPAfjL4X1X9T6cxIO0bg9s6oAbu_3E';
   } else {
     var widgetBaseUrl = 'https://widget.sleak.chat';
+    var supaBaseUrl = 'https://sygpwnluwwetrkmwilea.supabase.co';
+    var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5Z3B3bmx1d3dldHJrbXdpbGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDUzMDIxNTQsImV4cCI6MjAyMDg3ODE1NH0.n2RSjgeqR-41wSO_IFuzPJKcc9bo1DbkXiPEsc1jO00';
   }
 
   const timestamp = new Date().getTime();
@@ -59,12 +63,34 @@ async function sleakScript() {
     }
   }
 
+  let supaClient;
+  async function initSupabase() {
+    supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
+    async function getChatbotConfig(chatbotId) {
+      const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotId, visitorId });
+    }
+    const temporaryResult = await getChatbotConfig(chatbotId, visitorId);
+    console.log(temporaryResult);
+  }
+
+  async function pullSupabase() {
+    return new Promise(resolve => {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/@supabase/supabase-js@2';
+      script.onload = () => {
+        console.log('Supabase script loaded');
+        resolve(initSupabase());
+      };
+      document.head.appendChild(script);
+    });
+  }
+  pullSupabase();
+
   // let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
   let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
-
   // console.log('chatCreated = ', chatCreated);
 
-  // aawait chatbotConfig
+  // await chatbotConfig
   const chatbotConfig = await chatbotConfigResponse.json();
   // console.log("chatbotConfig =:", chatbotConfig);
 
@@ -144,7 +170,6 @@ async function sleakScript() {
       return new Promise(resolve => {
         iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
         iframeWidgetbody.addEventListener('load', () => resolve(), { once: true });
-        iframeWidgetbody.addEventListener('load', () => console.log('iframe loaded'), { once: true });
       });
     }
 
