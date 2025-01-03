@@ -112,10 +112,7 @@ async function sleakScript() {
     }
 
     function setStylingDesktopMirrored() {
-      sleakWrap.setAttribute(
-        'style',
-        'left: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;' + 'width: 100vw; justify-content: flex-start; align-items: flex-start;'
-      );
+      sleakWrap.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;' + 'width: 100vw; justify-content: flex-start; align-items: flex-start;');
       sleakWidgetwrap.setAttribute('style', 'width: 420px; height: 100%;');
       popupListWrap.setAttribute('style', 'right: unset; left: 0;');
       sleakButton.setAttribute('style', 'right: unset; left: 0; transform: scaleX(-1) !important');
@@ -144,11 +141,13 @@ async function sleakScript() {
     let slkBodyRendered = false;
     var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
     function slkRenderWidgetBody() {
-      iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
-      iframeWidgetbody.addEventListener('load', () => {
-        console.log('Iframe is fully loaded and ready.');
+      return new Promise(resolve => {
+        iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+        iframeWidgetbody.addEventListener('load', () => resolve(), { once: true });
+        iframeWidgetbody.addEventListener('load', () => console.log('iframe loaded'), { once: true });
       });
     }
+
     if (chatCreated) {
       console.log('chat created, rendering widget');
       slkRenderWidgetBody();
@@ -226,12 +225,13 @@ async function sleakScript() {
     let sleakWidgetOpenState = false;
     let firstButtonClick = true;
 
-    window.toggleSleakWidget = function () {
+    window.toggleSleakWidget = async function () {
       // check if widget is open
       if (sleakWidgetOpenState == false) {
         if (firstButtonClick && !slkBodyRendered) {
-          slkRenderWidgetBody();
-          setTimeout(() => console.log('Done waiting'), 1000);
+          console.log('Rendering widget body...');
+          await slkRenderWidgetBody();
+          console.log('Widget body rendered.');
         }
 
         sleakWidgetOpenState = true;
