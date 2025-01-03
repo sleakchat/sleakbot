@@ -257,12 +257,12 @@ async function sleakScript() {
           console.log('Rendering widget body...');
           await slkRenderWidgetBody();
           console.log('Widget body rendered.');
+          sleakWidgetOpenState = true;
+          changeButtonState(true);
+        } else {
+          sleakWidgetOpenState = true;
+          changeButtonState(true);
         }
-
-        sleakWidgetOpenState = true;
-        // console.log(sleakWidgetOpenState);
-
-        changeButtonState(true);
 
         openSleakWidget();
         if (window.matchMedia('(max-width: 768px)').matches) {
