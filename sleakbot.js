@@ -142,8 +142,8 @@ async function sleakScript() {
     iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
 
     let slkBodyRendered = false;
+    var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
     function slkRenderWidgetBody() {
-      var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
       iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
     }
     if (chatCreated) {
