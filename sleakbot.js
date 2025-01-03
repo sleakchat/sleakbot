@@ -64,10 +64,10 @@ async function sleakScript() {
   }
 
   let supaClient;
-  async function initSupabase() {
+  async function initSupabase(chatbot_id, visitor_id) {
     supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
     async function getChatbotConfig(chatbotId) {
-      const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotId, visitorId });
+      const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbot_id, visitor_id });
     }
     const temporaryResult = await getChatbotConfig(chatbotId, visitorId);
     console.log(temporaryResult);
