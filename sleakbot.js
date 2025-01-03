@@ -145,6 +145,9 @@ async function sleakScript() {
     var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
     function slkRenderWidgetBody() {
       iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+      iframeWidgetbody.addEventListener('load', () => {
+        console.log('Iframe is fully loaded and ready.');
+      });
     }
     if (chatCreated) {
       console.log('chat created, rendering widget');
