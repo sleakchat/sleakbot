@@ -81,7 +81,7 @@ async function sleakScript() {
 
   const timestamp = new Date().getTime();
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}?t=${timestamp}`;
+  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: 'get'
   });
@@ -560,8 +560,7 @@ async function sleakScript() {
           // createNewCookie(cookieKey, JSON.stringify(currentEvents));
           localStorage.setItem(cookieKey, JSON.stringify(currentEvents));
 
-          // const updatedCookie = localStorage.getItem(cookieKey);
-          // console.log('updated cookie', updatedCookie);
+          // console.log('updated cookie', localStorage.getItem(cookieKey));
         }
 
         if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
