@@ -78,7 +78,6 @@ async function sleakScript() {
     });
   }
   pullSupabase();
-  //adsf
 
   const timestamp = new Date().getTime();
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
