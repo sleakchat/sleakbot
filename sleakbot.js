@@ -81,12 +81,14 @@ async function sleakScript() {
 
   const timestamp = new Date().getTime();
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
+  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}`;
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: 'get'
   });
   const chatbotConfig = await chatbotConfigResponse.json();
   // console.log("chatbotConfig = ", chatbotConfig);
+
+  // need to remove local storage here, and use config request
 
   // let chatCreated = Cookies.get(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
   let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
@@ -294,21 +296,20 @@ async function sleakScript() {
 
         if (window.matchMedia('(max-width: 768px)').matches) {
           document.body.style.overflow = 'auto';
-          // console.log("overflow auto");
         }
       }
     };
 
     // event listener for scrolling
-    window.addEventListener('scroll', function () {
-      // console.log("scrolling");
-      if (sleakWidgetOpenState == true) {
-        const viewportHeightScroll = window.innerHeight;
-        document.getElementById('sleak-widgetwrap').style.height = viewportHeightScroll + 'px';
-        document.getElementById('sleak-widgetwrap').style.minHeight = viewportHeightScroll + 'px';
-        // console.log("Viewport Height scroll:", viewportHeightScroll);
-      }
-    });
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.addEventListener('scroll', function () {
+        if (sleakWidgetOpenState == true) {
+          const viewportHeightScroll = window.innerHeight;
+          document.getElementById('sleak-widgetwrap').style.height = viewportHeightScroll + 'px';
+          document.getElementById('sleak-widgetwrap').style.minHeight = viewportHeightScroll + 'px';
+        }
+      });
+    }
 
     // Chime & popup
 
@@ -652,14 +653,14 @@ async function sleakScript() {
         // ];
         // console.log('customFieldsConfig:', customFieldsConfig);
 
-        // end user will push custom fields in an object to this functionnn
+        // end user will push custom fields in an object to this function
         window.sleakPushCustomFields = function (customFields) {
           // validate if the object is valid
           if (!customFields || typeof customFields !== 'object') {
             console.error('invalid type. object expected.');
             return;
           }
-          // validate if the object is valid, not empty, and the keys exist in customFields
+          // validate if object is not empty, and the keys exist in customFields
           const validKeys = Object.keys(customFields).filter(key => customFieldsConfig.map(cf => cf.key).includes(key));
           const invalidKeys = Object.keys(customFields).filter(key => !customFieldsConfig.map(cf => cf.key).includes(key));
 
