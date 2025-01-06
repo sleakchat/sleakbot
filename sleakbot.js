@@ -98,7 +98,7 @@ async function sleakScript() {
 
   // need to remove local storage here, and use config request
   // let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
-  let chatCreated = staticConfig.chat_exists;
+  let chatCreated = chatbotConfig.chat_exists;
   // console.log('chatCreated = ', chatCreated);
 
   // main code
