@@ -248,8 +248,7 @@ async function sleakScript() {
         if (firstButtonClick && !slkBodyRendered) {
           sleakWidgetLoader.style.display = 'block';
           console.log('Rendering widget body...');
-          slkRenderWidgetBody();
-          // await slkRenderWidgetBody();
+          await slkRenderWidgetBody();
           sleakWidgetLoader.style.display = 'none';
           sleakWidgetOpenState = true;
           console.log('Widget body rendered.');
