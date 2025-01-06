@@ -1,49 +1,3 @@
-let staticConfig = JSON.parse(`{
-    "data": {
-        "name": "sleakchat",
-        "popup": {
-            "chime": {
-                "mobile": true,
-                "desktop": true
-            },
-            "mobile": true,
-            "desktop": true
-        },
-        "popups": {
-            "rules": [
-                {
-                    "page": "/",
-                    "agent": "0464c026-727e-4d4f-a8d8-7647ec2ba975",
-                    "message": "Howdy, can I assist you regarding pricing?",
-                    "timeout": 8000,
-                    "initiate_livechat": true
-                }
-            ]
-        },
-        "avatar_url": "https://uploads-ssl.webflow.com/65911e9735540c235757642f/65b53f83acecf90e74bd8844_profile_pic_default.png",
-        "btn_offset": {
-            "x_mobile": "10",
-            "y_mobile": "10",
-            "x_desktop": "20",
-            "y_desktop": "15",
-            "align_right": {
-                "mobile": true,
-                "desktop": true
-            }
-        },
-        "custom_css": null,
-        "publishing": {
-            "daterange": null,
-            "published": true
-        },
-        "first_message": "Hoi! Waarmee kan ik je verder helpen :)",
-        "primary_color": "#000000",
-        "background_image": "",
-        "custom_fields_config": []
-    },
-    "chat_exists": false
-}`);
-
 async function sleakScript() {
   const sleakbotScriptTag = document.querySelector('#sleakbot');
   const scriptSrc = sleakbotScriptTag.getAttribute('src');
@@ -102,29 +56,29 @@ async function sleakScript() {
     }
   }
 
-  let supaClient;
-  let temporaryResult;
-  async function initSupabase(chatbotid, visitorid) {
-    supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
-    async function getChatbotConfig(chatbotid, visitorid) {
-      const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotid, visitorid });
-      return data;
-    }
-    temporaryResult = await getChatbotConfig(chatbotid, visitorid);
-    console.log(temporaryResult);
-  }
-  function pullSupabase() {
-    return new Promise(resolve => {
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/@supabase/supabase-js@2';
-      script.onload = () => {
-        console.log('Supabase script loaded');
-        resolve(initSupabase(chatbotId, visitorId));
-      };
-      document.head.appendChild(script);
-    });
-  }
-  pullSupabase();
+  // let supaClient;
+  // let temporaryResult;
+  // async function initSupabase(chatbotid, visitorid) {
+  //   supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
+  //   async function getChatbotConfig(chatbotid, visitorid) {
+  //     const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotid, visitorid });
+  //     return data;
+  //   }
+  //   temporaryResult = await getChatbotConfig(chatbotid, visitorid);
+  //   console.log(temporaryResult);
+  // }
+  // function pullSupabase() {
+  //   return new Promise(resolve => {
+  //     const script = document.createElement('script');
+  //     script.src = 'https://unpkg.com/@supabase/supabase-js@2';
+  //     script.onload = () => {
+  //       console.log('Supabase script loaded');
+  //       resolve(initSupabase(chatbotId, visitorId));
+  //     };
+  //     document.head.appendChild(script);
+  //   });
+  // }
+  // pullSupabase();
 
   const timestamp = new Date().getTime();
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
@@ -137,7 +91,7 @@ async function sleakScript() {
     }
   });
 
-  const chatbotConfig = staticConfig.data;
+  const chatbotConfig = chatbotConfigResponse.data;
   console.log('chatbotconfig = ', chatbotConfig);
   // const chatbotConfig = await chatbotConfigResponse.json();
   // console.log("chatbotConfig = ", chatbotConfig);
