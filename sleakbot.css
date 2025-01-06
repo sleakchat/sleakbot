@@ -1,32 +1,106 @@
+#sleak-buttonwrap {
+  z-index: 9999999999999999;
+  opacity: 0;
+}
+
+#sleak-buttonshadow {
+  position: absolute;
+  height: 65px;
+  width: 65px;
+  box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 99px;
+  align-self: center;
+}
+
+/* #sleak-btn-notification {
+  z-index: 2;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  height: 15px;
+  width: 156px;
+  background-color: #48e385;
+  border-radius: 99px;
+  border: solid 3px #fff;
+} */
+
+#sleak-btn-container {
+  z-index: 9;
+  width: auto;
+  height: auto;
+  justify-content: center;
+  /* align-items: center;
+  margin-bottom: 30px;
+  margin-right: 30px; */
+  display: flex;
+  position: static;
+  top: auto;
+  bottom: 30px;
+  left: auto;
+  right: 30px;
+  background-color: #000;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#sleak-btn-container {
+  -webkit-mask-image: url('https://uploads-ssl.webflow.com/64558916e4efcf5c5355b1d1/6458d058560e97be74ebb657_Sleak%20logo%20-%20beeldmerk%20open.svg');
+  mask-image: url('https://uploads-ssl.webflow.com/64558916e4efcf5c5355b1d1/6458d058560e97be74ebb657_Sleak%20logo%20-%20beeldmerk%20open.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background-color: #ffffff; /* fallback color */
+}
+
+#sleak-btn-openclosed {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sleak-btn-openclosed img {
+  width: 46px;
+  cursor: pointer;
+}
+
+#sleak-button-spinner {
+  display: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  max-width: 16px;
+  max-height: 16px;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  filter: invert(1);
+  /* left: 1px; */
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/**/
+
 #sleak-widget-container {
   height: 100%;
   z-index: 1;
 }
 
-#sleak-loadingwrap {
-  position: absolute;
-  display: flex;
-  height: 595px;
-  width: 360px;
-  background-color: #fff;
-  box-sizing: border-box; /* Includes margin in element's width and height */
-  margin: 20px 20px 50px 0px;
-  border-radius: 20px;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-  z-index: 0;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically. */
-  pointer-events: none;
-}
-
 #sleak-widget-iframe {
-  /* display: none; */
   display: flex;
   pointer-events: auto !important;
   z-index: 1 !important;
   border-radius: 20px;
   transition: box-shadow 6s ease-in-out;
-  /* box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.1); */
 }
 
 #sleak-loader {
@@ -36,30 +110,121 @@
   align-self: center !important;
 }
 
-#sleak-popup-embed {
-  /* position: absolute; */
+.sleak-popup-embed {
+  display: none;
   z-index: 9999999999;
   pointer-events: auto;
+  cursor: pointer;
   height: auto;
-  width: auto;
+  width: 300px;
   background-color: rgba(255, 255, 255, 0);
-  display: none;
   border: 1px solid #f3f3f3;
-  /* bottom: 82px; */
-  /* right: 0; */
-  /* width: 340px; */
   height: auto;
-  /* height: 116px; */
   align-items: flex-end;
   align-content: flex-end;
   border-radius: 12px;
   box-shadow: 0px 3px 6px -2px rgba(0, 8, 2, 0.1);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#sleak-popup-iframe {
+/* #sleak-popup-iframe {
   z-index: 99999999999999;
   height: 116px;
+} */
+
+.sleak-popup-embed-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  padding: 15px 15px 15px 20px;
+  gap: 6px;
 }
+
+.sleak-popup-embed-headercontainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.sleak-popup-embed-header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 12px;
+}
+
+.sleak-popup-embed-headerwrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sleak-popup-embed-closebtn {
+  display: flex;
+  border-radius: 8px;
+  height: 30px;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
+}
+.sleak-popup-embed-closebtn:hover {
+  background-color: #f6f6f6;
+}
+
+.sleak-popup-embed-closebtn-icon {
+  opacity: 0.6;
+  height: 22px;
+  width: 22px;
+}
+
+.sleak-popup-embed-avatar {
+  border-radius: 99px;
+  height: 22px;
+  width: 22px;
+  outline: 3px solid #fff;
+  box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.2), 1px 0 6px 3px rgba(0, 0, 0, 0.15);
+}
+
+.sleak-popup-embed-statuswrap {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.sleak-popup-embed-statusindicator {
+  height: 6px;
+  width: 6px;
+  border-radius: 99px;
+  background-color: #48e385;
+  outline: 2px solid rgba(72, 227, 133, 0.3);
+}
+
+.sleak-popup-embed-body {
+  max-height: none;
+  min-height: auto;
+  color: #666;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.sleak-popup-embed-agentname {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.sleak-popup-embed-statuswrap-text {
+  color: rgba(51, 51, 51, 0.8);
+  font-size: 8px;
+  line-height: 12px;
+  font-style: normal;
+  font-weight: 300;
+}
+
+/**/
 
 #popup-list-wrap {
   position: relative;
@@ -144,6 +309,23 @@
   position: static;
 }
 
+#sleak-buttonwrapper {
+  height: 60px;
+  width: 60px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  /* align-content: center;
+  justify-items: center; */
+  transition: transform 0.1s;
+}
+#sleak-buttonwrap:hover #sleak-buttonwrapper {
+  transform: scale(1.08);
+}
+#sleak-buttonwrap:active #sleak-buttonwrapper {
+  transform: scale(1.03);
+}
+
 #sleak-buttonwrap {
   pointer-events: auto;
   z-index: 9999999999999999;
@@ -162,8 +344,8 @@
 
 #sleak-buttonshadow {
   position: absolute;
-  height: 65px;
-  width: 65px;
+  height: 60px;
+  width: 60px;
   box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.2) !important;
   border-radius: 99px;
   align-self: center;
@@ -171,17 +353,15 @@
 
 #sleak-btn-notification {
   box-sizing: border-box;
-  z-index: 2;
+  z-index: 20;
+  top: 1px;
+  right: 1px;
   position: absolute;
-  margin-left: 48px;
-  margin-bottom: 48px;
-  height: 17px;
-  width: 17px;
+  height: 15px;
+  width: 15px;
   background-color: #48e385;
   border-radius: 99px;
-  border: solid;
-  border-width: 3px;
-  border-color: #fff;
+  border: solid 3px #fff;
 }
 
 #sleak-widgetwrap {
@@ -449,7 +629,7 @@
     margin-bottom: 0;
   }
 
-  #sleak-popup-embed {
+  .sleak-popup-embed {
     max-height: 175px !important;
   }
 }

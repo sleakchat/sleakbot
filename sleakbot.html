@@ -38,7 +38,8 @@
             </div>
           </div>
           </svg>
-          <div id="sleak-popup-embed" class="">
+          <!--
+          <div class="sleak-popup-embed">
             <iframe
               referrerpolicy="no-referrer"
               id="sleak-popup-iframe"
@@ -47,6 +48,27 @@
               src=""
               allowtransparency="true"
             ></iframe>
+          </div>
+          -->
+          <div class="sleak-popup-embed"  id="sleak-popup-embed" onclick="toggleSleakWidget()">
+            <div class="sleak-popup-embed-container">
+              <div class="sleak-popup-embed-headercontainer">
+                <div class="sleak-popup-embed-header">
+                  <img src="https://uploads-ssl.webflow.com/65911e9735540c235757642f/65b53f83acecf90e74bd8844_profile_pic_default.png" class="sleak-popup-embed-avatar" id="sleak-popup-embed-avatar"/>
+                  <div class="sleak-popup-embed-headerwrap">
+                    <span class="sleak-popup-embed-agentname" id="sleak-popup-embed-agentname"></span>
+                    <div class="sleak-popup-embed-statuswrap">
+                      <div class="sleak-popup-embed-statusindicator"></div>
+                      <span class="sleak-popup-embed-statuswrap-text">Online in chat</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sleak-popup-embed-closebtn">
+                  <img class="sleak-popup-embed-closebtn-icon" src="https://cdn.prod.website-files.com/65f4320430c2b6f02f3fda52/65f4320430c2b6f02f3fda7f_times%20(3).svg" onclick="closeSleakWidget()" />
+                </div>
+              </div>
+              <div class="sleak-popup-embed-body" id="sleak-popup-embed-body"></div>
+            </div>
           </div>
           <div class="sleak-popup-chatinpupt-input-wrapper" open-widget>
             <textarea id="sleak-popup-chatinpupt-widget-textarea" rows="1" placeholder="Typ hier je bericht..." dir="auto" cols="20" autocomplete="off" tab="0" onclick="toggleSleakWidget()"></textarea>
@@ -59,6 +81,18 @@
       <div id="sleak-buttonwrap">
         <div id="sleak-button-pulse"></div>
         <div id="sleak-btn-notification-count">1</div>
+        <div id="sleak-buttonwrapper">
+          <div id="sleak-btn-notification"></div>
+          <div id="sleak-buttonshadow"></div>
+          <div class="sleak-btn-container" id="sleak-btn-container" onclick="toggleSleakWidget()">
+            <div id="sleak-btn-openclosed">
+              <img src="https://95c4299bd7e6e57cacd63bc0daa40451.cdn.bubble.io/f1683544062515x547494763985376000/sleak-btn-open.png" id="sleak-widget-open">
+              <img src="https://95c4299bd7e6e57cacd63bc0daa40451.cdn.bubble.io/f1683544065878x301565071913134850/sleak-btn-closed.png" id="sleak-widget-closed">
+              <img src="https://cdn.prod.website-files.com/65911e9735540c235757642f/66e9a835dc4385c4ad4ecfc7_Group%201%20(6).png" id="sleak-button-spinner"/>
+            </div>
+          </div>
+        </div>
+        <!--
         <iframe
           referrerpolicy="no-referrer"
           id="sleak-button-iframe"
@@ -69,6 +103,7 @@
           width="80px"
           height="80px"
         ></iframe>
+        -->
       </div>
 
       <div id="sleak-bgoverlay"></div>
