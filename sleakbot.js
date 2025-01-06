@@ -6,12 +6,12 @@ async function sleakScript() {
   // env control
   if (scriptSrc.includes('dev') || scriptSrc.includes('localhost')) {
     var widgetBaseUrl = 'https://staging.sleak.chat';
-    var supaBaseUrl = 'https://xvqjuiyrmzkhsfosfozs.supabase.co';
-    var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2cWp1aXlybXpraHNmb3Nmb3pzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkzMDgyNDQsImV4cCI6MjAzNDg4NDI0NH0.l4EDmKGcSXAolPPAfjL4X1X9T6cxIO0bg9s6oAbu_3E';
+    // var supaBaseUrl = 'https://xvqjuiyrmzkhsfosfozs.supabase.co';
+    // var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2cWp1aXlybXpraHNmb3Nmb3pzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkzMDgyNDQsImV4cCI6MjAzNDg4NDI0NH0.l4EDmKGcSXAolPPAfjL4X1X9T6cxIO0bg9s6oAbu_3E';
   } else {
     var widgetBaseUrl = 'https://widget.sleak.chat';
-    var supaBaseUrl = 'https://sygpwnluwwetrkmwilea.supabase.co';
-    var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5Z3B3bmx1d3dldHJrbXdpbGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDUzMDIxNTQsImV4cCI6MjAyMDg3ODE1NH0.n2RSjgeqR-41wSO_IFuzPJKcc9bo1DbkXiPEsc1jO00';
+    // var supaBaseUrl = 'https://sygpwnluwwetrkmwilea.supabase.co';
+    // var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5Z3B3bmx1d3dldHJrbXdpbGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDUzMDIxNTQsImV4cCI6MjAyMDg3ODE1NH0.n2RSjgeqR-41wSO_IFuzPJKcc9bo1DbkXiPEsc1jO00';
   }
 
   let visitorId;
@@ -55,30 +55,6 @@ async function sleakScript() {
       // console.log("new localStorage = ", visitorId);
     }
   }
-
-  // let supaClient;
-  // let temporaryResult;
-  // async function initSupabase(chatbotid, visitorid) {
-  //   supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
-  //   async function getChatbotConfig(chatbotid, visitorid) {
-  //     const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotid, visitorid });
-  //     return data;
-  //   }
-  //   temporaryResult = await getChatbotConfig(chatbotid, visitorid);
-  //   console.log(temporaryResult);
-  // }
-  // function pullSupabase() {
-  //   return new Promise(resolve => {
-  //     const script = document.createElement('script');
-  //     script.src = 'https://unpkg.com/@supabase/supabase-js@2';
-  //     script.onload = () => {
-  //       console.log('Supabase script loaded');
-  //       resolve(initSupabase(chatbotId, visitorId));
-  //     };
-  //     document.head.appendChild(script);
-  //   });
-  // }
-  // pullSupabase();
 
   const timestamp = new Date().getTime();
   const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
@@ -272,7 +248,8 @@ async function sleakScript() {
         if (firstButtonClick && !slkBodyRendered) {
           sleakWidgetLoader.style.display = 'block';
           console.log('Rendering widget body...');
-          await slkRenderWidgetBody();
+          slkRenderWidgetBody();
+          // await slkRenderWidgetBody();
           sleakWidgetLoader.style.display = 'none';
           sleakWidgetOpenState = true;
           console.log('Widget body rendered.');
