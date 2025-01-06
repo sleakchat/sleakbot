@@ -84,14 +84,17 @@ async function sleakScript() {
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
   const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config`;
-  const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
+  const chatbotConfigRequest = await fetch(chatbotConfigEndpoint, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json'
     }
   });
 
-  const chatbotConfig = chatbotConfigResponse.data;
+  // console.log('chatbotConfigResponse = ', await chatbotConfigRequest.json());
+
+  const rawChatbotConfigResponse = await chatbotConfigRequest.json();
+  const chatbotConfig = rawChatbotConfigResponse.data.chatbot_config;
   console.log('chatbotconfig = ', chatbotConfig);
   // const chatbotConfig = await chatbotConfigResponse.json();
   // console.log("chatbotConfig = ", chatbotConfig);
