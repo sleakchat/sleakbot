@@ -128,8 +128,8 @@ async function sleakScript() {
 
   const timestamp = new Date().getTime();
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
-  // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config`;
+  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
+  // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config`;
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: 'get',
     headers: {
