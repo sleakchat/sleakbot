@@ -81,9 +81,7 @@ async function sleakScript() {
   // pullSupabase();
 
   const timestamp = new Date().getTime();
-  // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
   const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
-  // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config`;
   const chatbotConfigRequest = await fetch(chatbotConfigEndpoint, {
     method: 'get',
     headers: {
@@ -96,8 +94,6 @@ async function sleakScript() {
   const rawChatbotConfigResponse = await chatbotConfigRequest.json();
   const chatbotConfig = rawChatbotConfigResponse.data.chatbot_config;
   console.log('chatbotconfig = ', chatbotConfig);
-  // const chatbotConfig = await chatbotConfigResponse.json();
-  // console.log("chatbotConfig = ", chatbotConfig);
 
   // need to remove local storage here, and use config request
   // let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
