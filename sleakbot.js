@@ -102,33 +102,34 @@ async function sleakScript() {
     }
   }
 
-  // let supaClient;
-  // let temporaryResult;
-  // async function initSupabase(chatbotid, visitorid) {
-  //   supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
-  //   async function getChatbotConfig(chatbotid, visitorid) {
-  //     const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotid, visitorid });
-  //     return data;
-  //   }
-  //   temporaryResult = await getChatbotConfig(chatbotid, visitorid);
-  //   console.log(temporaryResult);
-  // }
-  // function pullSupabase() {
-  //   return new Promise(resolve => {
-  //     const script = document.createElement('script');
-  //     script.src = 'https://unpkg.com/@supabase/supabase-js@2';
-  //     script.onload = () => {
-  //       console.log('Supabase script loaded');
-  //       resolve(initSupabase(chatbotId, visitorId));
-  //     };
-  //     document.head.appendChild(script);
-  //   });
-  // }
-  // pullSupabase();
+  let supaClient;
+  let temporaryResult;
+  async function initSupabase(chatbotid, visitorid) {
+    supaClient = supabase.createClient(supaBaseUrl, supaBaseKey);
+    async function getChatbotConfig(chatbotid, visitorid) {
+      const { data, error } = await supaClient.rpc('get_chatbotconfig', { chatbotid, visitorid });
+      return data;
+    }
+    temporaryResult = await getChatbotConfig(chatbotid, visitorid);
+    console.log(temporaryResult);
+  }
+  function pullSupabase() {
+    return new Promise(resolve => {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/@supabase/supabase-js@2';
+      script.onload = () => {
+        console.log('Supabase script loaded');
+        resolve(initSupabase(chatbotId, visitorId));
+      };
+      document.head.appendChild(script);
+    });
+  }
+  pullSupabase();
 
   const timestamp = new Date().getTime();
   // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}?t=${timestamp}`;
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
+  // const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config/?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
+  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config`;
   const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
     method: 'get',
     headers: {
