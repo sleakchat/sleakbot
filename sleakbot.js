@@ -182,6 +182,11 @@ async function sleakScript() {
     slkPopupAgentName.innerHTML = chatbotConfig.name;
     slkPopupBodyMessage.innerHTML = chatbotConfig.first_message;
 
+    document.querySelector('#sleak-popup-embed-closebtn-icon').addEventListener('click', function (event) {
+      event.stopPropagation();
+      closeSleakWidget();
+    });
+
     async function setShadow() {
       // delay setting shadow to avoid flickering
       await new Promise(resolve => setTimeout(resolve, 50));

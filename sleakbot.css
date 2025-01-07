@@ -2,6 +2,7 @@
   z-index: 9999999999999999;
   opacity: 0;
   user-select: none;
+  cursor: pointer;
 }
 
 #sleak-buttonwrap img {
@@ -503,11 +504,11 @@
   border: solid 3px #ee344b;
   opacity: 0;
   border-radius: 98px;
-  transition: all 0.3s ease-in;
+  transition: all 0.1s ease-in;
 }
 #sleak-buttonwrap:hover #sleak-button-pulse {
-  height: 50px;
-  width: 50px;
+  height: 72px;
+  width: 72px;
 }
 
 #sleak-btn-notification-count {
