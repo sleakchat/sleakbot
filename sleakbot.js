@@ -375,6 +375,12 @@ async function sleakScript() {
     }
 
     async function showTriggerBasedPopup(payload) {
+      console.log('payload = ', payload);
+      // populate default popup
+      // slkPopupAvatar.src = chatbotConfig.avatar_url;
+      // slkPopupAgentName.innerHTML = chatbotConfig.name;
+      // slkPopupBodyMessage.innerHTML = chatbotConfig.first_message;
+
       console.log('showing livechat popup with payload = ', payload);
 
       liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
