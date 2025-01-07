@@ -365,8 +365,9 @@ async function sleakScript() {
     const popupRules = chatbotConfig.popups?.rules || [];
     // console.log('popupRules:', popupRules);
 
+    let pagePopup = null;
     if (popupRules.length > 0) {
-      const pagePopup = popupRules.find(rule => rule.page == pagePath);
+      pagePopup = popupRules.find(rule => rule.page == pagePath);
       if (pagePopup) {
         console.log('disabling default popup as pagePopup exists = ', pagePopup);
         blockDefaultPopup = true;
@@ -375,13 +376,12 @@ async function sleakScript() {
     }
 
     async function showTriggerBasedPopup(payload) {
-      console.log('payload = ', payload);
-      // populate default popup
-      // slkPopupAvatar.src = chatbotConfig.avatar_url;
-      // slkPopupAgentName.innerHTML = chatbotConfig.name;
-      // slkPopupBodyMessage.innerHTML = chatbotConfig.first_message;
-
       console.log('showing livechat popup with payload = ', payload);
+
+      // populate default popup
+      slkPopupAvatar.src = payload.avatar;
+      slkPopupAgentName.innerHTML = payload.name;
+      slkPopupBodyMessage.innerHTML = pagePopup.message;
 
       liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
       liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
