@@ -440,7 +440,7 @@ async function sleakScript() {
       // sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
     }
 
-    if (hasPopupBeenTriggered || blockDefaultPopup) {
+    if (!hasPopupBeenTriggered && !blockDefaultPopup) {
       // console.log('popup localStorage does not exist');
 
       const viewportWidth = window.innerWidth;
