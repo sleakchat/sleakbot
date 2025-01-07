@@ -143,7 +143,11 @@ async function sleakScript() {
     // btn background
     var btnColor = chatbotConfig.primary_color;
     sleakBtnContainer.style.backgroundColor = btnColor;
-    if (chatbotConfig.background_image) sleakBtnContainer.style.backgroundImage = `url("${chatbotConfig.background_image}")`;
+    if (chatbotConfig.background_image) {
+      sleakBtnContainer.style.backgroundImage = `url("${chatbotConfig.background_image}")`;
+      sleakWidgetOpenedBtn.style.opacity = '0';
+      sleakWidgetClosedBtn.style.opacity = '0';
+    }
 
     function slkShowBtn() {
       sleakButton.style.opacity = '0';
