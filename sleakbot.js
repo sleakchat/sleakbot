@@ -6,12 +6,8 @@ async function sleakScript() {
   // env control
   if (scriptSrc.includes('dev') || scriptSrc.includes('localhost')) {
     var widgetBaseUrl = 'https://staging.sleak.chat';
-    // var supaBaseUrl = 'https://xvqjuiyrmzkhsfosfozs.supabase.co';
-    // var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2cWp1aXlybXpraHNmb3Nmb3pzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkzMDgyNDQsImV4cCI6MjAzNDg4NDI0NH0.l4EDmKGcSXAolPPAfjL4X1X9T6cxIO0bg9s6oAbu_3E';
   } else {
     var widgetBaseUrl = 'https://widget.sleak.chat';
-    // var supaBaseUrl = 'https://sygpwnluwwetrkmwilea.supabase.co';
-    // var supaBaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5Z3B3bmx1d3dldHJrbXdpbGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDUzMDIxNTQsImV4cCI6MjAyMDg3ODE1NH0.n2RSjgeqR-41wSO_IFuzPJKcc9bo1DbkXiPEsc1jO00';
   }
 
   let visitorId;
@@ -65,11 +61,8 @@ async function sleakScript() {
     }
   });
 
-  // console.log('chatbotConfigResponse = ', await chatbotConfigRequest.json());
-
   const rawChatbotConfigResponse = await chatbotConfigRequest.json();
   const chatbotConfig = rawChatbotConfigResponse.data.chatbot_config;
-  console.log('chatbotconfig = ', chatbotConfig);
 
   // need to remove local storage here, and use config request
   // let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
