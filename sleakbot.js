@@ -244,7 +244,8 @@ async function sleakScript() {
     window.toggleSleakWidget = async function () {
       // check if widget is open
       if (sleakWidgetOpenState == false) {
-        // sleakWidgetClosedBtn.style.display = 'none';
+        sleakWidgetClosedBtn.style.display = 'none';
+        sleakWidgetOpenedBtn.style.display = 'flex';
         if (firstButtonClick && !slkBodyRendered) {
           // sleakWidgetLoader.style.display = 'block';
           console.log('Rendering widget body...');
@@ -257,7 +258,6 @@ async function sleakScript() {
           sleakWidgetOpenState = true;
           // changeButtonState(true);
         }
-        // sleakWidgetOpenedBtn.style.display = 'flex';
 
         openSleakWidget();
 
