@@ -321,6 +321,14 @@ async function sleakScript() {
       });
     }
 
+    // disable popup/chime after first page load
+    var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
+    var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
+    // var hasPopupBeenTriggered = false; // remove line in prod
+
+    let blockDefaultPopup = false;
+    var sessionStorageTriggerBased = chatbotId + '_sleakTriggerbasedPopupTriggered';
+
     // Chime & popup
 
     function showPopup() {
@@ -332,6 +340,7 @@ async function sleakScript() {
         sleakPopup.style.opacity = '1';
         sleakPopup.style.transform = 'translateY(0)';
       }, 50);
+      sessionStorage.setItem(sessionStorageKey, 'true');
     }
 
     let sleakChime = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3');
@@ -350,14 +359,6 @@ async function sleakScript() {
     }
 
     // console.log(sleakWidgetOpenState);
-
-    // disable popup/chime after first page load
-    var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
-    var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-    // var hasPopupBeenTriggered = false; // remove line in prod
-
-    let blockDefaultPopup = false;
-    var sessionStorageTriggerBased = chatbotId + '_sleakTriggerbasedPopupTriggered';
 
     let pagePath = window.location.pathname;
     // pagePath = '/asdf'; // remove limne in prod
@@ -436,7 +437,7 @@ async function sleakScript() {
         }, 500);
       }, 7000);
 
-      sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
+      // sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
     }
 
     if (hasPopupBeenTriggered || blockDefaultPopup) {
@@ -453,7 +454,6 @@ async function sleakScript() {
               if (chatbotConfig.popup.chime.mobile == true) {
                 playSleakChime();
               }
-              sessionStorage.setItem(sessionStorageKey, 'true');
             }
           }, 6000);
         }
@@ -465,7 +465,6 @@ async function sleakScript() {
               if (chatbotConfig.popup.chime.desktop == true) {
                 playSleakChime();
               }
-              sessionStorage.setItem(sessionStorageKey, 'true');
             }
           }, 6000);
         }
