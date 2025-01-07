@@ -1,19 +1,14 @@
 async function sleakScript() {
-  const sleakbotScriptTag = document.querySelector("#sleakbot");
-  const scriptSrc = sleakbotScriptTag.getAttribute("src");
-  const chatbotId = sleakbotScriptTag.getAttribute("chatbot-id");
+  const sleakbotScriptTag = document.querySelector('#sleakbot');
+  const scriptSrc = sleakbotScriptTag.getAttribute('src');
+  const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
 
   // env control
-  if (scriptSrc.includes("dev")) {
-    var widgetBaseUrl = "https://staging.sleak.chat";
+  if (scriptSrc.includes('dev')) {
+    var widgetBaseUrl = 'https://staging.sleak.chat';
   } else {
-    var widgetBaseUrl = "https://widget.sleak.chat";
+    var widgetBaseUrl = 'https://widget.sleak.chat';
   }
-
-  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/chatbot/${chatbotId}`;
-  const chatbotConfigResponse = await fetch(chatbotConfigEndpoint, {
-    method: "get",
-  });
 
   // cookie handling
   let visitorId;
@@ -23,32 +18,38 @@ async function sleakScript() {
     visitorId = crypto.randomUUID();
     Cookies.set(`sleakVisitorId_${chatbotId}`, visitorId, {
       expires: 365,
-      sameSite: "None",
-      secure: true,
+      sameSite: 'None',
+      secure: true
     });
   }
 
-  // aawait chatbotConfig
-  const chatbotConfig = await chatbotConfigResponse.json();
+  const timestamp = new Date().getTime();
+  const chatbotConfigEndpoint = `${widgetBaseUrl}/api/config?id=${chatbotId}&visitor_id=${visitorId}&t=${timestamp}`;
+  const chatbotConfigRequest = await fetch(chatbotConfigEndpoint, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  const rawChatbotConfigResponse = await chatbotConfigRequest.json();
+  const chatbotConfig = rawChatbotConfigResponse.data.chatbot_config;
 
   // main code
   if (chatbotConfig.publishing.published == true) {
-    var iframeWidgetbody = document.getElementById("sleak-widget-iframe");
-    iframeWidgetbody.src =
-      widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
+    var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+    iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
 
     // delay setting shadow to avoid flickering
     async function setShadow() {
-      await new Promise((resolve) => setTimeout(resolve, 20));
-      iframeWidgetbody.style.boxShadow = "0px 4px 8px -2px rgba(0, 0, 0, 0.1)";
+      await new Promise(resolve => setTimeout(resolve, 20));
+      iframeWidgetbody.style.boxShadow = '0px 4px 8px -2px rgba(0, 0, 0, 0.1)';
     }
 
-    const sleakEmbeddedWidget = document.querySelector("#sleak-body-embed");
-    const sleakWidgetwrap = document.getElementById("sleak-widget-container");
+    const sleakEmbeddedWidget = document.querySelector('#sleak-body-embed');
+    const sleakWidgetwrap = document.getElementById('sleak-widget-container');
 
-    let sleakChimeOperator = new Audio(
-      "https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3"
-    );
+    let sleakChimeOperator = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3');
 
     function playSleakChimeOperator() {
       sleakChimeOperator.play();
@@ -60,33 +61,29 @@ async function sleakScript() {
       var dataLayer = window.dataLayer || (window.dataLayer = []);
       dataLayer.push({
         event: event.data,
-        postMessageData: event,
+        postMessageData: event
       });
       // console.log("Pushed to dataLayer:", event);
     }
 
-    window.addEventListener("message", (event) => {
-      if (
-        event.origin === "https://sleak.vercel.app" ||
-        event.origin === "https://staging.sleak.chat" ||
-        event.origin === "https://widget.sleak.chat"
-      ) {
+    window.addEventListener('message', event => {
+      if (event.origin === 'https://sleak.vercel.app' || event.origin === 'https://staging.sleak.chat' || event.origin === 'https://widget.sleak.chat') {
         // console.log("Received message:", event);
 
-        if (event.data === "operatorMessage") {
+        if (event.data === 'operatorMessage') {
           playSleakChime();
-        } else if (event.data === "operatorChanged") {
+        } else if (event.data === 'operatorChanged') {
           playSleakChimeOperator();
-        } else if (event.data === "domInitialized") {
+        } else if (event.data === 'domInitialized') {
           setShadow();
-        } else if (event.data === "sleakChatInitiated") {
+        } else if (event.data === 'sleakChatInitiated') {
           pushGtmEvent(event);
-        } else if (event.data === "sleakSentContactDetails") {
+        } else if (event.data === 'sleakSentContactDetails') {
           pushGtmEvent(event);
-        } else if (event.data === "sleakHumanHandoffActivated") {
+        } else if (event.data === 'sleakHumanHandoffActivated') {
           pushGtmEvent(event);
         } else {
-          console.log("no declared event");
+          console.log('no declared event');
         }
       }
     });
