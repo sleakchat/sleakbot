@@ -357,7 +357,7 @@ async function sleakScript() {
     // var hasPopupBeenTriggered = false; // remove line in prod
 
     let blockDefaultPopup = false;
-    var sessionStorageKey = chatbotId + '_sleakTriggerbasedPopupTriggered';
+    var sessionStorageTriggerBased = chatbotId + '_sleakTriggerbasedPopupTriggered';
 
     let pagePath = window.location.pathname;
     // pagePath = '/asdf'; // remove limne in prod
@@ -436,7 +436,7 @@ async function sleakScript() {
         }, 500);
       }, 7000);
 
-      sessionStorage.setItem(sessionStorageKey, 'true');
+      sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
     }
 
     if (!hasPopupBeenTriggered && !blockDefaultPopup) {
