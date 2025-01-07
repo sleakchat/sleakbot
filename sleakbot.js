@@ -365,7 +365,7 @@ async function sleakScript() {
     const popupRules = chatbotConfig.popups?.rules || [];
     // console.log('popupRules:', popupRules);
 
-    let pagePopup = null;
+    let pagePopup;
     if (popupRules.length > 0) {
       pagePopup = popupRules.find(rule => rule.page == pagePath);
       if (pagePopup) {
