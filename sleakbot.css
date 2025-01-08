@@ -187,9 +187,11 @@
   width: 22px;
 }
 
-.sleak-popup-embed-avatar {
+#sleak-popup-embed-avatar {
   display: none;
+}
 
+.sleak-popup-embed-avatar {
   border-radius: 99px;
   height: 20px;
   width: 20px;
