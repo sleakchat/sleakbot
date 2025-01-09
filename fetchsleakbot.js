@@ -29,8 +29,7 @@ async function injectSleakScript() {
 
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
-    const sleakHtml = document.createElement('div');
-    const shadowRoot = sleakHtml.attachShadow({ mode: 'open' });
+    const shadowRoot = document.createElement('div').attachShadow({ mode: 'open' });
     async function appendStylesheet(url) {
       var link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -39,6 +38,7 @@ async function injectSleakScript() {
       shadowRoot.appendChild(link);
     }
     appendStylesheet(sleakCss);
+    const sleakHtml = document.createElement('div');
     sleakHtml.innerHTML = sleak_html;
     if (placement === 'fullwidth') {
       sleakHtml.style.width = '100%';
