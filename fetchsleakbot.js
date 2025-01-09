@@ -45,7 +45,7 @@ async function injectSleakScript() {
       sleakHtml.style.height = '100%';
       sleakbotScriptTag.parentNode.insertBefore(sleakHtml, sleakbotScriptTag.nextSibling);
     } else {
-      document.body.appendChild(sleakHtml);
+      shadowRoot.appendChild(sleakHtml);
     }
   }
 
