@@ -32,6 +32,7 @@ async function injectSleakScript() {
     const shadowRoot = document.createElement('div');
     document.appendChild(shadowRoot);
     shadowRoot.attachShadow({ mode: 'open' });
+
     async function appendStylesheet(url) {
       var link = document.createElement('link');
       link.rel = 'stylesheet';
