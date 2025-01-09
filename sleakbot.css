@@ -1,6 +1,6 @@
-/* #sleak-container * {
+#sleak-container {
   all: initial;
-} */
+}
 
 #sleak-buttonwrap {
   z-index: 9999999999999999;
