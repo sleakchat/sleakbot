@@ -36,7 +36,7 @@ async function injectSleakScript() {
       link.rel = 'stylesheet';
       link.type = 'text/css';
       link.href = url;
-      shadowRoot.head.appendChild(link);
+      shadowRoot.appendChild(link);
     }
     appendStylesheet(sleakCss);
     sleakHtml.innerHTML = sleak_html;
