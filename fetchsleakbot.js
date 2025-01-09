@@ -27,18 +27,18 @@ async function injectSleakScript() {
   const sleakJs = `${baseUrl}/${fileName}.js`;
   const sleakCss = `${baseUrl}/${fileName}.css`;
 
-  async function appendStylesheet(url) {
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = url;
-    document.head.appendChild(link);
-  }
-  appendStylesheet(sleakCss);
-
   // append div to body
   function appendSleakHtmlToBody(sleak_html) {
     const sleakHtml = document.createElement('div');
+    const shadowRoot = sleakContainer.attachShadow({ mode: 'open' });
+    async function appendStylesheet(url) {
+      var link = shadowRoot.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = url;
+      document.head.appendChild(link);
+    }
+    appendStylesheet(sleakCss);
     sleakHtml.innerHTML = sleak_html;
     if (placement === 'fullwidth') {
       sleakHtml.style.width = '100%';
