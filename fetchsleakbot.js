@@ -27,29 +27,33 @@ async function injectSleakScript() {
   const sleakJs = `${baseUrl}/${fileName}.js`;
   const sleakCss = `${baseUrl}/${fileName}.css`;
 
-  // append div to body
   function appendSleakHtmlToBody(sleak_html) {
-    const shadowRoot = document.createElement('div');
-    document.appendChild(shadowRoot);
-    shadowRoot.attachShadow({ mode: 'open' });
+    // Create a container for the Shadow DOM
+    const container = document.createElement('div');
 
-    async function appendStylesheet(url) {
-      var link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = url;
-      shadowRoot.appendChild(link);
-    }
-    appendStylesheet(sleakCss);
-    const sleakHtml = document.createElement('div');
-    sleakHtml.innerHTML = sleak_html;
+    // Attach the Shadow DOM to the container
+    const shadow = container.attachShadow({ mode: 'open' });
+
+    // Add stylesheet to the Shadow DOM
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = sleakCss;
+    shadow.appendChild(link);
+
+    // Append the container to the DOM
+    sleakbotScriptTag.parentNode.insertBefore(container, sleakbotScriptTag.nextSibling);
+
+    // Apply placement styles if 'fullwidth'
     if (placement === 'fullwidth') {
-      sleakHtml.style.width = '100%';
-      sleakHtml.style.height = '100%';
-      sleakbotScriptTag.parentNode.insertBefore(sleakHtml, sleakbotScriptTag.nextSibling);
-    } else {
-      shadowRoot.appendChild(sleak_html);
+      container.style.width = '100%';
+      container.style.height = '100%';
     }
+
+    // Create a div for the HTML content and append it to the Shadow DOM
+    const content = document.createElement('div');
+    content.innerHTML = sleak_html;
+    shadow.appendChild(content);
   }
 
   // append js to body
