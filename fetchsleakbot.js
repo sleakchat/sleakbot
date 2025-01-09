@@ -31,6 +31,7 @@ async function injectSleakScript() {
   function appendSleakHtmlToBody(sleak_html) {
     const shadowRoot = document.createElement('div');
     shadowRoot.attachShadow({ mode: 'open' });
+    shadowRoot.appendChild(shadowRoot);
     async function appendStylesheet(url) {
       var link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -39,14 +40,14 @@ async function injectSleakScript() {
       shadowRoot.appendChild(link);
     }
     appendStylesheet(sleakCss);
-    const sleakHtml = document.createElement('div');
-    sleakHtml.innerHTML = sleak_html;
+    // const sleakHtml = document.createElement('div');
+    // sleakHtml.innerHTML = sleak_html;
     if (placement === 'fullwidth') {
       sleakHtml.style.width = '100%';
       sleakHtml.style.height = '100%';
       sleakbotScriptTag.parentNode.insertBefore(sleakHtml, sleakbotScriptTag.nextSibling);
     } else {
-      shadowRoot.appendChild(sleakHtml);
+      shadowRoot.appendChild(sleak_html);
     }
   }
 
