@@ -10,7 +10,7 @@ async function injectSleakScript() {
   // env control
   const scriptSrc = sleakbotScriptTag.getAttribute('src');
   if (scriptSrc.includes('dev')) {
-    var baseUrl = 'https://cdn.dev.sleak.chat';
+    var baseUrl = 'https://development.sleakbot.pages.dev';
   } else if (scriptSrc.includes('localhost')) {
     var baseUrl = 'http://localhost:8000';
   } else {
