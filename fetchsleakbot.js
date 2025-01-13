@@ -49,65 +49,65 @@ async function injectSleakScript() {
     }
   }
 
-//   // append js to body
-//   function appendSleakJsToBody() {
-//     const sleak_script = document.createElement('script');
-//     sleak_script.src = sleakJs;
-//     document.body.appendChild(sleak_script);
-//   }
+  // append js to body
+  function appendSleakJsToBody() {
+    const sleak_script = document.createElement('script');
+    sleak_script.src = sleakJs;
+    document.body.appendChild(sleak_script);
+  }
 
-//   function fetchAndAppendHtml() {
-//     return fetch(sleakHtml)
-//       .then(sleak_response => {
-//         // console.log(sleak_response);
-//         return sleak_response.text();
-//       })
-//       .then(sleak_html => {
-//         appendSleakHtmlToBody(sleak_html);
-//       });
-//   }
+  function fetchAndAppendHtml() {
+    return fetch(sleakHtml)
+      .then(sleak_response => {
+        // console.log(sleak_response);
+        return sleak_response.text();
+      })
+      .then(sleak_html => {
+        appendSleakHtmlToBody(sleak_html);
+      });
+  }
 
-//   // window.onload = function () {
-//   if (!window.sleakScriptInjected) {
-//     window.sleakScriptInjected = true;
-//     setTimeout(function () {
-//       fetchAndAppendHtml()
-//         .then(() => {
-//           appendSleakJsToBody();
-//           console.log('sleak.chat initialized');
-//         })
-//         .catch(error => {
-//           console.error('Error occurred while loading sleak.chat:', error);
-//         });
-//     }, 10);
-//   }
-//   // };
-// }
+  // window.onload = function () {
+  if (!window.sleakScriptInjected) {
+    window.sleakScriptInjected = true;
+    setTimeout(function () {
+      fetchAndAppendHtml()
+        .then(() => {
+          appendSleakJsToBody();
+          console.log('sleak.chat initialized');
+        })
+        .catch(error => {
+          console.error('Error occurred while loading sleak.chat:', error);
+        });
+    }, 10);
+  }
+  // };
+}
 
-// if (!scriptCookies) {
-//   function loadScript() {
-//     return new Promise((resolve, reject) => {
-//       const script = document.createElement('script');
-//       script.src = 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js';
-//       script.onload = resolve;
-//       script.onerror = reject;
-//       document.head.appendChild(script);
-//     });
-//   }
+if (!scriptCookies) {
+  function loadScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
 
-//   loadScript()
-//     .then(() => {
-//       injectSleakScript();
-//     })
-//     .catch(error => {
-//       console.error('Error occurred while loading js-cookie:', error);
-//     });
-// } else {
-//   injectSleakScript();
-// }
+  loadScript()
+    .then(() => {
+      injectSleakScript();
+    })
+    .catch(error => {
+      console.error('Error occurred while loading js-cookie:', error);
+    });
+} else {
+  injectSleakScript();
+}
 
-// if (chatbotId2 == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec' || chatbotId2 == '7785e220-6b5b-4c3c-80ba-f08f52ac99de') {
-//   // console.log('sleak.chat is enabled for this chatbot');
-// } else {
-//   // console.log('sleak.chat is disabled for this chatbot');
-// }
+if (chatbotId2 == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec' || chatbotId2 == '7785e220-6b5b-4c3c-80ba-f08f52ac99de') {
+  // console.log('sleak.chat is enabled for this chatbot');
+} else {
+  // console.log('sleak.chat is disabled for this chatbot');
+}
