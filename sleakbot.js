@@ -1,5 +1,4 @@
 async function sleakScript() {
-  console.log('test');
   const sleakbotScriptTag = document.querySelector('#sleakbot');
   const scriptSrc = sleakbotScriptTag.getAttribute('src');
   const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
