@@ -64,10 +64,9 @@ async function sleakScript() {
   const rawChatbotConfigResponse = await chatbotConfigRequest.json();
   const chatbotConfig = rawChatbotConfigResponse.data.chatbot_config;
 
-  // need to remove local storage here, and use config request
-  // let chatCreated = localStorage.getItem(`slkChatCreated_${chatbotId}_${visitorId}`) ? true : false;
   let chatCreated = chatbotConfig.chat_exists;
   // console.log('chatCreated = ', chatCreated);
+  let widgetOpenFlag = localStorage.getItem(`sleakWidget_${chatbotId}`);
 
   // main code
   if (chatbotConfig.publishing.published == true) {
@@ -165,7 +164,7 @@ async function sleakScript() {
         iframeWidgetbody.addEventListener('load', () => resolve(), { once: true });
       });
     }
-    if (chatCreated) {
+    if (chatCreated || widgetOpenFlag) {
       // later also add OR `widgetOpenFlag` condition
       console.log('chat created, rendering widget');
       slkRenderWidgetBody();
@@ -275,9 +274,6 @@ async function sleakScript() {
 
         /// check for first button click of page load
         if (firstButtonClick & !scriptCookies) {
-          // const widgetOpenFlag = Cookies.get(`sleakWidget_${chatbotId}`);
-          const widgetOpenFlag = localStorage.getItem(`sleakWidget_${chatbotId}`);
-
           if (!widgetOpenFlag) {
             // for hiding popup after widget open
             // setting cookie for the first widget open flag
