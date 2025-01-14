@@ -368,6 +368,7 @@ async function sleakScript() {
       pagePopup = popupRules.find(rule => rule.page == pagePath);
       if (pagePopup) {
         slkRenderWidgetBody();
+        slkBodyRendered = true;
         console.log('disabling default popup as pagePopup exists = ', pagePopup);
         blockDefaultPopup = true;
         console.log('blockDefaultPopup = ', blockDefaultPopup);
