@@ -580,19 +580,18 @@ async function sleakScript() {
           return eventConfig;
         }
 
-        // Loop through each group and set up listeners for its events
+        // Loop through groups and set eventlisteners
         Object.entries(eventGroups).forEach(([group, events]) => {
           events.forEach(event => {
             document.addEventListener(event, function (eventDetails) {
-              // console.log('group', group);
               handleEvent({
-                type: 'sleakNewEvent', // Custom event type
+                type: 'sleakNewEvent',
                 payload: {
-                  timestamp: new Date().toISOString(), // Capture event time
-                  type: 'web_event', // Fixed type for standard events
-                  event_group: group, // Use the group name directly
-                  event: eventDetails.type, // The raw event name/type
-                  event_config: extractEventConfig(eventDetails) // Optional event details
+                  timestamp: new Date().toISOString(),
+                  type: 'web_event',
+                  event_group: group,
+                  event: eventDetails.type,
+                  event_config: extractEventConfig(eventDetails)
                 }
               });
             });
@@ -600,7 +599,6 @@ async function sleakScript() {
         });
       }
 
-      // Initialize the global event listener
       interceptGlobalEvents();
 
       async function currentUrlEvent() {
@@ -637,6 +635,7 @@ async function sleakScript() {
 
         // end user will push custom fields in an object to this function
         window.sleakPushCustomFields = function (customFields) {
+          console.log('customFields:', customFields);
           // validate if the object is valid
           if (!customFields || typeof customFields !== 'object') {
             console.error('invalid type. object expected.');
