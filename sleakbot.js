@@ -342,14 +342,15 @@ async function sleakScript() {
 
     let pagePath = window.location.pathname;
     // pagePath = '/asdf'; // remove limne in prod
-    // console.log('pagePath:', pagePath);
+    console.log('pagePath:', pagePath);
     const popupRules = chatbotConfig.popups?.rules || [];
-    // console.log('popupRules:', popupRules);
+    console.log('popupRules:', popupRules);
 
     let pagePopup;
     if (popupRules.length > 0) {
       pagePopup = popupRules.find(rule => rule.page == pagePath);
       if (pagePopup) {
+        console.log('rendering widget body');
         slkRenderWidgetBody();
         slkBodyRendered = true;
         console.log('disabling default popup as pagePopup exists = ', pagePopup);
@@ -641,7 +642,7 @@ async function sleakScript() {
             console.error('invalid type. object expected.');
             return;
           }
-          // validate if object is not empty, and the keys exist in customFields
+          // validate if object is not empty, and keys exist in config
           const validKeys = Object.keys(customFields).filter(key => customFieldsConfig.map(cf => cf.key).includes(key));
           const invalidKeys = Object.keys(customFields).filter(key => !customFieldsConfig.map(cf => cf.key).includes(key));
 
