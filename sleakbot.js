@@ -173,14 +173,14 @@ async function sleakScript() {
     let firstButtonClick = true;
 
     // widget preview
-    if (window.location.href.includes('preview.sleak.chat/') && sleakWidgetOpenState == false) {
+    if (window.location.href.includes('preview.sleak.chat/')) {
       if (!slkBodyRendered) {
         slkRenderWidgetBody();
         slkBodyRendered = true;
       }
       if (window.innerWidth > 1024) {
         setTimeout(() => {
-          window.toggleSleakWidget();
+          if (sleakWidgetOpenState == false) window.toggleSleakWidget();
         }, 2000);
       }
     }
