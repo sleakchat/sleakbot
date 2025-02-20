@@ -169,6 +169,9 @@ async function sleakScript() {
       slkBodyRendered = true;
     }
 
+    let sleakWidgetOpenState = false;
+    let firstButtonClick = true;
+
     // widget preview
     if (window.location.href.includes('preview.sleak.chat/') && sleakWidgetOpenState == false) {
       if (!slkBodyRendered) {
@@ -247,9 +250,6 @@ async function sleakScript() {
     //     iframeBtnWindow.postMessage('closeButton', '*');
     //   }
     // }
-
-    let sleakWidgetOpenState = false;
-    let firstButtonClick = true;
 
     window.toggleSleakWidget = async function () {
       // check if widget is open
