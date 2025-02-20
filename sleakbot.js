@@ -169,6 +169,19 @@ async function sleakScript() {
       slkBodyRendered = true;
     }
 
+    // widget preview
+    if (window.location.href.includes('preview.sleak.chat/')) {
+      if (!slkBodyRendered) {
+        slkRenderWidgetBody();
+        slkBodyRendered = true;
+      }
+      if (window.innerWidth > 1024) {
+        setTimeout(() => {
+          window.toggleSleakWidget();
+        }, 2000);
+      }
+    }
+
     // var iframePopup = document.getElementById('sleak-popup-iframe');
     // iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
