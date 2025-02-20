@@ -170,7 +170,7 @@ async function sleakScript() {
     }
 
     // widget preview
-    if (window.location.href.includes('preview.sleak.chat/')) {
+    if (window.location.href.includes('preview.sleak.chat/') && sleakWidgetOpenState == false) {
       if (!slkBodyRendered) {
         slkRenderWidgetBody();
         slkBodyRendered = true;
