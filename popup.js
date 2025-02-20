@@ -1,27 +1,40 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // chatbot cards
+  const cardsContainer = document.querySelector('.cards-container');
+  const randomizeWrap = document.querySelector('.randomnize-wrap');
+  const allRandomCards = Array.from(randomizeWrap.children);
+  const cardsWrapper = document.querySelector('.cards-wrapper');
+  const cardsShuffleBtn = document.querySelector('.cards-shuffle-btn');
+  const widgetCards = document.querySelectorAll('.wiget-card');
+
   let mm = gsap.matchMedia();
 
   const excludedPaths = ['/tarieven'];
+  let modalHasOpened = false;
 
   const popupModal = document.querySelector('[popupmodal=sidebar]');
+
   function popupLogic() {
+    const giftBtn = document.querySelector('[cbservice-form=gift-btn]');
+    giftBtn.addEventListener('click', function () {
+      modalHasOpened = true;
+      showPopup();
+    });
+
     const openButton = document.querySelector('[openmodal=webinar]');
 
     let modalAlreadyShown = localStorage.getItem('cbsPopupModalShown');
-    // modalAlreadyShown = false;
 
     function showPopup() {
-      if (!modalAlreadyShown) {
-        gsap.set(popupModal, { x: -20, opacity: 0, display: 'flex' });
-        gsap.to(popupModal, { duration: 0.4, y: 0, opacity: 1, display: 'flex', x: 0 });
-        showCards();
+      gsap.set(popupModal, { x: -20, opacity: 0, display: 'flex' });
+      gsap.to(popupModal, { duration: 0.4, y: 0, opacity: 1, display: 'flex', x: 0 });
+      showCards();
 
-        localStorage.setItem('cbsPopupModalShown', 'true');
-        gtag('event', 'showChatbotServicePopup', {});
-      }
+      localStorage.setItem('cbsPopupModalShown', 'true');
+      gtag('event', 'showChatbotServicePopup', {});
     }
 
-    if (!excludedPaths.includes(window.location.pathname)) {
+    if (!excludedPaths.includes(window.location.pathname) && !modalAlreadyShown && modalOpenState == false) {
       setTimeout(showPopup, 12000);
     }
 
@@ -32,26 +45,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   popupLogic();
 
-  // chatbot cards
-  const cardsContainer = document.querySelector('.cards-container');
-  const randomizeWrap = document.querySelector('.randomnize-wrap');
-  const allRandomCards = Array.from(randomizeWrap.children);
-  const cardsWrapper = document.querySelector('.cards-wrapper');
-  const cardsShuffleBtn = document.querySelector('.cards-shuffle-btn');
-  const widgetCards = document.querySelectorAll('.wiget-card');
-
   function showCards() {
     cardsContainer.innerHTML = '';
 
-    const selectedCards = [];
-    while (selectedCards.length < 3) {
+    const selectedCards = new Set();
+
+    while (selectedCards.size < 3) {
       const randomCard = allRandomCards[Math.floor(Math.random() * allRandomCards.length)];
-      if (!selectedCards.includes(randomCard)) {
-        selectedCards.push(randomCard.cloneNode(true));
-      }
+      selectedCards.add(randomCard);
     }
 
-    selectedCards.forEach((card, index) => {
+    const clonedCards = Array.from(selectedCards).map(card => card.cloneNode(true));
+
+    clonedCards.forEach((card, index) => {
       cardsContainer.appendChild(card);
       if (index === 0) {
         card.classList.add('left');
