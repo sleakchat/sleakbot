@@ -32,6 +32,7 @@ async function injectSleakScript() {
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = url;
+    id = 'sleak-css';
     document.head.appendChild(link);
   }
   appendStylesheet(sleakCss);
@@ -40,6 +41,7 @@ async function injectSleakScript() {
   function appendSleakHtmlToBody(sleak_html) {
     const sleakHtml = document.createElement('div');
     sleakHtml.innerHTML = sleak_html;
+    sleakHtml.id = 'sleak-html';
     if (placement === 'fullwidth') {
       sleakHtml.style.width = '100%';
       sleakHtml.style.height = '100%';
@@ -53,6 +55,7 @@ async function injectSleakScript() {
   function appendSleakJsToBody() {
     const sleak_script = document.createElement('script');
     sleak_script.src = sleakJs;
+    sleak_script.id = 'sleak-script';
     document.body.appendChild(sleak_script);
   }
 
