@@ -565,6 +565,12 @@
   margin-right: 12px;
 }
 
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  #sleak-container {
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 479px) {
   #sleak-loadingwrap {
     height: 100%;
