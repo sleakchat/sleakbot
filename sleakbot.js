@@ -89,6 +89,7 @@ async function sleakScript() {
     const slkPopupBodyMessage = document.querySelector('#sleak-popup-embed-body');
 
     var viewportWidth2 = window.innerWidth;
+    console.log('viewport width =', viewportWidth2);
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
