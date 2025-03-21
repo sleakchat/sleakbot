@@ -475,7 +475,7 @@ async function sleakScript() {
     }
 
     window.addEventListener('message', event => {
-      if (event.origin === 'https://sleak.vercel.app' || event.origin === 'https://staging.sleak.chat' || event.origin === 'https://widget.sleak.chat') {
+      if (event.origin === 'https://staging.sleak.chat' || event.origin === 'https://widget.sleak.chat') {
         // console.log('Received message:', event);
 
         if (event.data === 'closePopup') {
