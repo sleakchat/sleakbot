@@ -1,0 +1,6 @@
+Content-Security-Policy:
+  script-src 'self' https://cdn.sleak.chat;
+  style-src 'self' https://cdn.sleak.chat;
+  frame-src https://widget.sleak.chat;
+  connect-src https://widget.sleak.chat;
+  img-src https://cdn.sleak.chat data:;
