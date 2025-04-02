@@ -422,6 +422,15 @@ async function executeSleakbotJs() {
         }
       };
 
+      (async function btnClickEventHandling() {
+        console.log('define');
+        document.querySelectorAll('[open-widget]').forEach(btn => {
+          btn.addEventListener('click', function () {
+            toggleSleakWidget();
+          });
+        });
+      })();
+
       // event listener for scrolling
       if (window.matchMedia('(max-width: 768px)').matches) {
         window.addEventListener('scroll', function () {
