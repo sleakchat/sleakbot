@@ -1,6 +1,7 @@
 const sleakbotScriptTag = document.querySelector('#sleakbot');
 const scriptCookies = sleakbotScriptTag.getAttribute('cookies');
-const chatbotId2 = sleakbotScriptTag.getAttribute('chatbot-id');
+const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
+const scriptSrc = sleakbotScriptTag.getAttribute('src');
 
 async function injectSleakScript() {
   if (window.sleakScriptInjected) {
@@ -8,7 +9,6 @@ async function injectSleakScript() {
   }
 
   // env control
-  const scriptSrc = sleakbotScriptTag.getAttribute('src');
   if (scriptSrc.includes('dev')) {
     var baseUrl = 'https://development.sleakbot.pages.dev';
   } else if (scriptSrc.includes('localhost')) {
@@ -88,29 +88,31 @@ async function injectSleakScript() {
   // };
 }
 
-if (!scriptCookies) {
-  function loadScript() {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js';
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
+// if (!scriptCookies) {
+//   function loadScript() {
+//     return new Promise((resolve, reject) => {
+//       const script = document.createElement('script');
+//       script.src = 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js';
+//       script.onload = resolve;
+//       script.onerror = reject;
+//       document.head.appendChild(script);
+//     });
+//   }
 
-  loadScript()
-    .then(() => {
-      injectSleakScript();
-    })
-    .catch(error => {
-      console.error('Error occurred while loading js-cookie:', error);
-    });
-} else {
-  injectSleakScript();
-}
+//   loadScript()
+//     .then(() => {
+//       injectSleakScript();
+//     })
+//     .catch(error => {
+//       console.error('Error occurred while loading js-cookie:', error);
+//     });
+// } else {
+//   injectSleakScript();
+// }
 
-if (chatbotId2 == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec' || chatbotId2 == '7785e220-6b5b-4c3c-80ba-f08f52ac99de') {
+injectSleakScript();
+
+if (chatbotId == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec' || chatbotId == '7785e220-6b5b-4c3c-80ba-f08f52ac99de') {
   // console.log('sleak.chat is enabled for this chatbot');
 } else {
   // console.log('sleak.chat is disabled for this chatbot');
@@ -118,10 +120,6 @@ if (chatbotId2 == 'f1c0ba70-cb59-41d5-826c-d00ae14d83ec' || chatbotId2 == '7785e
 
 async function executeSleakbotJs() {
   async function sleakScript() {
-    const sleakbotScriptTag = document.querySelector('#sleakbot');
-    const scriptSrc = sleakbotScriptTag.getAttribute('src');
-    const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
-    const scriptCookies = sleakbotScriptTag.getAttribute('cookies');
     // env control
     if (scriptSrc.includes('dev') || scriptSrc.includes('localhost')) {
       var widgetBaseUrl = 'https://staging.sleak.chat';
@@ -131,33 +129,83 @@ async function executeSleakbotJs() {
 
     let visitorId;
 
-    function createNewCookie(key, value) {
-      Cookies.set(key, value, {
-        expires: 365,
-        sameSite: 'None',
-        secure: true
-      });
-    }
+    // function createNewCookie(key, value) {
+    //   Cookies.set(key, value, {
+    //     expires: 365,
+    //     sameSite: 'None',
+    //     secure: true
+    //   });
+    //   Set cookie
+
+    // }
 
     if (!scriptCookies) {
-      if (Cookies.get(`sleakVisitorId_${chatbotId}`)) {
+      function setCookie(key, value, options = {}) {
+        const encodedKey = encodeURIComponent(key);
+        const encodedValue = encodeURIComponent(value);
+        let cookie = `${encodedKey}=${encodedValue}`;
+
+        if (options.expires) {
+          const date = new Date();
+          date.setTime(date.getTime() + options.expires * 86400000);
+          cookie += `; expires=${date.toUTCString()}`;
+        }
+        if (options.path) cookie += `; path=${options.path}`;
+        if (options.domain) cookie += `; domain=${options.domain}`;
+        if (options.secure) cookie += `; secure`;
+        if (options.sameSite) cookie += `; samesite=${options.sameSite}`;
+
+        document.cookie = cookie;
+      }
+
+      function getCookie(key) {
+        const encodedKey = encodeURIComponent(key) + '=';
+        const cookies = document.cookie.split('; ');
+        for (let c of cookies) {
+          if (c.startsWith(encodedKey)) {
+            return decodeURIComponent(c.substring(encodedKey.length));
+          }
+        }
+        return null;
+      }
+
+      function deleteCookie(key, options = {}) {
+        setCookie(key, '', { ...options, expires: -1 });
+      }
+
+      visitorId = getCookie(`sleakVisitorId_${chatbotId}`);
+
+      if (visitorId) {
         // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
         // Resetting chat
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('resetChat')) {
-          Cookies.remove(`sleakVisitorId_${chatbotId}`);
+          // Cookies.remove(`sleakVisitorId_${chatbotId}`);
+          deleteCookie(`sleakVisitorId_${chatbotId}`, { path: '/' });
           visitorId = crypto.randomUUID();
-          createNewCookie(`sleakVisitorId_${chatbotId}`, visitorId);
+          // createNewCookie(`sleakVisitorId_${chatbotId}`, visitorId);
+          setCookie(`sleakVisitorId_${chatbotId}`, visitorId, {
+            expires: 365,
+            sameSite: 'None',
+            secure: true,
+            path: '/'
+          });
           urlParams.delete('resetChat');
           const updatedParams = urlParams.toString();
           const newUrl = updatedParams ? `${window.location.origin}${window.location.pathname}?${updatedParams}` : `${window.location.origin}${window.location.pathname}`;
           window.history.replaceState(null, '', newUrl);
         }
 
-        visitorId = Cookies.get(`sleakVisitorId_${chatbotId}`);
+        visitorId = visitorId = getCookie(`sleakVisitorId_${chatbotId}`);
       } else {
         visitorId = crypto.randomUUID();
-        createNewCookie(`sleakVisitorId_${chatbotId}`, visitorId);
+        // createNewCookie(`sleakVisitorId_${chatbotId}`, visitorId);
+        setCookie(`sleakVisitorId_${chatbotId}`, visitorId, {
+          expires: 365,
+          sameSite: 'None',
+          secure: true,
+          path: '/'
+        });
       }
     } else {
       // fallback to using localStorage
@@ -211,27 +259,53 @@ async function executeSleakbotJs() {
 
       function setStylingMobile() {
         var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-        sleakButton.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
-        popupListWrap.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px;');
+        sleakButton.style.right = `${chatbotConfig.btn_offset.x_mobile}px`;
+        sleakButton.style.bottom = `${chatbotConfig.btn_offset.y_mobile}px`;
+        popupListWrap.style.right = `${chatbotConfig.btn_offset.x_mobile}px`;
+        popupListWrap.style.bottom = `${mobilePopupHeight}px`;
       }
 
       function setStylingDesktop() {
-        sleakWrap.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;');
+        sleakWrap.style.right = `${chatbotConfig.btn_offset.x_desktop}px`;
+        sleakWrap.style.bottom = `${chatbotConfig.btn_offset.y_desktop}px`;
       }
 
       function setStylingMobileMirrored() {
         var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-        sleakButton.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
-        popupListWrap.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px; align-items: start;');
+        sleakButton.style.left = `${chatbotConfig.btn_offset.x_mobile}px`;
+        sleakButton.style.bottom = `${chatbotConfig.btn_offset.y_mobile}px`;
+        popupListWrap.style.left = `${chatbotConfig.btn_offset.x_mobile}px`;
+        popupListWrap.style.bottom = `${mobilePopupHeight}px`;
+        popupListWrap.style.alignItems = 'start';
         sleakWrap.style.alignItems = 'flex-start';
-        sleakEmbeddedWidget.setAttribute('style', 'justify-content: flex-start !important');
+        sleakEmbeddedWidget.style.setProperty('justify-content', 'flex-start', 'important');
       }
 
       function setStylingDesktopMirrored() {
-        sleakWrap.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;' + 'width: 100vw; justify-content: flex-start; align-items: flex-start;');
-        sleakWidgetwrap.setAttribute('style', 'width: 420px; height: 100%;');
-        popupListWrap.setAttribute('style', 'right: unset; left: 0;');
-        sleakButton.setAttribute('style', 'right: unset; left: 0; transform: scaleX(-1) !important');
+        Object.assign(sleakWrap.style, {
+          left: `${chatbotConfig.btn_offset.x_desktop}px`,
+          bottom: `${chatbotConfig.btn_offset.y_desktop}px`,
+          width: '100vw',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start'
+        });
+
+        Object.assign(sleakWidgetwrap.style, {
+          width: '420px',
+          height: '100%'
+        });
+
+        Object.assign(popupListWrap.style, {
+          right: 'unset',
+          left: '0'
+        });
+
+        Object.assign(sleakButton.style, {
+          right: 'unset',
+          left: '0'
+        });
+        sleakButton.style.setProperty('transform', 'scaleX(-1)', 'important');
+
         document.querySelector('#popup-list-wrap').style.alignItems = 'start';
       }
 
@@ -307,8 +381,8 @@ async function executeSleakbotJs() {
       // iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
 
       slkPopupAvatar.src = chatbotConfig.avatar_url;
-      slkPopupAgentName.innerHTML = chatbotConfig.name;
-      slkPopupBodyMessage.innerHTML = chatbotConfig.first_message;
+      slkPopupAgentName.textContent = chatbotConfig.name;
+      slkPopupBodyMessage.textContent = chatbotConfig.first_message;
 
       document.querySelector('#sleak-popup-embed-closebtn-icon').addEventListener('click', function (event) {
         event.stopPropagation();
@@ -423,7 +497,6 @@ async function executeSleakbotJs() {
       };
 
       (async function btnClickEventHandling() {
-        console.log('define');
         document.querySelectorAll('[open-widget]').forEach(btn => {
           btn.addEventListener('click', function () {
             toggleSleakWidget();
@@ -504,8 +577,8 @@ async function executeSleakbotJs() {
 
         // populate default popup
         slkPopupAvatar.src = payload.avatar;
-        slkPopupAgentName.innerHTML = payload.name;
-        slkPopupBodyMessage.innerHTML = pagePopup.message;
+        slkPopupAgentName.textContent = payload.name;
+        slkPopupBodyMessage.textContent = pagePopup.message;
 
         liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
         liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
