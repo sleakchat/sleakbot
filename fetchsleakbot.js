@@ -1,3 +1,4 @@
+console.log('start');
 const sleakbotScriptTag = document.querySelector('#sleakbot');
 const scriptCookies = sleakbotScriptTag.getAttribute('cookies');
 const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
