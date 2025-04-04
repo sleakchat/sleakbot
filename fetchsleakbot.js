@@ -252,6 +252,8 @@
           }
         }
 
+        let pagePath = window.location.pathname;
+
         if (placement == 'fullwidth') {
           var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
           iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
@@ -553,7 +555,6 @@
 
           // console.log(sleakWidgetOpenState);
 
-          let pagePath = window.location.pathname;
           // pagePath = '/asdf'; // remove limne in prod
           // console.log('pagePath:', pagePath);
           const popupRules = chatbotConfig.popups?.rules || [];
