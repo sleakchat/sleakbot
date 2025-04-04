@@ -3,6 +3,7 @@
   const scriptCookies = sleakbotScriptTag.getAttribute('cookies');
   const chatbotId = sleakbotScriptTag.getAttribute('chatbot-id');
   const scriptSrc = sleakbotScriptTag.getAttribute('src');
+  const placement = sleakbotScriptTag.getAttribute('placement');
 
   async function injectSleakScript() {
     if (window.sleakScriptInjected) {
@@ -17,15 +18,10 @@
     } else {
       var baseUrl = 'https://cdn.sleak.chat';
     }
-    const placement = sleakbotScriptTag.getAttribute('placement');
-    if (placement == 'fullwidth') {
-      var fileName = 'sleakbot-fw';
-    } else {
-      var fileName = 'sleakbot';
-    }
+    const fileName = placement === 'fullwidth' ? 'sleakbot-fw' : 'sleakbot';
 
     const sleakHtml = `${baseUrl}/${fileName}.html`;
-    const sleakJs = `${baseUrl}/${fileName}.js`;
+    // const sleakJs = `${baseUrl}/${fileName}.js`;
     const sleakCss = `${baseUrl}/${fileName}.css`;
 
     async function appendStylesheet(url) {
@@ -237,6 +233,31 @@
 
       // main code
       if (chatbotConfig.publishing.published == true) {
+        async function setShadow() {
+          // delay setting shadow to avoid flickering
+          await new Promise(resolve => setTimeout(resolve, 50));
+          iframeWidgetbody.style.boxShadow = '0px 4px 8px -2px rgba(0, 0, 0, 0.1)';
+        }
+        let sleakChime = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3');
+        let sleakChimeOperator = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3');
+        let userHasInteracted = false;
+        window.addEventListener('click', () => (userHasInteracted = true), { once: true });
+        window.addEventListener('keydown', () => (userHasInteracted = true), { once: true });
+        function playAudio(audio) {
+          if (!userHasInteracted) return;
+          try {
+            audio.play();
+          } catch (error) {
+            console.error('Error playing audio:', error);
+          }
+        }
+
+        if (placement == 'fullwidth') {
+          var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+          iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
+        } else {
+        }
+
         const sleakWrap = document.querySelector('#sleak-widgetwrap');
         const sleakButton = document.querySelector('#sleak-buttonwrap');
         var sleakPopup = document.querySelector('#sleak-popup-embed');
@@ -390,12 +411,6 @@
           closeSleakWidget();
         });
 
-        async function setShadow() {
-          // delay setting shadow to avoid flickering
-          await new Promise(resolve => setTimeout(resolve, 50));
-          iframeWidgetbody.style.boxShadow = '0px 4px 8px -2px rgba(0, 0, 0, 0.1)';
-        }
-
         function openSleakWidget() {
           sleakEmbeddedWidget.style.display = 'flex';
 
@@ -536,20 +551,6 @@
             sleakPopup.style.transform = 'translateY(0)';
           }, 50);
           sessionStorage.setItem(sessionStorageKey, 'true');
-        }
-
-        let sleakChime = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime.mp3');
-        let sleakChimeOperator = new Audio('https://sygpwnluwwetrkmwilea.supabase.co/storage/v1/object/public/app/assets/sleak-chime-operatorjoined.mp3');
-        let userHasInteracted = false;
-        window.addEventListener('click', () => (userHasInteracted = true), { once: true });
-        window.addEventListener('keydown', () => (userHasInteracted = true), { once: true });
-        function playAudio(audio) {
-          if (!userHasInteracted) return;
-          try {
-            audio.play();
-          } catch (error) {
-            console.error('Error playing audio:', error);
-          }
         }
 
         // console.log(sleakWidgetOpenState);
