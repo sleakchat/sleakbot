@@ -256,413 +256,412 @@
           var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
           iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
         } else {
-        }
+          var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
+          const sleakWrap = document.querySelector('#sleak-widgetwrap');
+          const sleakButton = document.querySelector('#sleak-buttonwrap');
+          var sleakPopup = document.querySelector('#sleak-popup-embed');
+          const sleakEmbeddedWidget = document.querySelector('#sleak-body-embed');
+          const sleakWidgetwrap = document.getElementById('sleak-widget-container');
+          const liveChatPopup = document.getElementById('sleak-operatorchanged-popup');
+          const chatInput = document.querySelector('.sleak-popup-chatinpupt-input-wrapper');
+          const btnPulse = document.querySelector('#sleak-button-pulse');
+          const btnNotificaiton = document.querySelector('#sleak-btn-notification-count');
+          const isTypingIndicator = document.querySelector('#sleak-loader-container');
+          const popupListWrap = document.querySelector('#popup-list-wrap');
+          var sleakBtnContainer = document.querySelector('#sleak-btn-container');
+          const sleakWidgetClosedBtn = document.querySelector('#sleak-widget-closed');
+          const sleakWidgetOpenedBtn = document.querySelector('#sleak-widget-open');
+          const sleakWidgetLoader = document.querySelector('#sleak-button-spinner');
+          const slkPopupAvatar = document.querySelector('#sleak-popup-embed-avatar');
+          const slkPopupAgentName = document.querySelector('#sleak-popup-embed-agentname');
+          const slkPopupBodyMessage = document.querySelector('#sleak-popup-embed-body');
 
-        const sleakWrap = document.querySelector('#sleak-widgetwrap');
-        const sleakButton = document.querySelector('#sleak-buttonwrap');
-        var sleakPopup = document.querySelector('#sleak-popup-embed');
-        const sleakEmbeddedWidget = document.querySelector('#sleak-body-embed');
-        const sleakWidgetwrap = document.getElementById('sleak-widget-container');
-        const liveChatPopup = document.getElementById('sleak-operatorchanged-popup');
-        const chatInput = document.querySelector('.sleak-popup-chatinpupt-input-wrapper');
-        const btnPulse = document.querySelector('#sleak-button-pulse');
-        const btnNotificaiton = document.querySelector('#sleak-btn-notification-count');
-        const isTypingIndicator = document.querySelector('#sleak-loader-container');
-        const popupListWrap = document.querySelector('#popup-list-wrap');
-        var sleakBtnContainer = document.querySelector('#sleak-btn-container');
-        const sleakWidgetClosedBtn = document.querySelector('#sleak-widget-closed');
-        const sleakWidgetOpenedBtn = document.querySelector('#sleak-widget-open');
-        const sleakWidgetLoader = document.querySelector('#sleak-button-spinner');
-        const slkPopupAvatar = document.querySelector('#sleak-popup-embed-avatar');
-        const slkPopupAgentName = document.querySelector('#sleak-popup-embed-agentname');
-        const slkPopupBodyMessage = document.querySelector('#sleak-popup-embed-body');
+          var viewportWidth2 = window.innerWidth;
 
-        var viewportWidth2 = window.innerWidth;
-
-        function setStylingMobile() {
-          var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-          sleakButton.style.right = `${chatbotConfig.btn_offset.x_mobile}px`;
-          sleakButton.style.bottom = `${chatbotConfig.btn_offset.y_mobile}px`;
-          popupListWrap.style.right = `${chatbotConfig.btn_offset.x_mobile}px`;
-          popupListWrap.style.bottom = `${mobilePopupHeight}px`;
-        }
-
-        function setStylingDesktop() {
-          sleakWrap.style.right = `${chatbotConfig.btn_offset.x_desktop}px`;
-          sleakWrap.style.bottom = `${chatbotConfig.btn_offset.y_desktop}px`;
-        }
-
-        function setStylingMobileMirrored() {
-          var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
-          sleakButton.style.left = `${chatbotConfig.btn_offset.x_mobile}px`;
-          sleakButton.style.bottom = `${chatbotConfig.btn_offset.y_mobile}px`;
-          popupListWrap.style.left = `${chatbotConfig.btn_offset.x_mobile}px`;
-          popupListWrap.style.bottom = `${mobilePopupHeight}px`;
-          popupListWrap.style.alignItems = 'start';
-          sleakWrap.style.alignItems = 'flex-start';
-          sleakEmbeddedWidget.style.setProperty('justify-content', 'flex-start', 'important');
-        }
-
-        function setStylingDesktopMirrored() {
-          Object.assign(sleakWrap.style, {
-            left: `${chatbotConfig.btn_offset.x_desktop}px`,
-            bottom: `${chatbotConfig.btn_offset.y_desktop}px`,
-            width: '100vw',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start'
-          });
-
-          Object.assign(sleakWidgetwrap.style, {
-            width: '420px',
-            height: '100%'
-          });
-
-          Object.assign(popupListWrap.style, {
-            right: 'unset',
-            left: '0'
-          });
-
-          Object.assign(sleakButton.style, {
-            right: 'unset',
-            left: '0'
-          });
-          sleakButton.style.setProperty('transform', 'scaleX(-1)', 'important');
-
-          document.querySelector('#popup-list-wrap').style.alignItems = 'start';
-        }
-
-        if (viewportWidth2 < 1024) {
-          if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.mobile !== false) {
-            setStylingMobile();
-          } else {
-            setStylingMobileMirrored();
+          function setStylingMobile() {
+            var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+            sleakButton.style.right = `${chatbotConfig.btn_offset.x_mobile}px`;
+            sleakButton.style.bottom = `${chatbotConfig.btn_offset.y_mobile}px`;
+            popupListWrap.style.right = `${chatbotConfig.btn_offset.x_mobile}px`;
+            popupListWrap.style.bottom = `${mobilePopupHeight}px`;
           }
-        } else {
-          if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.desktop !== false) {
-            setStylingDesktop();
-          } else {
-            setStylingDesktopMirrored();
+
+          function setStylingDesktop() {
+            sleakWrap.style.right = `${chatbotConfig.btn_offset.x_desktop}px`;
+            sleakWrap.style.bottom = `${chatbotConfig.btn_offset.y_desktop}px`;
           }
-        }
 
-        // btn
-        var btnColor = chatbotConfig.primary_color;
-        sleakBtnContainer.style.backgroundColor = btnColor;
-        if (chatbotConfig.background_image) {
-          sleakBtnContainer.style.backgroundImage = `url("${chatbotConfig.background_image}")`;
-          sleakWidgetOpenedBtn.style.opacity = '0';
-          sleakWidgetClosedBtn.style.opacity = '0';
-        }
-
-        function slkShowBtn() {
-          sleakButton.style.opacity = '0';
-          sleakButton.style.transform = 'scale(0.8)';
-          sleakButton.style.transition = 'all 0.1s ease';
-          setTimeout(function () {
-            sleakButton.style.opacity = '1';
-            sleakButton.style.transform = 'scale(1)';
-          }, 500);
-        }
-        slkShowBtn();
-
-        // render iframes
-        // var iframeBtn = document.getElementById('sleak-button-iframe');
-        // iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
-
-        let slkBodyRendered = false;
-        var iframeWidgetbody = document.getElementById('sleak-widget-iframe');
-        function slkRenderWidgetBody() {
-          return new Promise(resolve => {
-            iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
-            iframeWidgetbody.addEventListener('load', () => resolve(), { once: true });
-          });
-        }
-        if (chatCreated || widgetOpenFlag) {
-          // console.log('chat created or widget already opened, rendering widget');
-          slkRenderWidgetBody();
-          slkBodyRendered = true;
-        }
-
-        let sleakWidgetOpenState = false;
-        let firstButtonClick = true;
-
-        // widget preview
-        if (window.location.href.includes('preview.sleak.chat/')) {
-          if (!slkBodyRendered) {
-            slkRenderWidgetBody();
-            slkBodyRendered = true;
+          function setStylingMobileMirrored() {
+            var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+            sleakButton.style.left = `${chatbotConfig.btn_offset.x_mobile}px`;
+            sleakButton.style.bottom = `${chatbotConfig.btn_offset.y_mobile}px`;
+            popupListWrap.style.left = `${chatbotConfig.btn_offset.x_mobile}px`;
+            popupListWrap.style.bottom = `${mobilePopupHeight}px`;
+            popupListWrap.style.alignItems = 'start';
+            sleakWrap.style.alignItems = 'flex-start';
+            sleakEmbeddedWidget.style.setProperty('justify-content', 'flex-start', 'important');
           }
-          if (window.innerWidth > 1024) {
-            setTimeout(() => {
-              if (sleakWidgetOpenState == false) window.toggleSleakWidget();
-            }, 2000);
-          }
-        }
 
-        // var iframePopup = document.getElementById('sleak-popup-iframe');
-        // iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
-
-        slkPopupAvatar.src = chatbotConfig.avatar_url;
-        slkPopupAgentName.textContent = chatbotConfig.name;
-        slkPopupBodyMessage.textContent = chatbotConfig.first_message;
-
-        document.querySelector('#sleak-popup-embed-closebtn-icon').addEventListener('click', function (event) {
-          event.stopPropagation();
-          closeSleakWidget();
-        });
-
-        function openSleakWidget() {
-          sleakEmbeddedWidget.style.display = 'flex';
-
-          sleakWidgetwrap.style.transform = 'translateY(20px)';
-          // sleakEmbeddedWidget.style.transform = 'translateY(800px)';
-          // sleakEmbeddedWidget.style.transform = 'scale(0.99)';
-
-          sleakEmbeddedWidget.style.opacity = '0';
-          sleakPopup.style.display = 'none';
-          chatInput.style.display = 'none';
-          liveChatPopup.style.display = 'none';
-          btnPulse.style.display = 'none';
-          btnNotificaiton.style.display = 'none';
-          isTypingIndicator.style.display = 'none';
-
-          sleakEmbeddedWidget.style.transition = 'opacity 0.15s ease-in-out';
-          sleakEmbeddedWidget.style.transition = 'transform 0.15s ease-in-out';
-          sleakWidgetwrap.style.transition = 'transform 0.15s ease-in-out';
-
-          setTimeout(function () {
-            sleakEmbeddedWidget.style.opacity = '1';
-            sleakWidgetwrap.style.transform = 'translateY(0)';
-            // sleakEmbeddedWidget.style.transform = 'translateY(0)';
-            // sleakEmbeddedWidget.style.transform = 'scale(1)';
-          }, 50);
-        }
-
-        window.closeSleakWidget = function () {
-          sleakEmbeddedWidget.classList.remove('open');
-          iframeWidgetbody.classList.remove('open');
-
-          sleakEmbeddedWidget.style.display = 'none';
-          sleakPopup.style.display = 'none';
-        };
-
-        // widget opening
-
-        // async function changeButtonState(state) {
-        //   var iframeBtnWindow = document.getElementById('sleak-button-iframe').contentWindow;
-
-        //   if (state == true) {
-        //     iframeBtnWindow.postMessage('openButton', '*');
-        //     iframeWidgetbody.contentWindow.postMessage('openButton', '*');
-        //   } else if (state == false) {
-        //     iframeBtnWindow.postMessage('closeButton', '*');
-        //   }
-        // }
-
-        window.toggleSleakWidget = async function () {
-          // check if widget is open
-          if (sleakWidgetOpenState == false) {
-            sleakWidgetClosedBtn.style.display = 'none';
-            sleakWidgetOpenedBtn.style.display = 'flex';
-            if (firstButtonClick && !slkBodyRendered) {
-              // sleakWidgetLoader.style.display = 'block';
-              // console.log('Rendering widget body...');
-              await slkRenderWidgetBody();
-              // sleakWidgetLoader.style.display = 'none';
-              sleakWidgetOpenState = true;
-              // console.log('Widget body rendered.');
-              // changeButtonState(true);
-            } else {
-              sleakWidgetOpenState = true;
-              // changeButtonState(true);
-            }
-
-            openSleakWidget();
-
-            if (window.matchMedia('(max-width: 768px)').matches) {
-              document.body.style.overflow = 'hidden';
-            }
-
-            const viewportHeight = window.innerHeight;
-            sleakWrap.style.height = viewportHeight + 'px';
-            sleakWrap.style.minHeight = viewportHeight + 'px';
-
-            /// check for first button click of page load
-            if (firstButtonClick) {
-              if (!widgetOpenFlag) {
-                // for hiding popup after widget open
-                widgetOpenFlag = true;
-                localStorage.setItem(`sleakWidget_${chatbotId}`, crypto.randomUUID());
-              }
-
-              if (firstButtonClick) firstButtonClick = false;
-            }
-          } else if (sleakWidgetOpenState == true) {
-            sleakWidgetClosedBtn.style.display = 'flex';
-            sleakWidgetOpenedBtn.style.display = 'none';
-
-            sleakWidgetOpenState = false;
-            // changeButtonState(false);
-            // console.log(sleakWidgetOpenState);
-            closeSleakWidget();
-
-            if (window.matchMedia('(max-width: 768px)').matches) {
-              document.body.style.overflow = 'auto';
-            }
-          }
-        };
-
-        (async function btnClickEventHandling() {
-          document.querySelectorAll('[open-widget]').forEach(btn => {
-            btn.addEventListener('click', function () {
-              toggleSleakWidget();
+          function setStylingDesktopMirrored() {
+            Object.assign(sleakWrap.style, {
+              left: `${chatbotConfig.btn_offset.x_desktop}px`,
+              bottom: `${chatbotConfig.btn_offset.y_desktop}px`,
+              width: '100vw',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start'
             });
-          });
-        })();
 
-        // event listener for scrolling
-        if (window.matchMedia('(max-width: 768px)').matches) {
-          window.addEventListener('scroll', function () {
-            if (sleakWidgetOpenState == true) {
-              const viewportHeightScroll = window.innerHeight;
-              document.getElementById('sleak-widgetwrap').style.height = viewportHeightScroll + 'px';
-              document.getElementById('sleak-widgetwrap').style.minHeight = viewportHeightScroll + 'px';
-            }
-          });
-        }
+            Object.assign(sleakWidgetwrap.style, {
+              width: '420px',
+              height: '100%'
+            });
 
-        // disable popup/chime after first page load
-        var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
-        var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
-        // var hasPopupBeenTriggered = false; // remove line in prod
+            Object.assign(popupListWrap.style, {
+              right: 'unset',
+              left: '0'
+            });
 
-        let blockDefaultPopup = false;
-        var sessionStorageTriggerBased = chatbotId + '_sleakTriggerbasedPopupTriggered';
+            Object.assign(sleakButton.style, {
+              right: 'unset',
+              left: '0'
+            });
+            sleakButton.style.setProperty('transform', 'scaleX(-1)', 'important');
 
-        // Chime & popup
-
-        function showPopup() {
-          sleakPopup.style.display = 'flex';
-          sleakPopup.style.opacity = '0';
-          sleakPopup.style.transform = 'translateY(20px)';
-          sleakPopup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-          setTimeout(function () {
-            sleakPopup.style.opacity = '1';
-            sleakPopup.style.transform = 'translateY(0)';
-          }, 50);
-          sessionStorage.setItem(sessionStorageKey, 'true');
-        }
-
-        // console.log(sleakWidgetOpenState);
-
-        let pagePath = window.location.pathname;
-        // pagePath = '/asdf'; // remove limne in prod
-        // console.log('pagePath:', pagePath);
-        const popupRules = chatbotConfig.popups?.rules || [];
-        // console.log('popupRules:', popupRules);
-
-        let pagePopup;
-        if (popupRules.length > 0) {
-          pagePopup = popupRules.find(rule => rule.page == pagePath);
-          if (pagePopup) {
-            // console.log('rendering widget body');
-            slkRenderWidgetBody();
-            slkBodyRendered = true;
-            // console.log('disabling default popup as pagePopup exists = ', pagePopup);
-            blockDefaultPopup = true;
-            // console.log('blockDefaultPopup = ', blockDefaultPopup);
+            document.querySelector('#popup-list-wrap').style.alignItems = 'start';
           }
-        }
 
-        async function showTriggerBasedPopup(payload) {
-          // console.log('showing livechat popup with payload = ', payload);
-
-          // populate default popup
-          slkPopupAvatar.src = payload.avatar;
-          slkPopupAgentName.textContent = payload.name;
-          slkPopupBodyMessage.textContent = pagePopup.message;
-
-          liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
-          liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
-
-          if (!sleakWidgetOpenState) {
-            liveChatPopup.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-            liveChatPopup.style.transform = 'translateY(20px)';
-            liveChatPopup.style.opacity = '0';
-            liveChatPopup.style.display = 'flex';
-            setTimeout(function () {
-              liveChatPopup.style.opacity = '1';
-              liveChatPopup.style.transform = 'translateY(0)';
-            }, 50);
-            setTimeout(() => (isTypingIndicator.style.display = 'flex'), 1000);
-
-            playAudio(sleakChimeOperator);
-          }
-          setTimeout(() => (isTypingIndicator.style.display = 'none'), 6000);
-          setTimeout(function () {
-            blockDefaultPopup = false;
-            if (!chatCreated) {
-              // console.log('showing main popup');
-              if (!sleakWidgetOpenState) {
-                showPopup();
-                playAudio(sleakChime);
-              }
-            }
-            setTimeout(function () {
-              if (!sleakWidgetOpenState) {
-                chatInput.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-                chatInput.style.transform = 'translateY(20px)';
-                chatInput.style.opacity = '0';
-                chatInput.style.display = 'flex';
-                setTimeout(function () {
-                  chatInput.style.opacity = '1';
-                  chatInput.style.transform = 'translateY(0)';
-                }, 50);
-
-                btnPulse.style.display = 'flex';
-                btnPulse.style.opacity = '1';
-                btnPulse.style.transform = 'scale(1)';
-
-                btnNotificaiton.style.transform = 'scale(0.5)';
-                btnNotificaiton.style.display = 'flex';
-                setTimeout(function () {
-                  btnNotificaiton.style.opacity = '1';
-                  btnNotificaiton.style.transform = 'scale(1)';
-                }, 50);
-              }
-            }, 500);
-          }, 7000);
-
-          // sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
-        }
-
-        if (!hasPopupBeenTriggered && !blockDefaultPopup) {
-          // console.log('popup localStorage does not exist');
-
-          const viewportWidth = window.innerWidth;
-          // console.log(viewportWidth);
-
-          if (viewportWidth < 479) {
-            if (chatbotConfig.popup.mobile == true) {
-              setTimeout(function () {
-                if (sleakWidgetOpenState == false) {
-                  showPopup();
-                  if (chatbotConfig.popup.chime.mobile == true) {
-                    playAudio(sleakChime);
-                  }
-                }
-              }, 6000);
+          if (viewportWidth2 < 1024) {
+            if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.mobile !== false) {
+              setStylingMobile();
+            } else {
+              setStylingMobileMirrored();
             }
           } else {
-            if (chatbotConfig.popup.desktop == true) {
-              setTimeout(function () {
-                if (sleakWidgetOpenState == false) {
-                  showPopup();
-                  if (chatbotConfig.popup.chime.desktop == true) {
-                    playAudio(sleakChime);
-                  }
+            if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.desktop !== false) {
+              setStylingDesktop();
+            } else {
+              setStylingDesktopMirrored();
+            }
+          }
+
+          // btn
+          var btnColor = chatbotConfig.primary_color;
+          sleakBtnContainer.style.backgroundColor = btnColor;
+          if (chatbotConfig.background_image) {
+            sleakBtnContainer.style.backgroundImage = `url("${chatbotConfig.background_image}")`;
+            sleakWidgetOpenedBtn.style.opacity = '0';
+            sleakWidgetClosedBtn.style.opacity = '0';
+          }
+
+          function slkShowBtn() {
+            sleakButton.style.opacity = '0';
+            sleakButton.style.transform = 'scale(0.8)';
+            sleakButton.style.transition = 'all 0.1s ease';
+            setTimeout(function () {
+              sleakButton.style.opacity = '1';
+              sleakButton.style.transform = 'scale(1)';
+            }, 500);
+          }
+          slkShowBtn();
+
+          // render iframes
+          // var iframeBtn = document.getElementById('sleak-button-iframe');
+          // iframeBtn.src = widgetBaseUrl + `/button/${chatbotId}`;
+
+          let slkBodyRendered = false;
+          function slkRenderWidgetBody() {
+            return new Promise(resolve => {
+              iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+              iframeWidgetbody.addEventListener('load', () => resolve(), { once: true });
+            });
+          }
+          if (chatCreated || widgetOpenFlag) {
+            // console.log('chat created or widget already opened, rendering widget');
+            slkRenderWidgetBody();
+            slkBodyRendered = true;
+          }
+
+          let sleakWidgetOpenState = false;
+          let firstButtonClick = true;
+
+          // widget preview
+          if (window.location.href.includes('preview.sleak.chat/')) {
+            if (!slkBodyRendered) {
+              slkRenderWidgetBody();
+              slkBodyRendered = true;
+            }
+            if (window.innerWidth > 1024) {
+              setTimeout(() => {
+                if (sleakWidgetOpenState == false) window.toggleSleakWidget();
+              }, 2000);
+            }
+          }
+
+          // var iframePopup = document.getElementById('sleak-popup-iframe');
+          // iframePopup.src = widgetBaseUrl + `/popup/${chatbotId}`;
+
+          slkPopupAvatar.src = chatbotConfig.avatar_url;
+          slkPopupAgentName.textContent = chatbotConfig.name;
+          slkPopupBodyMessage.textContent = chatbotConfig.first_message;
+
+          document.querySelector('#sleak-popup-embed-closebtn-icon').addEventListener('click', function (event) {
+            event.stopPropagation();
+            closeSleakWidget();
+          });
+
+          function openSleakWidget() {
+            sleakEmbeddedWidget.style.display = 'flex';
+
+            sleakWidgetwrap.style.transform = 'translateY(20px)';
+            // sleakEmbeddedWidget.style.transform = 'translateY(800px)';
+            // sleakEmbeddedWidget.style.transform = 'scale(0.99)';
+
+            sleakEmbeddedWidget.style.opacity = '0';
+            sleakPopup.style.display = 'none';
+            chatInput.style.display = 'none';
+            liveChatPopup.style.display = 'none';
+            btnPulse.style.display = 'none';
+            btnNotificaiton.style.display = 'none';
+            isTypingIndicator.style.display = 'none';
+
+            sleakEmbeddedWidget.style.transition = 'opacity 0.15s ease-in-out';
+            sleakEmbeddedWidget.style.transition = 'transform 0.15s ease-in-out';
+            sleakWidgetwrap.style.transition = 'transform 0.15s ease-in-out';
+
+            setTimeout(function () {
+              sleakEmbeddedWidget.style.opacity = '1';
+              sleakWidgetwrap.style.transform = 'translateY(0)';
+              // sleakEmbeddedWidget.style.transform = 'translateY(0)';
+              // sleakEmbeddedWidget.style.transform = 'scale(1)';
+            }, 50);
+          }
+
+          window.closeSleakWidget = function () {
+            sleakEmbeddedWidget.classList.remove('open');
+            iframeWidgetbody.classList.remove('open');
+
+            sleakEmbeddedWidget.style.display = 'none';
+            sleakPopup.style.display = 'none';
+          };
+
+          // widget opening
+
+          // async function changeButtonState(state) {
+          //   var iframeBtnWindow = document.getElementById('sleak-button-iframe').contentWindow;
+
+          //   if (state == true) {
+          //     iframeBtnWindow.postMessage('openButton', '*');
+          //     iframeWidgetbody.contentWindow.postMessage('openButton', '*');
+          //   } else if (state == false) {
+          //     iframeBtnWindow.postMessage('closeButton', '*');
+          //   }
+          // }
+
+          window.toggleSleakWidget = async function () {
+            // check if widget is open
+            if (sleakWidgetOpenState == false) {
+              sleakWidgetClosedBtn.style.display = 'none';
+              sleakWidgetOpenedBtn.style.display = 'flex';
+              if (firstButtonClick && !slkBodyRendered) {
+                // sleakWidgetLoader.style.display = 'block';
+                // console.log('Rendering widget body...');
+                await slkRenderWidgetBody();
+                // sleakWidgetLoader.style.display = 'none';
+                sleakWidgetOpenState = true;
+                // console.log('Widget body rendered.');
+                // changeButtonState(true);
+              } else {
+                sleakWidgetOpenState = true;
+                // changeButtonState(true);
+              }
+
+              openSleakWidget();
+
+              if (window.matchMedia('(max-width: 768px)').matches) {
+                document.body.style.overflow = 'hidden';
+              }
+
+              const viewportHeight = window.innerHeight;
+              sleakWrap.style.height = viewportHeight + 'px';
+              sleakWrap.style.minHeight = viewportHeight + 'px';
+
+              /// check for first button click of page load
+              if (firstButtonClick) {
+                if (!widgetOpenFlag) {
+                  // for hiding popup after widget open
+                  widgetOpenFlag = true;
+                  localStorage.setItem(`sleakWidget_${chatbotId}`, crypto.randomUUID());
                 }
-              }, 6000);
+
+                if (firstButtonClick) firstButtonClick = false;
+              }
+            } else if (sleakWidgetOpenState == true) {
+              sleakWidgetClosedBtn.style.display = 'flex';
+              sleakWidgetOpenedBtn.style.display = 'none';
+
+              sleakWidgetOpenState = false;
+              // changeButtonState(false);
+              // console.log(sleakWidgetOpenState);
+              closeSleakWidget();
+
+              if (window.matchMedia('(max-width: 768px)').matches) {
+                document.body.style.overflow = 'auto';
+              }
+            }
+          };
+
+          (async function btnClickEventHandling() {
+            document.querySelectorAll('[open-widget]').forEach(btn => {
+              btn.addEventListener('click', function () {
+                toggleSleakWidget();
+              });
+            });
+          })();
+
+          // event listener for scrolling
+          if (window.matchMedia('(max-width: 768px)').matches) {
+            window.addEventListener('scroll', function () {
+              if (sleakWidgetOpenState == true) {
+                const viewportHeightScroll = window.innerHeight;
+                document.getElementById('sleak-widgetwrap').style.height = viewportHeightScroll + 'px';
+                document.getElementById('sleak-widgetwrap').style.minHeight = viewportHeightScroll + 'px';
+              }
+            });
+          }
+
+          // disable popup/chime after first page load
+          var sessionStorageKey = chatbotId + '_sleakPopupTriggered';
+          var hasPopupBeenTriggered = sessionStorage.getItem(sessionStorageKey);
+          // var hasPopupBeenTriggered = false; // remove line in prod
+
+          let blockDefaultPopup = false;
+          var sessionStorageTriggerBased = chatbotId + '_sleakTriggerbasedPopupTriggered';
+
+          // Chime & popup
+
+          function showPopup() {
+            sleakPopup.style.display = 'flex';
+            sleakPopup.style.opacity = '0';
+            sleakPopup.style.transform = 'translateY(20px)';
+            sleakPopup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            setTimeout(function () {
+              sleakPopup.style.opacity = '1';
+              sleakPopup.style.transform = 'translateY(0)';
+            }, 50);
+            sessionStorage.setItem(sessionStorageKey, 'true');
+          }
+
+          // console.log(sleakWidgetOpenState);
+
+          let pagePath = window.location.pathname;
+          // pagePath = '/asdf'; // remove limne in prod
+          // console.log('pagePath:', pagePath);
+          const popupRules = chatbotConfig.popups?.rules || [];
+          // console.log('popupRules:', popupRules);
+
+          let pagePopup;
+          if (popupRules.length > 0) {
+            pagePopup = popupRules.find(rule => rule.page == pagePath);
+            if (pagePopup) {
+              // console.log('rendering widget body');
+              slkRenderWidgetBody();
+              slkBodyRendered = true;
+              // console.log('disabling default popup as pagePopup exists = ', pagePopup);
+              blockDefaultPopup = true;
+              // console.log('blockDefaultPopup = ', blockDefaultPopup);
+            }
+          }
+
+          async function showTriggerBasedPopup(payload) {
+            // console.log('showing livechat popup with payload = ', payload);
+
+            // populate default popup
+            slkPopupAvatar.src = payload.avatar;
+            slkPopupAgentName.textContent = payload.name;
+            slkPopupBodyMessage.textContent = pagePopup.message;
+
+            liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
+            liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
+
+            if (!sleakWidgetOpenState) {
+              liveChatPopup.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+              liveChatPopup.style.transform = 'translateY(20px)';
+              liveChatPopup.style.opacity = '0';
+              liveChatPopup.style.display = 'flex';
+              setTimeout(function () {
+                liveChatPopup.style.opacity = '1';
+                liveChatPopup.style.transform = 'translateY(0)';
+              }, 50);
+              setTimeout(() => (isTypingIndicator.style.display = 'flex'), 1000);
+
+              playAudio(sleakChimeOperator);
+            }
+            setTimeout(() => (isTypingIndicator.style.display = 'none'), 6000);
+            setTimeout(function () {
+              blockDefaultPopup = false;
+              if (!chatCreated) {
+                // console.log('showing main popup');
+                if (!sleakWidgetOpenState) {
+                  showPopup();
+                  playAudio(sleakChime);
+                }
+              }
+              setTimeout(function () {
+                if (!sleakWidgetOpenState) {
+                  chatInput.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                  chatInput.style.transform = 'translateY(20px)';
+                  chatInput.style.opacity = '0';
+                  chatInput.style.display = 'flex';
+                  setTimeout(function () {
+                    chatInput.style.opacity = '1';
+                    chatInput.style.transform = 'translateY(0)';
+                  }, 50);
+
+                  btnPulse.style.display = 'flex';
+                  btnPulse.style.opacity = '1';
+                  btnPulse.style.transform = 'scale(1)';
+
+                  btnNotificaiton.style.transform = 'scale(0.5)';
+                  btnNotificaiton.style.display = 'flex';
+                  setTimeout(function () {
+                    btnNotificaiton.style.opacity = '1';
+                    btnNotificaiton.style.transform = 'scale(1)';
+                  }, 50);
+                }
+              }, 500);
+            }, 7000);
+
+            // sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
+          }
+
+          if (!hasPopupBeenTriggered && !blockDefaultPopup) {
+            // console.log('popup localStorage does not exist');
+
+            const viewportWidth = window.innerWidth;
+            // console.log(viewportWidth);
+
+            if (viewportWidth < 479) {
+              if (chatbotConfig.popup.mobile == true) {
+                setTimeout(function () {
+                  if (sleakWidgetOpenState == false) {
+                    showPopup();
+                    if (chatbotConfig.popup.chime.mobile == true) {
+                      playAudio(sleakChime);
+                    }
+                  }
+                }, 6000);
+              }
+            } else {
+              if (chatbotConfig.popup.desktop == true) {
+                setTimeout(function () {
+                  if (sleakWidgetOpenState == false) {
+                    showPopup();
+                    if (chatbotConfig.popup.chime.desktop == true) {
+                      playAudio(sleakChime);
+                    }
+                  }
+                }, 6000);
+              }
             }
           }
         }
