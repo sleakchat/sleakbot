@@ -730,18 +730,6 @@
             if (!localStorage.getItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`)) {
               localStorage.setItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`, JSON.stringify([]));
               // console.log('created slkLocalEventQueue localstorage');
-            } else {
-              const rawEvents = localStorage.getItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
-
-              const parsedEvents = JSON.parse(rawEvents);
-
-              handleEvent({
-                type: 'sleakInitialEvents',
-                payload: {
-                  events: parsedEvents
-                }
-              });
-              // console.log('posted initial events =', parsedEvents);
             }
           }
 
@@ -832,6 +820,22 @@
             });
           }
           currentUrlEvent();
+
+          if (!chatCreated) {
+            // local event queue for if chat does not exist
+            const rawEvents = localStorage.getItem(`slkLocalEventQueue_${chatbotId}_${visitorId}`);
+
+            const parsedEvents = JSON.parse(rawEvents);
+
+            handleEvent({
+              type: 'sleakInitialEvents',
+              payload: {
+                events: parsedEvents
+              }
+            });
+            console.log('pushing events: ', parsedEvents);
+            // console.log('posted initial events =', parsedEvents);
+          }
 
           // custom fields
           function customFields() {
