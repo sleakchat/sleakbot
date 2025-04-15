@@ -573,7 +573,7 @@
             }
           }
 
-          async function showTriggerBasedPopup(payload) {
+          window.showTriggerBasedPopup = async function (payload) {
             // console.log('showing livechat popup with payload = ', payload);
 
             // populate default popup
@@ -633,7 +633,7 @@
             }, 7000);
 
             // sessionStorageTriggerBased.setItem(sessionStorageKey, 'true');
-          }
+          };
 
           if (!hasPopupBeenTriggered && !blockDefaultPopup) {
             // console.log('popup localStorage does not exist');
@@ -718,7 +718,7 @@
               // console.log('created chat localstorage ');
             } else if (event.data.type === 'initiateTriggerBasedPopup') {
               // console.log('trigger initiateTriggerBasedPopup = ', event);
-              showTriggerBasedPopup(event.data.payload);
+              window.showTriggerBasedPopup(event.data.payload);
             } else {
               if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
             }
