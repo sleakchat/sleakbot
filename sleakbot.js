@@ -92,11 +92,13 @@ async function sleakScript() {
 
     function setStylingMobile() {
       var mobilePopupHeight = chatbotConfig.btn_offset.y_mobile + 82;
+      console.log('mobilePopupHeight', mobilePopupHeight);
       sleakButton.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + chatbotConfig.btn_offset.y_mobile + 'px;');
       popupListWrap.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_mobile + 'px; bottom: ' + mobilePopupHeight + 'px;');
     }
 
     function setStylingDesktop() {
+      console.log('set  styling desktop');
       sleakWrap.setAttribute('style', 'right: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;');
     }
 
@@ -109,14 +111,18 @@ async function sleakScript() {
     }
 
     function setStylingDesktopMirrored() {
-      sleakWrap.setAttribute('style', 'left: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;' + 'width: 100vw; justify-content: flex-start; align-items: flex-start;');
+      sleakWrap.setAttribute(
+        'style',
+        'left: ' + chatbotConfig.btn_offset.x_desktop + 'px; bottom: ' + chatbotConfig.btn_offset.y_desktop + 'px;' + 'width: 100vw; justify-content: flex-start; align-items: flex-start;'
+      );
       sleakWidgetwrap.setAttribute('style', 'width: 420px; height: 100%;');
       popupListWrap.setAttribute('style', 'right: unset; left: 0;');
       sleakButton.setAttribute('style', 'right: unset; left: 0; transform: scaleX(-1) !important');
       document.querySelector('#popup-list-wrap').style.alignItems = 'start';
     }
-
+    console.log('viewportWidth2', viewportWidth2);
     if (viewportWidth2 < 1024) {
+      console.log('set  styling mobile');
       if (!chatbotConfig.btn_offset.align_right || chatbotConfig.btn_offset.align_right.mobile !== false) {
         setStylingMobile();
       } else {
@@ -373,6 +379,9 @@ async function sleakScript() {
 
     async function showTriggerBasedPopup(payload) {
       // console.log('showing livechat popup with payload = ', payload);
+
+      // Set the loading dot color based on the chatbot's primary color
+      document.documentElement.style.setProperty('--sleak-loading-dot-color', chatbotConfig.primary_color);
 
       // populate default popup
       slkPopupAvatar.src = payload.avatar;
