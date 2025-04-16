@@ -556,9 +556,9 @@
           // console.log(sleakWidgetOpenState);
 
           // pagePath = '/asdf'; // remove limne in prod
-          // console.log('pagePath:', pagePath);
+          console.log('pagePath:', pagePath);
           const popupRules = chatbotConfig.popups?.rules || [];
-          // console.log('popupRules:', popupRules);
+          console.log('popupRules:', popupRules);
 
           let pagePopup;
           if (popupRules.length > 0) {
@@ -574,7 +574,7 @@
           }
 
           window.showTriggerBasedPopup = async function (payload) {
-            // console.log('showing livechat popup with payload = ', payload);
+            console.log('showing livechat popup with payload = ', payload);
 
             // populate default popup
             slkPopupAvatar.src = payload.avatar;
@@ -717,7 +717,7 @@
               chatCreated = true;
               // console.log('created chat localstorage ');
             } else if (event.data.type === 'initiateTriggerBasedPopup') {
-              // console.log('trigger initiateTriggerBasedPopup = ', event);
+              console.log('trigger initiateTriggerBasedPopup = ', event);
               window.showTriggerBasedPopup(event.data.payload);
             } else {
               if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
@@ -833,7 +833,7 @@
                 events: parsedEvents
               }
             });
-            console.log('pushing events: ', parsedEvents);
+            // console.log('pushing events: ', parsedEvents);
             // console.log('posted initial events =', parsedEvents);
           }
 
