@@ -353,17 +353,14 @@
           slkPopupAgentName.textContent = chatbotConfig.name;
           slkPopupBodyMessage.textContent = chatbotConfig.first_message;
 
-          document.querySelector('#sleak-popup-embed-closebtn-icon').addEventListener('click', function (event) {
-            event.stopPropagation();
-            closeSleakWidget();
-          });
-
           function openSleakWidget() {
             sleakEmbeddedWidget.style.display = 'flex';
             sleakWidgetwrap.style.transform = 'translateY(20px)';
 
             sleakEmbeddedWidget.style.opacity = '0';
             sleakPopup.style.display = 'none';
+
+            // triggerbased
             chatInput.style.display = 'none';
             liveChatPopup.style.display = 'none';
             btnPulse.style.display = 'none';
@@ -386,6 +383,12 @@
 
             sleakEmbeddedWidget.style.display = 'none';
             sleakPopup.style.display = 'none';
+
+            chatInput.style.display = 'none';
+            liveChatPopup.style.display = 'none';
+            btnPulse.style.display = 'none';
+            btnNotificaiton.style.display = 'none';
+            isTypingIndicator.style.display = 'none';
           };
 
           window.toggleSleakWidget = async function () {
@@ -444,6 +447,11 @@
               btn.addEventListener('click', function () {
                 toggleSleakWidget();
               });
+            });
+
+            document.querySelector('[close-widget]').addEventListener('click', function (event) {
+              event.stopPropagation();
+              closeSleakWidget();
             });
           })();
 
