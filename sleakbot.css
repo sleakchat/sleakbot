@@ -555,6 +555,7 @@
 }
 
 #sleak-loader-container {
+  background-color: #fff;
   display: none;
   justify-content: center;
   align-items: center;
