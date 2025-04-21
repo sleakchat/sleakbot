@@ -53,6 +53,7 @@
     }
 
     function appendSleakJsToBody() {
+      // open widget
       executeSleakbotJs();
     }
 
