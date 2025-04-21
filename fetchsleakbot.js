@@ -53,7 +53,8 @@
     }
 
     function appendSleakJsToBody() {
-      // executeSleakbotJs();
+      // open widget
+      executeSleakbotJs();
     }
 
     function fetchAndAppendHtml() {
