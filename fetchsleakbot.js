@@ -847,10 +847,6 @@
       }
     }
 
-    const queryParams = new URLSearchParams(window.location.search);
-    if (queryParams.has('admin')) {
-      sleakScript();
-      console.log('admin mode');
-    }
+    sleakScript();
   }
 })();
