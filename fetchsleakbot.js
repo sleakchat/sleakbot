@@ -82,13 +82,13 @@
     }
   }
 
+  injectSleakScript();  
 
-  if (chatbotId == '793042b0-1a02-4cec-ae45-502cb7983d17') {
-    console.log('sleak.chat is enabled for this chatbot');
-    injectSleakScript();  
-  } else {
-    console.log('sleak.chat is temporarilly disabled');
-  }
+  // if (chatbotId == '793042b0-1a02-4cec-ae45-502cb7983d17') {
+  //   console.log('sleak.chat is enabled for this chatbot');
+  // } else {
+  //   console.log('sleak.chat is temporarilly disabled');
+  // }
 
   async function executeSleakbotJs() {
     async function sleakScript() {
