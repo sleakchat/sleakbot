@@ -237,9 +237,12 @@
       let iframeWidgetbody;
 
       if (placement == 'fullwidth') {
-        // get instance
-        var slkInstance = document.querySelector(`[slk-instance='${instanceNumber}']`);
-        iframeWidgetbody = slkInstance.nextSibling.querySelector('#sleak-widget-iframe');
+        if (instanceNumber) {
+          var slkInstance = document.querySelector(`[slk-instance='${instanceNumber}']`);
+          iframeWidgetbody = slkInstance.nextSibling.querySelector('#sleak-widget-iframe');
+        } else {
+          iframeWidgetbody = document.querySelector('#sleak-widget-iframe');
+        }
         iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
       } else {
         iframeWidgetbody = document.getElementById('sleak-widget-iframe');
