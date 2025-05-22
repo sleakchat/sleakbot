@@ -44,7 +44,6 @@
         sleakHtml.style.height = '100%';
         if (instanceNumber) {
           const instanceElement = document.querySelector(`[slk-instance='${instanceNumber}']`);
-          console.log('instanceElement', instanceElement);
           instanceElement.parentNode.insertBefore(sleakHtml, instanceElement.nextSibling);
         } else {
           sleakbotScriptTag.parentNode.insertBefore(sleakHtml, sleakbotScriptTag.nextSibling);
@@ -73,7 +72,7 @@
       fetchAndAppendHtml()
         .then(() => {
           executeSleakbotJs(chatbotId, instanceNumber);
-          console.log('sleak.chat initialized');
+          // console.log('sleak.chat initialized');
         })
         .catch(error => {
           console.error('Error occurred while loading sleak.chat:', error);
@@ -104,14 +103,12 @@
 
   if (isInstance) {
     domReady().then(() => {
-      console.log('dom ready');
       instances = document.querySelectorAll(`[slk-instance]`);
       console.log('instances =', instances);
 
       instances.forEach(instance => {
         const instanceNumber = instance.getAttribute('slk-instance');
         const chatbotId = instance.getAttribute('chatbot-id');
-        console.log('chatbotId', chatbotId, 'instanceNumber', instanceNumber);
         injectSleakScript(chatbotId, instanceNumber);
       });
     });
@@ -242,7 +239,6 @@
       if (placement == 'fullwidth') {
         // get instance
         var slkInstance = document.querySelector(`[slk-instance='${instanceNumber}']`);
-        console.log('slkInstance', slkInstance);
         iframeWidgetbody = slkInstance.nextSibling.querySelector('#sleak-widget-iframe');
         iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}&placement=fullwidth`;
       } else {
@@ -676,12 +672,12 @@
 
       window.addEventListener('message', event => {
         if (event.origin === 'https://staging.sleak.chat' || event.origin === 'https://widget.sleak.chat') {
-          console.log('Received message:', event);
+          // console.log('Received message:', event);
 
           if (event.data === 'closePopup') {
             closeSleakWidget();
           } else if (event.data === 'toggleChat') {
-            console.log('toggleChat');
+            // console.log('toggleChat');
             toggleSleakWidget();
           } else if (event.data === 'operatorMessage') {
             playAudio(sleakChime);
@@ -853,7 +849,7 @@
 
           // end user will push custom fields in an object to this function
           window.sleakPushCustomFields = function (customFields) {
-            console.log('customFields:', customFields);
+            // console.log('customFields:', customFields);
             // validate if the object is valid
             if (!customFields || typeof customFields !== 'object') {
               console.error('invalid type. object expected.');
@@ -878,7 +874,7 @@
               return;
             }
 
-            console.log('valid custom fields:', customFields);
+            // console.log('valid custom fields:', customFields);
 
             // push the valid custom fields
             handleEvent({
