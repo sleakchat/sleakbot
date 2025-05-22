@@ -649,7 +649,7 @@
           document.querySelectorAll('[slk-prefill-form]').forEach(form => {
             form.addEventListener('submit', function (e) {
               e.preventDefault();
-              const message = document.getElementById('testMessage').value;
+              const message = form.querySelector('[slk-prefill-message]').value;
               window.sendMessageToSleakbot(message);
               // clear the form
               form.reset();
