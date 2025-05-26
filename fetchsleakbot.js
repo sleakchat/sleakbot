@@ -6,7 +6,7 @@
   }
 
   async function injectSleakScript(chatbotId, instanceNumber = null) {
-    if (!['f1c0ba70-cb59-41d5-826c-d00ae14d83ec', '7785e220-6b5b-4c3c-80ba-f08f52ac99de'].includes(chatbotId)) return;
+    if (!['f1c0ba70-cb59-41d5-826c-d00ae14d83ec'].includes(chatbotId)) return;
 
     // env control
     if (scriptSrc.includes('dev')) {
