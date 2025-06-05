@@ -650,12 +650,18 @@
             }
           };
           document.querySelectorAll('[slk-prefill-form]').forEach(form => {
-            form.addEventListener('submit', function (e) {
+            form.addEventListener('submit', async function (e) {
               e.preventDefault();
-              const message = form.querySelector('[slk-prefill-message]').value;
-              window.sendMessageToSleakbot(message);
-              // clear the form
-              form.reset();
+              if (!slkBodyRendered) {
+                await slkRenderWidgetBody();
+                slkBodyRendered = true;
+              }
+              setTimeout(() => {
+                const message = form.querySelector('[slk-prefill-message]').value;
+                window.sendMessageToSleakbot(message);
+                // clear the form
+                form.reset();
+              }, 200);
             });
           });
         })();
