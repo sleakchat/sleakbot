@@ -18,14 +18,14 @@
   pointer-events: none;
 }
 
-#sleak-buttonshadow {
+/* #sleak-buttonshadow {
   position: absolute;
   height: 65px;
   width: 65px;
   box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.2) !important;
   border-radius: 99px;
   align-self: center;
-}
+} */
 
 /* #sleak-btn-notification {
   z-index: 2;
@@ -358,6 +358,10 @@
 }
 
 #sleak-buttonshadow {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   position: absolute;
   height: 60px;
   width: 60px;
