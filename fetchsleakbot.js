@@ -156,18 +156,6 @@
 
       visitorId = getCookie(`sleakVisitorId_${chatbotId}`);
 
-      window.resetVisitorId = function () {
-        deleteCookie(`sleakVisitorId_${chatbotId}`, { path: '/' });
-        visitorId = crypto.randomUUID();
-        setCookie(`sleakVisitorId_${chatbotId}`, visitorId, {
-          expires: 365,
-          sameSite: 'None',
-          secure: true,
-          path: '/'
-        });
-        iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
-      };
-
       if (visitorId) {
         // console.log("cookie exists, value = ",Cookies.get(`sleakVisitorId_${chatbotId}`));
         // Resetting chat
@@ -247,6 +235,18 @@
 
       let pagePath = window.location.pathname;
       let iframeWidgetbody;
+
+      window.resetVisitorId = function () {
+        deleteCookie(`sleakVisitorId_${chatbotId}`, { path: '/' });
+        visitorId = crypto.randomUUID();
+        setCookie(`sleakVisitorId_${chatbotId}`, visitorId, {
+          expires: 365,
+          sameSite: 'None',
+          secure: true,
+          path: '/'
+        });
+        iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+      };
 
       if (placement == 'fullwidth') {
         if (instanceNumber) {
