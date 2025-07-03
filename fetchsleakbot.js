@@ -236,6 +236,18 @@
       let pagePath = window.location.pathname;
       let iframeWidgetbody;
 
+      window.resetVisitorId = function () {
+        deleteCookie(`sleakVisitorId_${chatbotId}`, { path: '/' });
+        visitorId = crypto.randomUUID();
+        setCookie(`sleakVisitorId_${chatbotId}`, visitorId, {
+          expires: 365,
+          sameSite: 'None',
+          secure: true,
+          path: '/'
+        });
+        iframeWidgetbody.src = widgetBaseUrl + `/${chatbotId}?id=${visitorId}`;
+      };
+
       if (placement == 'fullwidth') {
         if (instanceNumber) {
           var slkInstance = document.querySelector(`[slk-instance='${instanceNumber}']`);
