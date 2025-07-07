@@ -219,8 +219,8 @@
         await new Promise(resolve => setTimeout(resolve, 50));
         iframeWidgetbody.style.boxShadow = '0px 4px 8px -2px rgba(0, 0, 0, 0.1)';
       }
-      let sleakChime = new Audio('assets/sleak-chime.mp3');
-      let sleakChimeOperator = new Audio('assets/sleak-chime-operatorjoined.mp3');
+      let sleakChime = new Audio('/assets/sleak-chime.mp3');
+      let sleakChimeOperator = new Audio('/assets/sleak-chime-operatorjoined.mp3');
       let userHasInteracted = false;
       window.addEventListener('click', () => (userHasInteracted = true), { once: true });
       window.addEventListener('keydown', () => (userHasInteracted = true), { once: true });
