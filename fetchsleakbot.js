@@ -734,6 +734,8 @@
           } else if (event.data.type === 'initiateTriggerBasedPopup') {
             // console.log('trigger initiateTriggerBasedPopup = ', event);
             window.showTriggerBasedPopup(event.data.payload);
+          } else if (event.data.type === 'resetChat') {
+            window.resetVisitorId();
           } else {
             if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
           }
