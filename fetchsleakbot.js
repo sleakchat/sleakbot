@@ -851,7 +851,7 @@
             }
           });
 
-          console.log('posted initial events =', parsedEvents);
+          // console.log('posted initial events =', parsedEvents);
         }
 
         // custom fields
