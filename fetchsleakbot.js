@@ -736,6 +736,11 @@
             window.showTriggerBasedPopup(event.data.payload);
           } else if (event.data.type === 'resetChat') {
             window.resetVisitorId();
+          } else if (event.data.type === 'showMessagePopup') {
+            slkPopupAvatar.src = event.data.payload.avatar;
+            slkPopupAgentName.textContent = event.data.payload.name;
+            slkPopupBodyMessage.textContent = event.data.payload.message;
+            showPopup();
           } else {
             if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
           }
@@ -850,8 +855,6 @@
               events: parsedEvents
             }
           });
-
-          // console.log('posted initial events =', parsedEvents);
         }
 
         // custom fields
