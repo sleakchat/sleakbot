@@ -378,7 +378,7 @@
           slkBodyRendered = true;
         }
 
-        let sleakWidgetOpenState = false;
+        window.sleakWidgetOpenState = false;
         let firstButtonClick = true;
 
         // widget preview
@@ -740,7 +740,7 @@
             window.resetVisitorId();
           } else if (event.data.type === 'showMessagePopup') {
             window.populatePopup(event.data.payload.avatar, event.data.payload.name, event.data.payload.message);
-            if (!sleakWidgetOpenState) showPopup();
+            if (!window.sleakWidgetOpenState) showPopup();
             playAudio(sleakChime);
           } else {
             if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
