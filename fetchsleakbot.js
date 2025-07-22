@@ -702,8 +702,6 @@
           } else if (event.data === 'toggleChat') {
             // console.log('toggleChat');
             toggleSleakWidget();
-          } else if (event.data === 'operatorMessage') {
-            playAudio(sleakChime);
           } else if (event.data === 'operatorChanged') {
             playAudio(sleakChimeOperator);
           } else if (event.data === 'domInitialized') {
