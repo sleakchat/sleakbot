@@ -740,7 +740,7 @@
             window.resetVisitorId();
           } else if (event.data.type === 'showMessagePopup') {
             window.populatePopup(event.data.payload.avatar, event.data.payload.name, event.data.payload.message);
-            showPopup();
+            if (!sleakWidgetOpenState) showPopup();
           } else {
             if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
           }
