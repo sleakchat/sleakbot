@@ -702,9 +702,6 @@
           } else if (event.data === 'toggleChat') {
             // console.log('toggleChat');
             toggleSleakWidget();
-          } else if (event.data === 'operatorMessage') {
-            console.log('operatorMessage');
-            playAudio(sleakChime);
           } else if (event.data === 'operatorChanged') {
             playAudio(sleakChimeOperator);
           } else if (event.data === 'domInitialized') {
@@ -740,7 +737,6 @@
           } else if (event.data.type === 'resetChat') {
             window.resetVisitorId();
           } else if (event.data.type === 'showMessagePopup') {
-            console.log('showMessagePopup');
             window.populatePopup(event.data.payload.avatar, event.data.payload.name, event.data.payload.message);
             if (!window.sleakWidgetOpenState) showPopup();
             playAudio(sleakChime);
