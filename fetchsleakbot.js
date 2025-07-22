@@ -378,7 +378,7 @@
           slkBodyRendered = true;
         }
 
-        let sleakWidgetOpenState = false;
+        window.sleakWidgetOpenState = false;
         let firstButtonClick = true;
 
         // widget preview
@@ -394,9 +394,14 @@
           }
         }
 
-        slkPopupAvatar.src = chatbotConfig.avatar_url;
-        slkPopupAgentName.textContent = chatbotConfig.name;
-        slkPopupBodyMessage.textContent = chatbotConfig.first_message;
+        window.populatePopup = function (avatar, name, message) {
+          slkPopupAvatar.src = avatar;
+          slkPopupAgentName.textContent = name;
+          slkPopupBodyMessage.textContent = message;
+        };
+
+        // Set initial popup content
+        window.populatePopup(chatbotConfig.avatar_url, chatbotConfig.name, chatbotConfig.first_message);
 
         function openSleakWidget() {
           sleakEmbeddedWidget.style.display = 'flex';
@@ -558,10 +563,7 @@
 
           document.documentElement.style.setProperty('--sleak-loading-dot-color', chatbotConfig.primary_color);
 
-          // populate default popup
-          slkPopupAvatar.src = payload.avatar;
-          slkPopupAgentName.textContent = payload.name;
-          slkPopupBodyMessage.textContent = pagePopup.message;
+          window.populatePopup(payload.avatar, payload.name, pagePopup.message);
 
           liveChatPopup.querySelector('#sleak-operatorchanged-avatar').src = payload.avatar;
           liveChatPopup.querySelector('#sleak-operatorchanged-name').innerText = payload.name;
@@ -736,6 +738,10 @@
             window.showTriggerBasedPopup(event.data.payload);
           } else if (event.data.type === 'resetChat') {
             window.resetVisitorId();
+          } else if (event.data.type === 'showMessagePopup') {
+            window.populatePopup(event.data.payload.avatar, event.data.payload.name, event.data.payload.message);
+            if (!window.sleakWidgetOpenState) showPopup();
+            playAudio(sleakChime);
           } else {
             if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
           }
@@ -850,8 +856,6 @@
               events: parsedEvents
             }
           });
-
-          // console.log('posted initial events =', parsedEvents);
         }
 
         // custom fields
