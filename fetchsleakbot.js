@@ -741,6 +741,7 @@
           } else if (event.data.type === 'showMessagePopup') {
             window.populatePopup(event.data.payload.avatar, event.data.payload.name, event.data.payload.message);
             if (!sleakWidgetOpenState) showPopup();
+            playAudio(sleakChime);
           } else {
             if (event.data.type !== 'showOutputLogsAdmin') console.log('no declared event');
           }
