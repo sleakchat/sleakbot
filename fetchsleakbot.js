@@ -85,6 +85,7 @@
   const scriptCookies = sleakbotScriptTag.getAttribute('cookies');
   const scriptSrc = sleakbotScriptTag.getAttribute('src');
   const placement = sleakbotScriptTag.getAttribute('placement');
+  console.log('placement =', placement);
   let baseUrl;
   let widgetBaseUrl;
 
