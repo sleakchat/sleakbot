@@ -29,7 +29,7 @@
       link.rel = 'stylesheet';
       link.type = 'text/css';
       link.href = url;
-      id = 'sleak-css';
+      link.id = 'sleak-css';
       document.head.appendChild(link);
     }
     appendStylesheet(sleakCss);
