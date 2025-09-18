@@ -830,7 +830,7 @@
         interceptGlobalEvents();
 
         async function currentUrlEvent() {
-          handleEvent({
+          const eventPayload = {
             type: 'sleakNewEvent',
             payload: {
               timestamp: new Date().toISOString(),
@@ -841,8 +841,9 @@
                 url: window.location.href
               }
             }
-          });
-          console.log('currentUrlEvent =', currentUrlEvent);
+          };
+          console.log('currentUrlEvent full payload:', JSON.stringify(eventPayload, null, 2));
+          handleEvent(eventPayload);
         }
         currentUrlEvent();
 
