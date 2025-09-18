@@ -842,6 +842,7 @@
               }
             }
           });
+          console.log('currentUrlEvent =', currentUrlEvent);
         }
         currentUrlEvent();
 
