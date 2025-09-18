@@ -714,7 +714,7 @@
               }
             };
 
-            console.log('sleakPageLoad =', sleakPageLoad);
+            // console.log('sleakPageLoad =', sleakPageLoad);
 
             iframeWidgetbody.contentWindow.postMessage(sleakPageLoad, '*');
             // iframePopup.contentWindow.postMessage(sleakPageLoad, '*');
@@ -842,7 +842,7 @@
               }
             }
           };
-          console.log('currentUrlEvent full payload:', JSON.stringify(eventPayload, null, 2));
+          // console.log('currentUrlEvent full payload:', JSON.stringify(eventPayload, null, 2));
           handleEvent(eventPayload);
         }
         currentUrlEvent();
