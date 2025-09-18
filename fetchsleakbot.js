@@ -714,6 +714,8 @@
               }
             };
 
+            console.log('sleakPageLoad =', sleakPageLoad);
+
             iframeWidgetbody.contentWindow.postMessage(sleakPageLoad, '*');
             // iframePopup.contentWindow.postMessage(sleakPageLoad, '*');
 
@@ -840,6 +842,7 @@
               }
             }
           });
+          console.log('currentUrlEvent =', currentUrlEvent);
         }
         currentUrlEvent();
 
