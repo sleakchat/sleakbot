@@ -719,7 +719,8 @@
               type,
               message: args.map(a => String(a)).join(' '),
               timestamp: new Date().toISOString(),
-              visitor_id: visitorId
+              visitor_id: visitorId,
+              chatbot_id: chatbotId
             })
           });
         };
