@@ -713,7 +713,7 @@
         const orig = console[type];
         console[type] = (...args) => {
           orig(...args);
-          fetch(endpoint, {
+          fetch(logsEndpoint, {
             method: 'POST',
             logsHeaders,
             body: JSON.stringify({
