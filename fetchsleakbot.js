@@ -702,6 +702,29 @@
         }
       });
 
+      const logsEndpoint = 'https://xvqjuiyrmzkhsfosfozs.supabase.co/rest/v1/logs';
+      const logsHeaders = {
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2cWp1aXlybXpraHNmb3Nmb3pzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkzMDgyNDQsImV4cCI6MjAzNDg4NDI0NH0.l4EDmKGcSXAolPPAfjL4X1X9T6cxIO0bg9s6oAbu_3E'
+      };
+
+      ['log', 'warn', 'error'].forEach(type => {
+        const orig = console[type];
+        console[type] = (...args) => {
+          orig(...args);
+          fetch(endpoint, {
+            method: 'POST',
+            logsHeaders,
+            body: JSON.stringify({
+              type,
+              message: args.map(a => String(a)).join(' '),
+              timestamp: new Date().toISOString()
+            })
+          });
+        };
+      });
+
       // child window event handling
       async function pushGtmEvent() {
         var dataLayer = window.dataLayer || (window.dataLayer = []);

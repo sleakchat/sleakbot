@@ -473,6 +473,33 @@ async function sleakScript() {
       }
     }
 
+    // Mobile visibility change detection
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      console.log('Mobile device detected, setting up visibility change listener');
+      document.addEventListener('visibilitychange', function () {
+        const visibilityState = document.visibilityState;
+        console.log('Visibility changed:', visibilityState);
+
+        if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
+          console.log('Sending visibility change to iframe:', visibilityState);
+          iframeWidgetbody.contentWindow.postMessage(
+            {
+              type: 'visibilityChange',
+              payload: {
+                state: visibilityState,
+                timestamp: new Date().toISOString()
+              }
+            },
+            '*'
+          );
+        } else {
+          console.log('Widget iframe not available to send visibility change');
+        }
+      });
+    } else {
+      console.log('Not a mobile device, visibility change listener not added');
+    }
+
     // child window event handling
     async function pushGtmEvent() {
       var dataLayer = window.dataLayer || (window.dataLayer = []);
