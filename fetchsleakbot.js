@@ -702,7 +702,7 @@
         }
       });
 
-      const logsEndpoint = 'https://xvqjuiyrmzkhsfosfozs.supabase.co/rest/v1/logs';
+      const logsEndpoint = 'https://xvqjuiyrmzkhsfosfozs.supabase.co/rest/v1/console_logs';
 
       ['log', 'warn', 'error'].forEach(type => {
         const orig = console[type];
@@ -718,7 +718,8 @@
             body: JSON.stringify({
               type,
               message: args.map(a => String(a)).join(' '),
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
+              visitor_id: visitorId
             })
           });
         };
