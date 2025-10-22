@@ -7,4 +7,16 @@
   z-index: 1 !important;
   border-radius: 20px;
   transition: box-shadow 3s ease-in-out;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+#fullwidthwrapper {
+  min-width: 1000px !important;
+  min-height: 1000px !important;
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
 }
