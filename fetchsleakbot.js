@@ -684,10 +684,10 @@
 
       document.addEventListener('visibilitychange', function () {
         const visibilityState = document.visibilityState;
-        console.log('Visibility changed:', visibilityState);
+        // console.log('Visibility changed:', visibilityState);
 
         if (iframeWidgetbody && iframeWidgetbody.contentWindow) {
-          console.log('Sending visibility change to iframe:', visibilityState);
+          // console.log('Sending visibility change to iframe:', visibilityState);
           iframeWidgetbody.contentWindow.postMessage(
             {
               type: 'visibilityChange',
@@ -698,15 +698,15 @@
             '*'
           );
         } else {
-          console.log('Widget iframe not available to send visibility change');
+          // console.log('Widget iframe not available to send visibility change');
         }
       });
 
-      ['log', 'warn', 'error'].forEach(type => {
-        const orig = console[type];
-        console[type] = (...args) => {
-          orig(...args);
-          if (scriptSrc.includes('dev')) {
+      if (scriptSrc.includes('dev')) {
+        ['log', 'warn', 'error'].forEach(type => {
+          const orig = console[type];
+          console[type] = (...args) => {
+            orig(...args);
             fetch('https://xvqjuiyrmzkhsfosfozs.supabase.co/rest/v1/consolelogs', {
               method: 'POST',
               headers: {
@@ -723,9 +723,9 @@
                 window: 'parent'
               })
             });
-          }
-        };
-      });
+          };
+        });
+      }
 
       // child window event handling
       async function pushGtmEvent() {
